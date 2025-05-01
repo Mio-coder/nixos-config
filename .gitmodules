@@ -1,0 +1,3 @@
+[submodule "home-manager-config"]
+	path = home-manager-config
+	url = git@github.com:Mio-coder/home-manager-config.git
