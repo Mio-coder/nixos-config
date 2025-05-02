@@ -8,14 +8,14 @@
 }: {
   imports = [
     # Include the results of the hardware scan.
-    ../hardware-configuration.nix
-    ../modules/system/base.nix
-    ../modules/system/grub.nix
-    ../modules/system/fans.nix
-    ../modules/desktop/base.nix
-    ../modules/desktop/sound.nix
-    ../modules/desktop/nvidia.nix
-    ../modules/desktop/gnome.nix
+    ./hardware-configuration.nix
+    ./modules/system/base.nix
+    ./modules/system/grub.nix
+    ./modules/system/fans.nix
+    ./modules/desktop/base.nix
+    ./modules/desktop/sound.nix
+    ./modules/desktop/nvidia.nix
+    ./modules/desktop/gnome.nix
   ];
 
   networking.hostName = "omen-nixos"; # Define your hostname.
@@ -23,24 +23,6 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "Europe/Warsaw";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "pl_PL.UTF-8";
-    LC_IDENTIFICATION = "pl_PL.UTF-8";
-    LC_MEASUREMENT = "pl_PL.UTF-8";
-    LC_MONETARY = "pl_PL.UTF-8";
-    LC_NAME = "pl_PL.UTF-8";
-    LC_NUMERIC = "pl_PL.UTF-8";
-    LC_PAPER = "pl_PL.UTF-8";
-    LC_TELEPHONE = "pl_PL.UTF-8";
-    LC_TIME = "pl_PL.UTF-8";
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
