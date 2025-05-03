@@ -9,13 +9,14 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./modules/system/base.nix
-    ./modules/system/grub.nix
-    ./modules/system/fans.nix
-    ./modules/desktop/base.nix
-    ./modules/desktop/sound.nix
-    ./modules/desktop/nvidia.nix
-    ./modules/desktop/gnome.nix
+    ../../modules/system/base.nix
+    ../../modules/system/grub.nix
+    ../../modules/system/fans.nix
+    ../../modules/system/locale.nix
+    ../../modules/desktop/base.nix
+    ../../modules/desktop/sound.nix
+    ../../modules/desktop/nvidia.nix
+    ../../modules/desktop/gnome.nix
   ];
 
   networking.hostName = "omen-nixos"; # Define your hostname.
@@ -34,8 +35,8 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # # Allow unfree packages
+  # nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
