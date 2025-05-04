@@ -4,18 +4,18 @@
   ...
 }: {
   imports = [
-    ../../modules/user/home_config.nix
-    ../../modules/user/meta.nix
-    ../../modules/user/term.nix
-    ../../modules/user/firefox.nix
-    ../../modules/user/bash.nix
-    ../../modules/user/tmux.nix
-    ../../modules/user/btop.nix
-    ../../modules/user/fonts.nix
-    ../../modules/user/lofi.nix
-    ../../modules/user/minionki.nix
-    ../../modules/user/starship.nix
-    ../../modules/user/git.nix
+    ../../modules/user/terminal/home_config.nix
+    ../../modules/user/terminal/meta.nix
+    ../../modules/user/desktop/term.nix
+    ../../modules/user/desktop/firefox.nix
+    ../../modules/user/terminal/bash.nix
+    ../../modules/user/terminal/tmux.nix
+    ../../modules/user/terminal/btop.nix
+    ../../modules/user/desktop/fonts.nix
+    ../../modules/user/terminal/lofi.nix
+    ../../modules/user/terminal/minionki.nix
+    ../../modules/user/terminal/starship.nix
+    ../../modules/user/terminal/git.nix
   ];
 
   home.sessionPath = [

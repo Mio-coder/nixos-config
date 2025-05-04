@@ -4,18 +4,18 @@
   ...
 }: {
   imports = [
-    ../../modules/user/terminal/home_config.nix
-    ../../modules/user/terminal/meta.nix
-    ../../modules/user/desktop/term.nix
-    ../../modules/user/desktop/firefox.nix
-    ../../modules/user/terminal/bash.nix
-    ../../modules/user/terminal/tmux.nix
-    ../../modules/user/terminal/btop.nix
-    ../../modules/user/desktop/fonts.nix
-    ../../modules/user/terminal/lofi.nix
-    ../../modules/user/terminal/minionki.nix
-    ../../modules/user/terminal/starship.nix
-    ../../modules/user/terminal/git.nix
+    ..//home_config.nix
+    ./homeModules/meta.nix
+    ./homeModules/term.nix
+    ./homeModules/firefox.nix
+    ./homeModules/bash.nix
+    ./homeModules/tmux.nix
+    ./homeModules/btop.nix
+    ./homeModules/fonts.nix
+    ./homeModules/lofi.nix
+    ./homeModules/minionki.nix
+    ./homeModules/starship.nix
+    ./homeModules/git.nix
   ];
 
   home.sessionPath = [
@@ -26,9 +26,9 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    # fd
-    # ripgrep
-    # sl
+    fd
+    ripgrep
+    sl
     uv
     act
     lunarvim
