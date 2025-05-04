@@ -10,7 +10,7 @@
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-#    "${builtins.fetchGit {url = "https://github.com/NixOS/nixos-hardware.git";}}/omen/15-en0002np"
+    #    "${builtins.fetchGit {url = "https://github.com/NixOS/nixos-hardware.git";}}/omen/15-en0002np"
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "uas" "sd_mod" "sdhci_pci"];
