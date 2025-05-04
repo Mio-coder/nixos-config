@@ -2,7 +2,13 @@
   programs.starship = {
     enable = true;
     settings = {
-      format = "$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$python$character";
+      format = "$username$hostname$directory$nix_shell$git_branch$git_state$git_status$cmd_duration$python$character";
+
+      nix_shell = {
+        format = "[$name]($style) ";
+        style = "green";
+        disabled = false;
+      };
 
       directory = {
         style = "blue";

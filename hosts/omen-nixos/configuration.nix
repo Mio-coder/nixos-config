@@ -16,7 +16,8 @@
     ../../modules/system/desktop/base.nix
     ../../modules/system/desktop/sound.nix
     # ../../modules/system/desktop/nvidia.nix
-    ../../modules/system/desktop/gnome.nix
+    # ../../modules/system/desktop/gnome.nix
+    ../../modules/system/desktop/sway.nix
   ];
 
   networking.hostName = "omen-nixos"; # Define your hostname.
@@ -40,7 +41,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [];
+  # environment.systemPackages = with pkgs; [];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

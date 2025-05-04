@@ -70,7 +70,7 @@
           settings = {
             # specify profile-specific preferences here; check about:config for options
             "browser.newtabpage.activity-stream.feeds.section.highlights" = false;
-            "browser.startup.homepage" = "https://duckduckgo.org";
+            "browser.startup.homepage" = "https://start.duckduckgo.org";
             "browser.newtabpage.pinned" = [
               {
                 title = "NixOS";
