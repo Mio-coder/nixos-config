@@ -9,14 +9,14 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../modules/system/base.nix
-    ../../modules/system/grub.nix
-    ../../modules/system/fans.nix
-    ../../modules/system/locale.nix
-    ../../modules/desktop/base.nix
-    ../../modules/desktop/sound.nix
-    ../../modules/desktop/nvidia.nix
-    ../../modules/desktop/gnome.nix
+    ../../modules/system/terminal/base.nix
+    ../../modules/system/terminal/grub.nix
+    ../../modules/system/terminal/fans.nix
+    ../../modules/system/terminal/locale.nix
+    ../../modules/system/desktop/base.nix
+    ../../modules/system/desktop/sound.nix
+    # ../../modules/system/desktop/nvidia.nix
+    ../../modules/system/desktop/gnome.nix
   ];
 
   networking.hostName = "omen-nixos"; # Define your hostname.

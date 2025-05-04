@@ -95,8 +95,8 @@
     nixosConfigurations = {
       omen-nixos = mkHost {hostname = "omen-nixos";};
     };
-    # homeConfigurations =
-    #   builtins.listToAttrs [
-    #   ];
+    homeConfigurations = builtins.listToAttrs [
+      (mkHome {hostname = "omen-debian";})
+    ];
   };
 }
