@@ -16,6 +16,7 @@
     ../../modules/user/terminal/minionki.nix
     ../../modules/user/terminal/starship.nix
     ../../modules/user/terminal/git.nix
+    ../../modules/user/terminal/lvim.nix
   ];
 
   home.sessionPath = [
@@ -26,13 +27,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    # fd
-    # ripgrep
-    # sl
     uv
     act
-    lunarvim
-    nixd # for lvim config
     alejandra
     ungoogled-chromium
     man-db
