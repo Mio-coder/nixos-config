@@ -17,6 +17,7 @@
     ../../modules/user/terminal/starship.nix
     ../../modules/user/terminal/git.nix
     ../../modules/user/terminal/lvim.nix
+    ../../modules/user/desktop/sway
   ];
 
   home.sessionPath = [

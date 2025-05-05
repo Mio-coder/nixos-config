@@ -26,6 +26,35 @@ lvim.builtin.which_key.mappings["f"] = {}
 -- editor
 lvim.lsp.buffer_mappings.normal_mode["<leader>la"] = nil;
 
+-- Custom function to open folder in oil.nvim, file normally
+local function open_in_oil_or_edit(node)
+  if node.type == "directory" then
+    vim.cmd("Oil " .. node.absolute_path)
+  else
+    require("nvim-tree.api").node.open.edit()
+  end
+end
+
+-- Add this inside your config
+lvim.builtin.nvimtree.setup.on_attach = function(bufnr)
+  local api = require("nvim-tree.api")
+
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- Default mappings (optional if you want to keep them)
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- Override `o` key
+  vim.keymap.set("n", "o", function()
+    local node = api.tree.get_node_under_cursor()
+    if node then
+      open_in_oil_or_edit(node)
+    end
+  end, opts("Open in Oil"))
+end
+
 lvim.plugins = {
   { -- autosave
     "Pocco81/auto-save.nvim",
