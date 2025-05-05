@@ -16,8 +16,8 @@ in {
   home.packages =
     [
       (pkgs.writeShellScriptBin "lofi" ''
-        mocp -x || true
-        mocp -S -a ~/Music/lofi && mocp -o shuffle && mocp -p
+        mocp -x 2> /dev/null || true
+        mocp -S && mocp -o shuffle -a ~/Music/lofi -p
       '')
     ]
     ++ (

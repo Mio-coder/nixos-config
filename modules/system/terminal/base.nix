@@ -11,4 +11,7 @@
 
   # flakes
   nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  # time
+  services.chrony.enable = true;
 }
