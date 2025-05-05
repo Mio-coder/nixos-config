@@ -18,6 +18,5 @@ in {
       set -s copy-command 'wl-copy'
       set -as terminal-features '*:256'
     '';
-    # export __ETC_PROFILE_NIX_SOURCED=1
   };
 }

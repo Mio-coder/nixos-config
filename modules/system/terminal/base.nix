@@ -6,6 +6,7 @@
     fd
     sl
     ripgrep
+    btop
   ];
   environment.variables.EDITOR = "nvim";
 

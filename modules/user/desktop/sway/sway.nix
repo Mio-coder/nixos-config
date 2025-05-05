@@ -15,4 +15,5 @@
       ];
     };
   };
+  programs.wlogout.enable = true;
 }

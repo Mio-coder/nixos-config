@@ -1,8 +1,4 @@
-{
-  isNixos,
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   lofi_download = with pkgs;
     writeShellApplication {
       name = "lofi_download";
@@ -12,19 +8,26 @@
         spotdl download https://open.spotify.com/playlist/0vvXsWCC9xrXsKd4FyS8kM --format mp3 --threads 12
       '';
     };
+  lofi_play = with pkgs;
+    writeShellApplication {
+      name = "lofi_play";
+      runtimeInputs = [mpv];
+      text = ''
+        exec mpv \
+           --audio-device=pipewire/alsa_output.usb-0b0e_Jabra_Evolve2_75_50C2ED98ED90-00.iec958-stereo \
+           ~/Music/lofi/ \
+           --vid=no \
+           --shuffle \
+           --loop=inf \
+           --script=${pkgs.mpvScripts.mpris}/share/mpv/scripts/mpris.so
+      '';
+    };
 in {
-  home.packages =
-    [
-      (pkgs.writeShellScriptBin "lofi" ''
-        mocp -x 2> /dev/null || true
-        mocp -S && mocp -o shuffle -a ~/Music/lofi -p
-      '')
-    ]
-    ++ (
-      if isNixos
-      then [pkgs.moc]
-      else []
-    );
+  home.packages = [
+    (pkgs.writeShellScriptBin "lofi" ''
+      systemctl --user start lofi_play
+    '')
+  ];
   systemd.user = {
     services.lofi_download = {
       Unit = {
@@ -44,6 +47,14 @@ in {
       };
       Install = {
         WantedBy = ["timers.target"];
+      };
+    };
+    services.lofi_play = {
+      Unit = {
+        Description = "MPV autoplay on Jabra headphones";
+      };
+      Service = {
+        ExecStart = "${lofi_play}/bin/lofi_play";
       };
     };
   };

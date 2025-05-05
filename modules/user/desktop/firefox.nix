@@ -1,9 +1,9 @@
 {
-  config,
   pkgs,
-  nur ? import <nur> {},
   ...
-}: {
+}: let 
+  nur = if builtins.hasAttr "nur" pkgs then pkgs.nur else import <nur> {};
+in {
   programs = {
     firefox = {
       enable = true;
@@ -45,21 +45,6 @@
           };
         };
         ShowHomeButton = false;
-        # ExtensionSettings = {
-        #   "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
-        #   # uBlock Origin:
-        #   "uBlock0@raymondhill.net" = {
-        #     install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-        #     installation_mode = "force_installed";
-        #     private_browsing = true;
-        #   };
-        #   # add extensions here...
-        #   "ctrl-shift-c-copy@jeffersonsecher.com" = {
-        #     url = "https://addons.mozilla.org/firefox/downloads/latest/ctrl-shift-c-should-copy/latest.xpi";
-        #     installation_mode = "force_installed";
-        #     private_browsing = true;
-        #   };
-        # };
       };
 
       profiles = {
@@ -68,15 +53,23 @@
           name = "Main profile";
           isDefault = true;
           settings = {
-            # specify profile-specific preferences here; check about:config for options
             "browser.newtabpage.activity-stream.feeds.section.highlights" = false;
             "browser.startup.homepage" = "https://start.duckduckgo.org";
-            "browser.newtabpage.pinned" = [
-              {
-                title = "NixOS";
-                url = "https://nixos.org";
-              }
-            ];
+
+            # Fully disable Pocket. See
+            # https://www.reddit.com/r/linux/comments/zabm2a.
+            "extensions.pocket.enabled" = false;
+            "extensions.pocket.api" = "0.0.0.0";
+            "extensions.pocket.loggedOutVariant" = "";
+            "extensions.pocket.oAuthConsumerKey" = "";
+            "extensions.pocket.onSaveRecs" = false;
+            "extensions.pocket.onSaveRecs.locales" = "";
+            "extensions.pocket.showHome" = false;
+            "extensions.pocket.site" = "0.0.0.0";
+            "browser.newtabpage.activity-stream.pocketCta" = "";
+            "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
+            "services.sync.prefs.sync.browser.newtabpage.activity-stream.section.highlights.includePocket" =
+              false;
           };
           # add preferences for profile_0 here...
           search = let
@@ -109,14 +102,21 @@
             force = true;
             engines = mkEngineSet (import ./search.nix pkgs);
           };
-          #          extensions =
-          #             (with nur.repos.rycee.firefox-addons; [
-          #              ublock-origin
-          #           ])
-          #          ++ (with nur.repos.colinsane.pkgs.firefox-extensions; [
-          #           i-still-dont-care-about-cookies
-          #          ctrl-shift-c-should-copy
-          #       ]);
+          extensions.packages = with nur.repos.rycee.firefox-addons; [
+            link-cleaner
+            darkreader
+            cookie-autodelete
+            privacy-badger
+            refined-github
+            consent-o-matic
+            sponsorblock
+            to-google-translate
+            ublock-origin
+            terms-of-service-didnt-read
+            polish-dictionary
+            copy-selection-as-markdown
+            skip-redirect
+          ];
         };
       };
     };

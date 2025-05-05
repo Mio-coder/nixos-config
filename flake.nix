@@ -20,7 +20,7 @@
     nixpkgs,
     nixpkgs-stable,
     home-manager,
-    nix-flatpak,
+    nur,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -37,7 +37,7 @@
         allowUnfree = true;
         allowUnfreePredicate = _: true;
       };
-      # overlays = [ ];
+      overlays = [ nur.overlay ];
     };
 
     commonArgs = {
@@ -84,7 +84,10 @@
       value = inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages.${system};
         extraSpecialArgs = homeManagerSpecialArgs;
-        modules = [./hosts/${hostname}/home.nix];
+        modules = [
+          inputs.nur.hmModules.nur
+          ./hosts/${hostname}/home.nix
+        ];
       };
     };
   in {
