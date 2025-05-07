@@ -37,7 +37,7 @@
         allowUnfree = true;
         allowUnfreePredicate = _: true;
       };
-      overlays = [ nur.overlay ];
+      overlays = [nur.overlays.default];
     };
 
     commonArgs = {

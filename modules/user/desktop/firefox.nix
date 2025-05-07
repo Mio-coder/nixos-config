@@ -1,8 +1,8 @@
-{
-  pkgs,
-  ...
-}: let 
-  nur = if builtins.hasAttr "nur" pkgs then pkgs.nur else import <nur> {};
+{pkgs, ...}: let
+  nur =
+    if builtins.hasAttr "nur" pkgs
+    then pkgs.nur
+    else import <nur> {};
 in {
   programs = {
     firefox = {
