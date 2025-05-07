@@ -27,7 +27,7 @@
         "interval": 5
     },
     "pulseaudio": {
-        "format": "{icon}  {volume}%",
+        "format": "{icon} {volume}%",
         "format-icons": ["", "", ""],
         "scroll-step": 1,
         "on-click": "pavucontrol"
@@ -70,5 +70,19 @@
         "exec": "~/.config/waybar/scripts/audio-sink.sh",
         "interval": 5,
         "tooltip": true
-    }
+    },
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 75,
+        "interval": 5,
+        "format": "{icon} {temperatureC}°",
+        "tooltip": false,
+        "format-icons": [
+            "", // Icon: temperature-empty
+            "", // Icon: temperature-quarter
+            "", // Icon: temperature-half
+            "", // Icon: temperature-three-quarters
+            ""  // Icon: temperature-full
+        ]
+    } 
 }
