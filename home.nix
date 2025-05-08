@@ -4,18 +4,20 @@
   ...
 }: {
   imports = [
-    ../../modules/user/terminal/home_config.nix
-    ../../modules/user/terminal/meta.nix
-    ../../modules/user/desktop/term.nix
-    ../../modules/user/desktop/firefox.nix
-    ../../modules/user/terminal/bash.nix
-    ../../modules/user/terminal/tmux.nix
-    ../../modules/user/terminal/btop.nix
-    ../../modules/user/desktop/fonts.nix
-    ../../modules/user/terminal/lofi.nix
-    ../../modules/user/terminal/minionki.nix
-    ../../modules/user/terminal/starship.nix
-    ../../modules/user/terminal/git.nix
+    ./hmModules/terminal/home_config.nix
+    ./hmModules/desktop/term.nix
+    ./hmModules/desktop/firefox.nix
+    ./hmModules/terminal/bash.nix
+    ./hmModules/terminal/tmux.nix
+    ./hmModules/terminal/btop.nix
+    ./hmModules/desktop/fonts.nix
+    ./hmModules/terminal/lofi.nix
+    ./hmModules/terminal/minionki.nix
+    ./hmModules/terminal/starship.nix
+    ./hmModules/terminal/git.nix
+    ./hmModules/terminal/lvim.nix
+    ./hmModules/terminal/nix-index.nix
+    ./hmModules/desktop/sway
   ];
 
   home.sessionPath = [
@@ -26,16 +28,12 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    fd
-    ripgrep
-    sl
     uv
     act
-    lunarvim
-    nixd # for lvim config
     alejandra
     ungoogled-chromium
     man-db
+    python312Packages.ipython
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -45,7 +43,6 @@
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
-
     ".gdbinit".text = "set debuginfod enabled on";
   };
 

@@ -1,14 +1,6 @@
-{
-  pkgs,
-  isNixos ? false,
-  ...
-}: {
+{pkgs, ...}: {
   programs.alacritty = {
     enable = true;
-    package =
-      if isNixos
-      then pkgs.alacritty
-      else null;
     settings = {
       env.TERM = "xterm-256color";
       terminal.shell = "${pkgs.tmux}/bin/tmux";
