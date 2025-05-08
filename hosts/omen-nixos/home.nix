@@ -34,6 +34,7 @@
     alejandra
     ungoogled-chromium
     man-db
+    python312Packages.ipython
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -43,7 +44,6 @@
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
-
     ".gdbinit".text = "set debuginfod enabled on";
   };
 

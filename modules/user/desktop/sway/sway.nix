@@ -111,6 +111,12 @@ in {
           xcursor_theme = "Posy_Cursor 24";
         };
       };
+      floating = {
+        titlebar = true;   # show titlebar on floaters
+        criteria = [
+          { title = "pulsemixer"; }
+        ];
+      };
     };
   };
 }

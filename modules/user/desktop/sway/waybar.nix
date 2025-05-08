@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     waybar
     mako
+    pulsemixer
   ];
   home.file.".config/waybar".source = ./waybar;
 }

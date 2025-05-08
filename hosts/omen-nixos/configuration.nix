@@ -13,6 +13,7 @@
     ../../modules/system/terminal/grub.nix
     ../../modules/system/terminal/fans.nix
     ../../modules/system/terminal/locale.nix
+    ../../modules/system/terminal/docker.nix
     ../../modules/system/desktop/base.nix
     ../../modules/system/desktop/sound.nix
     # ../../modules/system/desktop/nvidia.nix
@@ -64,4 +65,14 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      zlib zstd stdenv.cc.cc curl openssl attr libssh bzip2 libxml2 acl libsodium util-linux xz systemd
+    ];
+  };
+  environment.shellAliases = {
+    "loadlib" = ''export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$NIX_LD_LIBRARY_PATH'';
+  };
 }

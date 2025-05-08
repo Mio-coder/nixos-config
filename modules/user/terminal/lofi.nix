@@ -17,16 +17,16 @@
            ~/Music/lofi/ \
            --vid=no \
            --shuffle \
-           --loop=inf \
            --script=${pkgs.mpvScripts.mpris}/share/mpv/scripts/mpris.so
       '';
     };
 in {
-  home.packages = [
-    (pkgs.writeShellScriptBin "lofi" ''
+  home.packages = with pkgs; [
+    (writeShellScriptBin "lofi" ''
       systemctl --user start lofi_play
       journalctl --user -u lofi_play -f
     '')
+    playerctl
   ];
   systemd.user = {
     services.lofi_download = {
@@ -55,6 +55,7 @@ in {
       };
       Service = {
         ExecStart = "${lofi_play}/bin/lofi_play";
+        Restart = "always";
       };
     };
   };

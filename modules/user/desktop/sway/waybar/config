@@ -1,10 +1,10 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 30,
+    "height": 20,
     "modules-left": ["sway/workspaces", "sway/window"],
     "modules-center": ["clock"],
-    "modules-right": ["cpu", "memory", "network", "pulseaudio", "custom/audio-sink", "custom/mic", "bluetooth", "battery", "tray"],
+    "modules-right": ["cpu", "memory", "network", "pulseaudio", "bluetooth", "battery", "tray"],
     "sway/window": {
         "format": "{}",
         "max-length": 50,
@@ -30,13 +30,7 @@
         "format": "{icon} {volume}%",
         "format-icons": ["", "", ""],
         "scroll-step": 1,
-        "on-click": "pavucontrol"
-    },
-    "custom/mic": {
-        "exec": "~/.config/waybar/scripts/mic-status.sh",
-        "interval": 1,
-        "format": "{}",
-        "tooltip": false
+        "on-click": "alacritty -e pulsemixer"
     },
     "network": {
         "format-wifi": "  {essid}({signalStrength}%)",
@@ -65,12 +59,6 @@
     "tray": {
         "spacing": 5
     },
-    "custom/audio-sink": {
-        "format": "{}",
-        "exec": "~/.config/waybar/scripts/audio-sink.sh",
-        "interval": 5,
-        "tooltip": true
-    },
     "temperature": {
         "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 75,
@@ -78,11 +66,11 @@
         "format": "{icon} {temperatureC}°",
         "tooltip": false,
         "format-icons": [
-            "", // Icon: temperature-empty
-            "", // Icon: temperature-quarter
-            "", // Icon: temperature-half
-            "", // Icon: temperature-three-quarters
-            ""  // Icon: temperature-full
+            "",
+            "",
+            "",
+            "",
+            ""
         ]
     } 
 }

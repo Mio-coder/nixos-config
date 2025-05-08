@@ -65,9 +65,7 @@ window#waybar {
 #idle_inhibitor,
 #backlight,
 #clock,
-#window,
-#custom-mic,
-#custom-audio-sink {
+#window {
     margin: 0px 0px 0px 10px;
     padding: 0 5px;
 }
@@ -128,12 +126,6 @@ window#waybar {
     color: #bb9af7;
 }
 
-/* Custom Modules */
-#custom-mic,
-#custom-audio-sink {
-    color: #a9b1d6;
-}
-
 /* Tray */
 #tray {
     background: transparent;
@@ -146,4 +138,118 @@ window#waybar {
 
 #bluetooth.disabled {
     color: #565f89;
+}
+
+/* Colors -------------------- */
+
+/* Module Containers */
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#bluetooth,
+#battery,
+#tray {
+    border-radius: 8px;
+    padding: 2px 12px;
+    margin: 4px 3px;
+    transition: all 0.3s ease;
+    background-color: #2a2b3c; /* Base container color */
+}
+
+/* Specific Module Coloring */
+#cpu {
+    background-color: #1a2a4a;
+    color: #7aa2f7;
+    border: 1px solid #30355c;
+}
+
+#memory {
+    background-color: #1a2d1a;
+    color: #9ece6a;
+    border: 1px solid #2d4230;
+}
+
+#network {
+    background-color: #2a231a;
+    color: #e0af68;
+    border: 1px solid #423928;
+}
+
+#network.disconnected {
+    background-color: #2a2b3c;
+    color: #565f89;
+    border: 1px solid #36384d;
+}
+
+#pulseaudio {
+    background-color: #2a1a3c;
+    color: #bb9af7;
+    border: 1px solid #3d2d4f;
+}
+
+#pulseaudio.muted {
+    background-color: #2a2b3c;
+    color: #565f89;
+    border: 1px solid #36384d;
+}
+
+#bluetooth {
+    background-color: #1a2a3c;
+    color: #7dcfff;
+    border: 1px solid #2d3d4f;
+}
+
+#bluetooth.disabled {
+    background-color: #2a2b3c;
+    color: #565f89;
+    border: 1px solid #36384d;
+}
+
+#battery {
+    background-color: #1a2d1a;
+    color: #9ece6a;
+    border: 1px solid #2d4230;
+}
+
+#battery.charging {
+    background-color: #1a3c1a;
+    color: #9ece6a;
+}
+
+#battery.warning {
+    background-color: #3c3c1a;
+    color: #ffd204;
+    border-color: #4d4d2d;
+}
+
+#battery.critical {
+    background-color: #3c1a1a;
+    color: #ee2e24;
+    border-color: #4d2d2d;
+    animation: pulse 2s infinite;
+}
+
+#tray {
+    background-color: #2a2b3c;
+    color: #a9b1d6;
+    border: 1px solid #36384d;
+    padding: 2px 15px;
+}
+
+/* Hover Effects */
+#cpu:hover,
+#memory:hover,
+#network:hover,
+#pulseaudio:hover,
+#bluetooth:hover,
+#battery:hover {
+    background-color: #36384d;
+    border-color: #4a4d6b;
+}
+
+@keyframes pulse {
+    0% { background-color: #3c1a1a; }
+    50% { background-color: #4d2d2d; }
+    100% { background-color: #3c1a1a; }
 }

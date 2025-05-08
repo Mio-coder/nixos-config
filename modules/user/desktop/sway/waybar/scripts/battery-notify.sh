@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Get battery level and status
 battery_level=$(cat /sys/class/power_supply/BAT*/capacity | head -n 1)
