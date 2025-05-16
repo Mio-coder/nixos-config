@@ -1,4 +1,4 @@
-{...} : {
+{...}: {
   virtualisation.docker.enable = true;
-  users.users.mio.extraGroups = [ "docker" ];
+  users.users.mio.extraGroups = ["docker"];
 }

@@ -7,7 +7,7 @@
 
       font.normal.family = "JetBrainsMono Nerd Font Mono";
 
-      window.decorations = "None";
+      # window.decorations = "None";
 
       colors = {
         primary = {

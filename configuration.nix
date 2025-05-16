@@ -14,11 +14,13 @@
     ./nixosModules/terminal/fans.nix
     ./nixosModules/terminal/locale.nix
     ./nixosModules/terminal/docker.nix
+    ./nixosModules/terminal/emulate_arch.nix
+    ./nixosModules/terminal/keys.nix
     ./nixosModules/desktop/base.nix
     ./nixosModules/desktop/sound.nix
     # ./nixosModules/desktop/nvidia.nix
-    # ./nixosModules/desktop/gnome.nix
-    ./nixosModules/desktop/sway.nix
+    ./nixosModules/desktop/gnome.nix
+    # ./nixosModules/desktop/sway.nix
   ];
 
   networking.hostName = "omen-nixos"; # Define your hostname.
@@ -26,6 +28,17 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.hosts = {"10.14.87.141" = ["rpi.staszic"];};
+  networking.firewall = {
+    allowedUDPPorts = [2757 2758 2759]; # Supertuxkart ports
+    allowedUDPPortRanges = [
+      {
+        from = 2757;
+        to = 2759;
+      }
+    ];
+  };
+  boot.kernelModules = ["config_ip_multicast"];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -36,13 +49,6 @@
     description = "mio";
     extraGroups = ["networkmanager" "wheel"];
   };
-
-  # # Allow unfree packages
-  # nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  # environment.systemPackages = with pkgs; [];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -65,4 +71,18 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
+
+  services.flatpak.enable = true;
+  services.logind.lidSwitch = "ignore";
+
+  nix.settings = {
+    substituters = [
+      "https://nix-community.cachix.org"
+    ];
+
+    trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+    trusted-users = ["root" "mio"];
+  };
 }

@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.lesspipe.enable = true;
   programs.bat = {
     enable = true;

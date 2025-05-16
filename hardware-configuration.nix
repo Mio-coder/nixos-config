@@ -14,6 +14,7 @@
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "uas" "sd_mod" "sdhci_pci"];
+  # boot.initrd.kernelModules = ["dm_mod" "dm_raid" "isw"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
