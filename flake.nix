@@ -43,6 +43,7 @@
     commonArgs = {
       inherit inputs system username flakeDir pkgs-stable;
       isNixos = true;
+      lpkgs = import ./pkgs {inherit pkgs;};
     };
 
     nixosSpecialArgs =
@@ -59,8 +60,6 @@
       };
   in {
     formatter.${system} = pkgs.alejandra;
-
-    overlays = import ./overlays {inherit inputs self system;};
 
     nixosConfigurations = {
       omen-nixos = nixpkgs.lib.nixosSystem {

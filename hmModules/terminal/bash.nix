@@ -55,11 +55,11 @@
   };
   programs.zoxide = {
     enable = true;
-    enableBashIntegration = true;
     options = [
       "--hook=none"
     ];
   };
+  home.shell.enableBashIntegration = true;
   home.packages = with pkgs; [
     (writeShellScriptBin "g--" ''
       g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -std=c++20 -DDEBUG -ggdb3 -g $@

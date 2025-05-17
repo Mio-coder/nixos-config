@@ -1,10 +1,16 @@
 {...}: {
   # Bootloader.
-  boot.loader.systemd-boot.enable = false;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
-  boot.loader.grub.useOSProber = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
+  boot.loader = {
+    systemd-boot.enable = false;
+    grub = {
+      enable = true;
+      device = "nodev";
+      useOSProber = true;
+      efiSupport = true;
+    };
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot";
+    };
+  };
 }

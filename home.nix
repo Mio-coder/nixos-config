@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lpkgs,
+  ...
+}: {
   imports = [
     ./hmModules/terminal/bash.nix
     ./hmModules/terminal/btop.nix
@@ -12,6 +16,7 @@
     ./hmModules/terminal/ssh.nix
     ./hmModules/terminal/starship.nix
     ./hmModules/terminal/tmux.nix
+    ./hmModules/terminal/f.nix
     ./hmModules/desktop/alacritty.nix
     ./hmModules/desktop/firefox.nix
     ./hmModules/desktop/fonts.nix
@@ -33,7 +38,14 @@
     python312Packages.ipython
     localsend
     superTuxKart
-    (pkgs.buildFHSUserEnv (appimageTools.defaultFhsEnvArgs
+
+    undollar # $ foo == foo
+    libqalculate
+    tldr # better man
+
+    # my own
+    lpkgs.dbg-macro
+    (buildFHSEnv (appimageTools.defaultFhsEnvArgs
       // {
         name = "fhs";
         profile = ''export FHS=1'';
