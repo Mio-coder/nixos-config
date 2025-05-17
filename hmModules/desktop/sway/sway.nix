@@ -68,7 +68,7 @@
   };
 in {
   imports = [
-    ../term.nix
+    ../alacritty.nix
   ];
   home.packages = with pkgs; [
     posy-cursors # cursor theme
@@ -112,9 +112,9 @@ in {
         };
       };
       floating = {
-        titlebar = true;   # show titlebar on floaters
+        titlebar = true; # show titlebar on floaters
         criteria = [
-          { title = "pulsemixer"; }
+          {title = "pulsemixer";}
         ];
       };
     };

@@ -1,9 +1,4 @@
-{pkgs, ...}: let
-  nur =
-    if builtins.hasAttr "nur" pkgs
-    then pkgs.nur
-    else import <nur> {};
-in {
+{pkgs, ...}: {
   programs = {
     firefox = {
       enable = true;
@@ -102,7 +97,7 @@ in {
             force = true;
             engines = mkEngineSet (import ./search.nix pkgs);
           };
-          extensions.packages = with nur.repos.rycee.firefox-addons; [
+          extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
             link-cleaner
             darkreader
             cookie-autodelete

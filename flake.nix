@@ -43,6 +43,7 @@
     commonArgs = {
       inherit inputs system username flakeDir pkgs-stable;
       isNixos = true;
+      lpkgs = import ./pkgs {inherit pkgs;};
     };
 
     nixosSpecialArgs =
@@ -57,14 +58,15 @@
       // {
         inherit self pkgs;
       };
-    mkHost = {hostname}:
-      nixpkgs.lib.nixosSystem {
+  in {
+    formatter.${system} = pkgs.alejandra;
+
+    nixosConfigurations = {
+      omen-nixos = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = nixosSpecialArgs;
         modules = [
-          # Host specific NixOS configuration
-          ./hosts/${hostname}/configuration.nix
-
+          ./configuration.nix
           # Common NixOS modules
           inputs.nix-flatpak.nixosModules.nix-flatpak
           home-manager.nixosModules.home-manager
@@ -74,33 +76,11 @@
               extraSpecialArgs = homeManagerSpecialArgs;
               useUserPackages = true;
               backupFileExtension = "bak";
-              users.${username} = import ./hosts/${hostname}/home.nix;
+              users.${username} = import ./home.nix;
             };
           }
         ];
       };
-    mkHome = {hostname}: {
-      name = "${username}@${hostname}";
-      value = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = inputs.nixpkgs.legacyPackages.${system};
-        extraSpecialArgs = homeManagerSpecialArgs;
-        modules = [
-          inputs.nur.hmModules.nur
-          ./hosts/${hostname}/home.nix
-        ];
-      };
     };
-  in {
-    formatter.${system} = pkgs.alejandra;
-
-    overlays = import ./overlays {inherit inputs self system;};
-
-    nixosConfigurations = {
-      omen-nixos = mkHost {hostname = "omen-nixos";};
-    };
-    homeConfigurations = builtins.listToAttrs [
-      mkHome
-      {hostname = "omen-debian";}
-    ];
   };
 }

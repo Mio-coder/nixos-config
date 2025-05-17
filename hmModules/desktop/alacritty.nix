@@ -1,21 +1,13 @@
-{
-  pkgs,
-  isNixos ? false,
-  ...
-}: {
+{pkgs, ...}: {
   programs.alacritty = {
     enable = true;
-    package =
-      if isNixos
-      then pkgs.alacritty
-      else null;
     settings = {
       env.TERM = "xterm-256color";
       terminal.shell = "${pkgs.tmux}/bin/tmux";
 
       font.normal.family = "JetBrainsMono Nerd Font Mono";
 
-      window.decorations = "None";
+      # window.decorations = "None";
 
       colors = {
         primary = {
