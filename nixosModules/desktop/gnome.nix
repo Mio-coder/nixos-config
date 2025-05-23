@@ -37,9 +37,13 @@
         move-to-workspace-7=['<super><shift>7']
         move-to-workspace-8=['<super><shift>8']
         move-to-workspace-9=['<super><shift>9']
+
+        [org.gnome.desktop.wm.preferences]
+        num-workspaces=9
+
+        [org.gnome.mutter]
+        dynamic-workspaces=false
       '';
-      # [org.gnome.mutter]
-      # overlay-key='<super><space>'
     };
   };
 

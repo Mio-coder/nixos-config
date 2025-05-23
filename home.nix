@@ -11,7 +11,7 @@
     ./hmModules/terminal/lofi.nix
     ./hmModules/terminal/lvim.nix
     ./hmModules/terminal/minionki.nix
-    ./hmModules/terminal/nix-index.nix
+    # ./hmModules/terminal/nix-index.nix
     ./hmModules/terminal/shell.nix
     ./hmModules/terminal/ssh.nix
     ./hmModules/terminal/starship.nix
@@ -42,6 +42,8 @@
     undollar # $ foo == foo
     libqalculate
     tldr # better man
+    devenv
+    speedtest-rs
 
     # my own
     lpkgs.dbg-macro

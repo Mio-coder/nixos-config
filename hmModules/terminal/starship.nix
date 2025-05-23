@@ -10,7 +10,7 @@
         disabled = false;
       };
       custom.fhs = {
-        when = ''test "$FHS"'';
+        when = "\${env.FHS}";
         format = "[fhs]($style) ";
         style = "bold purple";
         description = "Show (fhs) when FHS environment variable is set";

@@ -3,16 +3,21 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak";
+    };
+    better-cmd-not-found = {
+      url = "github:Mio-coder/better-cmd-not-found";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    winapps = {
+      url = "github:winapps-org/winapps";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   outputs = {
@@ -69,6 +74,7 @@
           ./configuration.nix
           # Common NixOS modules
           inputs.nix-flatpak.nixosModules.nix-flatpak
+          inputs.better-cmd-not-found.nixosModules.default
           home-manager.nixosModules.home-manager
           # Home Manager configuration integrated into NixOS
           {

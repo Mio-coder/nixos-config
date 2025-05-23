@@ -49,7 +49,7 @@
           isDefault = true;
           settings = {
             "browser.newtabpage.activity-stream.feeds.section.highlights" = false;
-            "browser.startup.homepage" = "https://start.duckduckgo.org";
+            "browser.startup.homepage" = "https://start.duckduckgo.com";
 
             # Fully disable Pocket. See
             # https://www.reddit.com/r/linux/comments/zabm2a.

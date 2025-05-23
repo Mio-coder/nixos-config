@@ -16,6 +16,9 @@
     ./nixosModules/desktop/base.nix
     ./nixosModules/desktop/sound.nix
     ./nixosModules/desktop/gnome.nix
+    ./nixosModules/desktop/winapps.nix
+
+    ./nixosModules/desktop/winapps_mod.nix
   ];
   boot.kernelModules = ["config_ip_multicast"];
 
@@ -23,7 +26,7 @@
   users.users.mio = {
     isNormalUser = true;
     description = "mio";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "vboxusers"];
   };
 
   # This value determines the NixOS release from which the default
@@ -36,4 +39,12 @@
 
   services.flatpak.enable = true;
   services.logind.lidSwitch = "ignore";
+  virtualisation.virtualbox.host.enable = true; # also move vboxusers group
+  virtualisation.windows-vm = {
+    enable = true;
+    ramSize = "16G";
+    cpuCores = 8;
+    isoPath = "/home/mio/torrents/tiny-11-NTDEV/tiny11_b1.iso";
+    openFirewall = true;
+  };
 }

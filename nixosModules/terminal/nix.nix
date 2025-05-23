@@ -1,4 +1,4 @@
-{...}: {
+{lib, ...}: {
   nix.settings = {
     substituters = [
       "https://nix-community.cachix.org"
@@ -10,4 +10,14 @@
     trusted-users = ["root" "mio"];
     auto-optimise-store = true;
   };
+  nix.optimise = {
+    automatic = true;
+  };
+
+  nixpkgs.config.allowUnfree = lib.mkForce true;
+  # free up to 1GiB whenever there is less than 100MiB left
+  nix.extraOptions = ''
+    min-free = ${toString (100 * 1024 * 1024)}
+    max-free = ${toString (1024 * 1024 * 1024)}
+  '';
 }
