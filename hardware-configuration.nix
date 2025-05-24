@@ -10,7 +10,6 @@
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    #    "${builtins.fetchGit {url = "https://github.com/NixOS/nixos-hardware.git";}}/omen/15-en0002np"
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "uas" "sd_mod" "sdhci_pci"];
@@ -30,7 +29,12 @@
     options = ["fmask=0077" "dmask=0077"];
   };
 
-  swapDevices = [];
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 64 * 1024;
+    }
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

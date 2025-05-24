@@ -10,8 +10,9 @@
     ./hmModules/terminal/home_config.nix
     ./hmModules/terminal/lofi.nix
     ./hmModules/terminal/lvim.nix
-    ./hmModules/terminal/minionki.nix
+    # ./hmModules/terminal/minionki.nix
     # ./hmModules/terminal/nix-index.nix
+    # ./hmModules/terminal/pacman.nix
     ./hmModules/terminal/shell.nix
     ./hmModules/terminal/ssh.nix
     ./hmModules/terminal/starship.nix
