@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   dontBuild = true;
 
   installPhase = ''
-    install -Dm644 dbg.h $out/include/dbg.h
+    install -Dm644 dbg.h $out/usr/include/dbg.h
   '';
 
   meta = with lib; {

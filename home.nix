@@ -28,6 +28,7 @@
   home.sessionPath = [
     "$HOME/bin"
     "$HOME/.local/bin"
+    # "$HOME/.junest/usr/bin_wrappers/"
   ];
 
   home.packages = with pkgs; [
@@ -47,7 +48,6 @@
     speedtest-rs
 
     # my own
-    lpkgs.dbg-macro
     (buildFHSEnv (appimageTools.defaultFhsEnvArgs
       // {
         name = "fhs";
@@ -55,6 +55,9 @@
         runScript = "bash";
       }))
   ];
+  home.sessionVariables = {
+    CPLUS_INCLUDE_PATH = "${lpkgs.dbg-macro}/usr/include";
+  };
 
   home.file = {
     ".gdbinit".text = "set debuginfod enabled on";
