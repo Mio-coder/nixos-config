@@ -20,6 +20,7 @@
       url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix.url = "github:ryantm/agenix";
   };
   outputs = {
     self,
@@ -27,6 +28,7 @@
     nixpkgs-stable,
     home-manager,
     nur,
+    agenix,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -75,6 +77,7 @@
           # Common NixOS modules
           inputs.nix-flatpak.nixosModules.nix-flatpak
           inputs.better-cmd-not-found.nixosModules.default
+          agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           # Home Manager configuration integrated into NixOS
           {
@@ -84,6 +87,9 @@
               backupFileExtension = "bak";
               users.${username} = import ./home.nix;
             };
+          }
+          {
+            environment.systemPackages = [agenix.packages.${system}.default];
           }
         ];
       };

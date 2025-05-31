@@ -34,8 +34,7 @@
       name = "lofi_download";
       runtimeInputs = [spotdl ffmpeg];
       text = ''
-        cd ~/Music/lofi/
-        spotdl download https://open.spotify.com/playlist/0vvXsWCC9xrXsKd4FyS8kM --format mp3 --threads 12 | ${lofi_stats}/bin/lofi_stats
+        spotdl download https://open.spotify.com/playlist/0vvXsWCC9xrXsKd4FyS8kM --format mp3 --threads 12 --output ~/Music/lofi/ | ${lofi_stats}/bin/lofi_stats
       '';
     };
   lofi_play = with pkgs;
@@ -53,7 +52,11 @@
 in {
   home.packages = with pkgs; [
     (writeShellScriptBin "lofi" ''
-      systemctl --user start lofi_play
+      if systemctl --user is-active --quiet lofi_play; then
+          playerctl play
+      else
+          systemctl --user start lofi_play
+      fi
       journalctl --user -u lofi_play -f
     '')
     playerctl
