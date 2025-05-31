@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-alejandra . || true
+alejandra . -q || true
 sudo nixos-rebuild switch

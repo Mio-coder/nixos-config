@@ -31,7 +31,6 @@
   } @ inputs: let
     system = "x86_64-linux";
     username = "mio";
-    flakeDir = "/home/${username}/nixos-config";
 
     pkgs-stable = import nixpkgs-stable {
       inherit system;
@@ -47,7 +46,7 @@
     };
 
     commonArgs = {
-      inherit inputs system username flakeDir pkgs-stable;
+      inherit inputs system username pkgs-stable;
       isNixos = true;
       lpkgs = import ./pkgs {inherit pkgs;};
     };

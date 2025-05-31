@@ -56,4 +56,12 @@
   environment.systemPackages = with pkgs; [
     xclip
   ];
+  environment.gnome.excludePackages = with pkgs; [
+    epiphany
+    gnome-contacts
+    gnome-logs
+    gnome-maps
+    gnome-system-monitor
+    gnome-weather
+  ];
 }

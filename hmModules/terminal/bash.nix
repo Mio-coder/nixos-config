@@ -72,26 +72,22 @@
       shift
       g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -std=c++20 -DDEBUG -ggdb3 -g -o ''$OUT ''$@ ''$FILE && cat ''$DIR/in.txt | ''$OUT
     '')
-    (writeShellApplication {
-      name = "fds";
-      runtimeInputs = [fzf fd];
-      text = ''
-        dirs=''$(fd -td -u "''$1")
-        dir_count=''$(echo "''$dirs" | wc -l)
+    (writeShellScriptBin "fds" ''
+      dirs=''$(${fd}/bin/fd -td -u "''$1")
+      dir_count=''$(echo "''$dirs" | wc -l)
 
-        if [[ ''$dir_count -eq 0 ]]; then
-          echo "No folders found."
-          return 1
-        elif [[ ''$dir_count -eq 1 ]]; then
-          dir=''$(echo "''$dirs" | head -n 1)
-        else
-          dir=''$(echo "''$dirs" | fzf --preview 'tree -C {} | head -200')
-        fi
+      if [[ ''$dir_count -eq 0 ]]; then
+        echo "No folders found."
+        return 1
+      elif [[ ''$dir_count -eq 1 ]]; then
+        dir=''$(echo "''$dirs" | head -n 1)
+      else
+        dir=''$(echo "''$dirs" | ${fzf}/bin/fzf --preview 'tree -C {} | head -200')
+      fi
 
-        if [[ -n "''$dir" ]]; then
-          cd "''$dir"
-        fi
-      '';
-    })
+      if [[ -n "''$dir" ]]; then
+        cd "''$dir"
+      fi
+    '')
   ];
 }

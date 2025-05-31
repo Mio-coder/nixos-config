@@ -40,6 +40,8 @@
     python312Packages.ipython
     localsend
     superTuxKart
+    valgrind
+    cling
 
     undollar # $ foo == foo
     libqalculate

@@ -20,7 +20,8 @@ vim.o.backspace = 'indent,eol,start'
 lvim.keys.insert_mode["<C-BS>"] = "<C-W>"
 lvim.keys.normal_mode["<C-n>"] = "<cmd>noh<cr>"
 lvim.keys.normal_mode["<leader>f"] = "<cmd>Telescope find_files<cr>"
-lvim.keys.normal_mode["<C-t>"] = "<cmd>TermExec cmd=\"gr %\" direction=horizontal<cr><C-k>"
+lvim.keys.normal_mode["tc"] = "<cmd>TermExec cmd=\"gr %\" direction=horizontal<cr><C-k>"
+lvim.keys.normal_mode["tt"] = "<C-j><Insert><Up><CR><C-k>"
 lvim.builtin.which_key.mappings["f"] = {}
 
 -- editor
@@ -156,5 +157,8 @@ lvim.plugins = {
         },
       })
     end,
+  },
+  {
+    "folke/zen-mode.nvim",
   },
 }

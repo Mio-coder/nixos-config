@@ -3,4 +3,5 @@
 {pkgs, ...}: {
   # example = pkgs.callPackage ./example { };
   dbg-macro = pkgs.callPackage ./dbg-macro.nix {};
+  cppreference = pkgs.callPackage ./cppreference.nix {};
 }
