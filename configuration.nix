@@ -5,22 +5,22 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./nixosModules/terminal/base.nix
-    ./nixosModules/terminal/nix.nix
-    ./nixosModules/terminal/grub.nix
-    ./nixosModules/terminal/fans.nix
-    ./nixosModules/terminal/locale.nix
-    ./nixosModules/terminal/docker.nix
-    ./nixosModules/terminal/emulate_arch.nix
-    ./nixosModules/terminal/networking.nix
-    ./nixosModules/terminal/ssh_server.nix
-    ./nixosModules/terminal/users.nix
-    ./nixosModules/desktop/base.nix
-    ./nixosModules/desktop/sound.nix
-    ./nixosModules/desktop/gnome.nix
-    # ./nixosModules/desktop/winapps.nix
+    ./nixosConfig/terminal/base.nix
+    ./nixosConfig/terminal/nix.nix
+    ./nixosConfig/terminal/grub.nix
+    ./nixosConfig/terminal/fans.nix
+    ./nixosConfig/terminal/locale.nix
+    ./nixosConfig/terminal/docker.nix
+    ./nixosConfig/terminal/emulate_arch.nix
+    ./nixosConfig/terminal/networking.nix
+    ./nixosConfig/terminal/ssh_server.nix
+    ./nixosConfig/terminal/users.nix
+    ./nixosConfig/desktop/base.nix
+    ./nixosConfig/desktop/sound.nix
+    ./nixosConfig/desktop/gnome.nix
+    # ./nixosConfig/desktop/winapps.nix
 
-    # ./nixosModules/desktop/winapps_mod.nix
+    # ./nixosConfig/desktop/winapps_mod.nix
   ];
   boot.kernelModules = ["config_ip_multicast"];
 

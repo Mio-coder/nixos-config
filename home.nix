@@ -4,25 +4,25 @@
   ...
 }: {
   imports = [
-    ./hmModules/terminal/bash.nix
-    ./hmModules/terminal/btop.nix
-    ./hmModules/terminal/git.nix
-    ./hmModules/terminal/home_config.nix
-    ./hmModules/terminal/lofi.nix
-    ./hmModules/terminal/lvim.nix
-    # ./hmModules/terminal/minionki.nix
-    # ./hmModules/terminal/nix-index.nix
-    ./hmModules/terminal/pacman.nix
-    ./hmModules/terminal/shell.nix
-    ./hmModules/terminal/ssh.nix
-    ./hmModules/terminal/starship.nix
-    ./hmModules/terminal/tmux.nix
-    ./hmModules/terminal/f.nix
-    ./hmModules/desktop/alacritty.nix
-    ./hmModules/desktop/firefox.nix
-    ./hmModules/desktop/fonts.nix
-    ./hmModules/desktop/gnome.nix
-    # ./hmModules/desktop/sway
+    ./hmConfig/terminal/bash.nix
+    ./hmConfig/terminal/btop.nix
+    ./hmConfig/terminal/git.nix
+    ./hmConfig/terminal/home_config.nix
+    ./hmConfig/terminal/lofi.nix
+    ./hmConfig/terminal/lvim.nix
+    # ./hmConfig/terminal/minionki.nix
+    # ./hmConfig/terminal/nix-index.nix
+    ./hmConfig/terminal/pacman.nix
+    ./hmConfig/terminal/shell.nix
+    ./hmConfig/terminal/ssh.nix
+    ./hmConfig/terminal/starship.nix
+    ./hmConfig/terminal/tmux.nix
+    ./hmConfig/terminal/f.nix
+    ./hmConfig/desktop/alacritty.nix
+    ./hmConfig/desktop/firefox.nix
+    ./hmConfig/desktop/fonts.nix
+    ./hmConfig/desktop/gnome.nix
+    # ./hmConfig/desktop/sway
   ];
 
   home.sessionPath = [
