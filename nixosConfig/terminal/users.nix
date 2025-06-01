@@ -3,7 +3,7 @@
   users.users.mio = {
     isNormalUser = true;
     description = "mio";
-    extraGroups = ["networkmanager" "wheel" "vboxusers"];
+    extraGroups = ["wheel"];
     hashedPasswordFile = config.age.secrets.password.path;
   };
 }

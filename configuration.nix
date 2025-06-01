@@ -15,12 +15,11 @@
     ./nixosConfig/terminal/networking.nix
     ./nixosConfig/terminal/ssh_server.nix
     ./nixosConfig/terminal/users.nix
+    ./nixosConfig/terminal/vbox.nix
     ./nixosConfig/desktop/base.nix
     ./nixosConfig/desktop/sound.nix
     ./nixosConfig/desktop/gnome.nix
-    # ./nixosConfig/desktop/winapps.nix
-
-    # ./nixosConfig/desktop/winapps_mod.nix
+    ./nixosConfig/desktop/winapps.nix
   ];
   boot.kernelModules = ["config_ip_multicast"];
 
@@ -34,8 +33,6 @@
 
   services.flatpak.enable = true;
   services.logind.lidSwitch = "ignore";
-  # environment.systemPackages = with pkgs; [junest];
-  virtualisation.virtualbox.host.enable = true; # also move vboxusers group
   # virtualisation.windows-vm = {
   #   enable = true;
   #   ramSize = "16G";

@@ -15,4 +15,5 @@
       ];
     };
   };
+  users.users.mio.extraGroups = ["networkmanager"];
 }
