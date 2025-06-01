@@ -32,20 +32,8 @@
     ];
 
     initExtra = ''
-      # ~/.bashrc: executed by bash(1) for non-login shells.
-      # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-      # for examples
-
-      # enable color support of ls and also add handy aliases
       if [ -x /usr/bin/dircolors ]; then
         test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-      fi
-    '';
-    logoutExtra = ''
-      # when leaving the console clear the screen to increase privacy
-
-      if [ "$SHLVL" = 1 ]; then
-          [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
       fi
     '';
     sessionVariables = {
@@ -65,28 +53,28 @@
       g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -std=c++20 -DDEBUG -ggdb3 -g $@
     '')
     (writeShellScriptBin "gr" ''
-      FILE="''$1"
-      DIR="''$(dirname $FILE)"
+      FILE="$1"
+      DIR="$(dirname $FILE)"
       shift
       OUT="''${1:-$DIR/a.out}"
       shift
-      g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -std=c++20 -DDEBUG -ggdb3 -g -o ''$OUT ''$@ ''$FILE && cat ''$DIR/in.txt | ''$OUT
+      g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -std=c++20 -DDEBUG -ggdb3 -g -o $OUT $@ $FILE && cat $DIR/in.txt | $OUT
     '')
     (writeShellScriptBin "fds" ''
-      dirs=''$(${fd}/bin/fd -td -u "''$1")
-      dir_count=''$(echo "''$dirs" | wc -l)
+      dirs=$(${fd}/bin/fd -td -u "$1")
+      dir_count=$(echo "$dirs" | wc -l)
 
-      if [[ ''$dir_count -eq 0 ]]; then
+      if [[ $dir_count -eq 0 ]]; then
         echo "No folders found."
         return 1
-      elif [[ ''$dir_count -eq 1 ]]; then
-        dir=''$(echo "''$dirs" | head -n 1)
+      elif [[ $dir_count -eq 1 ]]; then
+        dir=$(echo "$dirs" | head -n 1)
       else
-        dir=''$(echo "''$dirs" | ${fzf}/bin/fzf --preview 'tree -C {} | head -200')
+        dir=$(echo "$dirs" | ${fzf}/bin/fzf --preview 'tree -C {} | head -200')
       fi
 
-      if [[ -n "''$dir" ]]; then
-        cd "''$dir"
+      if [[ -n "$dir" ]]; then
+        cd "$dir"
       fi
     '')
   ];

@@ -11,7 +11,6 @@
     ./hmConfig/terminal/lofi.nix
     ./hmConfig/terminal/lvim.nix
     # ./hmConfig/terminal/minionki.nix
-    # ./hmConfig/terminal/nix-index.nix
     ./hmConfig/terminal/pacman.nix
     ./hmConfig/terminal/shell.nix
     ./hmConfig/terminal/ssh.nix
@@ -22,13 +21,11 @@
     ./hmConfig/desktop/firefox.nix
     ./hmConfig/desktop/fonts.nix
     ./hmConfig/desktop/gnome.nix
-    # ./hmConfig/desktop/sway
   ];
 
   home.sessionPath = [
     "$HOME/bin"
     "$HOME/.local/bin"
-    # "$HOME/.junest/usr/bin_wrappers/"
   ];
 
   home.packages = with pkgs; [
