@@ -2,18 +2,16 @@
   programs.starship = {
     enable = true;
     settings = {
-      format = "$username$hostname$directory$nix_shell$git_branch$git_state$git_status$python$custom$cmd_duration$character";
+      format = "$username$hostname$directory$nix_shell$git_branch$git_state$git_status$python$custom$cmd_duration$env_var$character";
 
       nix_shell = {
         format = "[$name]($style) ";
         style = "green";
         disabled = false;
       };
-      custom.fhs = {
-        when = "\${env.FHS}";
-        format = "[fhs]($style) ";
-        style = "bold purple";
-        description = "Show (fhs) when FHS environment variable is set";
+
+      env_var.FHS = {
+        format = "[fhs](purple) ";
       };
 
       directory = {

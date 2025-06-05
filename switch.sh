@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i bash -p bash alejandra git 
-git add .
-alejandra . -q || true
+alejandra . -q || echo "alejandra not working" 1>&2
+git add . || echo "git not working" 1>&2
 sudo nixos-rebuild switch

@@ -18,6 +18,7 @@
     ./nixosConfig/terminal/vbox.nix
     ./nixosConfig/desktop/base.nix
     ./nixosConfig/desktop/sound.nix
+    # ./nixosConfig/desktop/kde.nix
     ./nixosConfig/desktop/gnome.nix
     ./nixosConfig/desktop/winapps.nix
   ];
@@ -33,11 +34,4 @@
 
   services.flatpak.enable = true;
   services.logind.lidSwitch = "ignore";
-  # virtualisation.windows-vm = {
-  #   enable = true;
-  #   ramSize = "16G";
-  #   cpuCores = 8;
-  #   isoPath = "/home/mio/torrents/tiny-11-NTDEV/tiny11_b1.iso";
-  #   openFirewall = true;
-  # };
 }

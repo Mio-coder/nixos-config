@@ -4,6 +4,7 @@ let
 
   system1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGcAShSDx+v1XRMxCqcQyeFuw9yF2JuarbunMQqAUOCE";
   systems = [system1];
+  all = users ++ systems;
 in {
-  "password.age".publicKeys = users ++ systems;
+  "password.age".publicKeys = all;
 }

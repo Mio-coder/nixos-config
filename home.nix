@@ -21,6 +21,7 @@
     ./hmConfig/desktop/firefox.nix
     ./hmConfig/desktop/fonts.nix
     ./hmConfig/desktop/gnome.nix
+    # ./hmConfig/desktop/kde.nix
   ];
 
   home.sessionPath = [
