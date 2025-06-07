@@ -2,9 +2,8 @@
   lofi_stats = with pkgs;
     writeShellApplication {
       name = "lofi_stats";
+      runtimeInputs = [coreutils];
       text = ''
-        #!/bin/bash
-
         # Get state directory from XDG environment variable or use default
         STATE_DIR="''${XDG_STATE_HOME:-$HOME/.local/state}"
 
@@ -12,14 +11,15 @@
         mkdir -p "$STATE_DIR"
 
         # Initialize download counter
-        download_count=0
+        download_count=1
+        ((download_count++))
 
-        # Process input line by line
+        # # Process input line by line
         while IFS= read -r line; do
-            # Count lines starting with "Downloaded"
             if [[ "$line" == Downloaded* ]]; then
                 ((download_count++))
             fi
+            echo "$line"
         done
 
         # Get current date in YYYY-MM-DD format
