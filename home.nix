@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
+    ./wm.nix
     ./hmConfig/terminal/bash.nix
     ./hmConfig/terminal/btop.nix
     ./hmConfig/terminal/git.nix
@@ -21,7 +22,8 @@
     ./hmConfig/desktop/firefox.nix
     ./hmConfig/desktop/fonts.nix
     ./hmConfig/desktop/gnome.nix
-    # ./hmConfig/desktop/kde.nix
+    ./hmConfig/desktop/dconf.nix
+    ./hmConfig/desktop/kde.nix
   ];
 
   home.sessionPath = [

@@ -1,4 +1,4 @@
-{...}: {
+_: {
   home.shellAliases = {
     # win = "docker compose --file ~/.config/winapps/compose.yaml";
     colorgrind = "valgrind -q ./a.out 2>&1 | sed -E \"s/alloc'd/alloc/g; s/==[0-9]+==//g\" | bat -plcpp --no-pager";

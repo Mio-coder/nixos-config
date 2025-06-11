@@ -83,4 +83,20 @@ pkgs: [
     };
     definedAliases = ["@gh"];
   }
+  {
+    key = "home-manager-options";
+    name = "Home Manager Options";
+    template = "https://home-manager-options.extranix.com/";
+    params = [
+      {
+        name = "query";
+        value = "{searchTerms}";
+      }
+    ];
+    definedAliases = ["@hmo"];
+    icon = pkgs.fetchurl {
+      url = "https://home-manager.dev/favicon.png";
+      hash = "sha256-gMbZLUUw3MZi1vfw0EkB3CUFiz4Bj/ovKq/N3DDWSbU=";
+    };
+  }
 ]

@@ -1,27 +1,16 @@
-{...}: {
-  # nvidia drivers, copied from https://github.com/syshotdev/beginner-nixos-config/blob/main/modules/system/optimizations/gpu/nvidia/default.nix
+{config, ...}: {
+  # Graphics configuration for NVIDIA RTX 2070 (Turing architecture).
+  # Enable OpenGL support and use the proprietary NVIDIA driver.
+  hardware.graphics.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
-
   hardware.nvidia = {
-    open = false;
-    nvidiaSettings = true;
-
+    # Use the stable NVIDIA driver package from the kernelPackages.
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # Enable modesetting for Wayland compatibility.
     modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
+    # Use NVIDIA’s open-source kernel module (requires Turing or newer):contentReference[oaicite:8]{index=8}.
+    open = true;
+    # Enable `nvidia-settings` utility (optional).
+    nvidiaSettings = true;
   };
-
-  # Some guy says this will fix "DRM kernel driver 'nvida-drm in use. NVK requires nouveau"
-  boot.kernelParams = ["nvidia-drm.fbdev=1"];
-
-  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
-  # hardware.opengl = {
-  #   enable = true;
-  #   driSupport = true;
-  #   driSupport32Bit = true;
-  #   # https://discourse.nixos.org/t/getting-an-error-has-anything-regarding-opengl-in-nixpkgs/3641/3
-  #   setLdLibraryPath = true;
-  #   # Mesa is general opengl drivers (I think)
-  #   extraPackages = [pkgs.mesa.drivers];
-  # };
 }

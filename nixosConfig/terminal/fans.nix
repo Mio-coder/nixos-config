@@ -1,4 +1,4 @@
-{...}: {
+_: {
   # fans
   powerManagement = {
     enable = true;

@@ -3,6 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {...}: {
   imports = [
+    ./wm.nix
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./nixosConfig/terminal/base.nix
@@ -18,7 +19,7 @@
     ./nixosConfig/terminal/vbox.nix
     ./nixosConfig/desktop/base.nix
     ./nixosConfig/desktop/sound.nix
-    # ./nixosConfig/desktop/kde.nix
+    ./nixosConfig/desktop/kde.nix
     ./nixosConfig/desktop/gnome.nix
     ./nixosConfig/desktop/winapps.nix
   ];

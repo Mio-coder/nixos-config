@@ -84,7 +84,7 @@ in {
     };
     services.lofi_play = {
       Unit = {
-        Description = "MPV autoplay on Jabra headphones";
+        Description = "Play lofi music";
       };
       Service = {
         ExecStart = "${lofi_play}/bin/lofi_play";
