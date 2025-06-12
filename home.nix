@@ -24,6 +24,7 @@
     ./hmConfig/desktop/gnome.nix
     ./hmConfig/desktop/dconf.nix
     ./hmConfig/desktop/kde.nix
+    ./hmConfig/desktop/plasma.nix
   ];
 
   home.sessionPath = [
