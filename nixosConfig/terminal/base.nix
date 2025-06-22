@@ -6,7 +6,7 @@
     fd
     sl
     ripgrep
-    btop
+    btop-cuda
   ];
   environment.variables.EDITOR = "nvim";
 

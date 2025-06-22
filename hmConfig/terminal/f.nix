@@ -1,6 +1,4 @@
-_: {
-  programs.thefuck.enable = true;
-  xdg.configFile."thefuck/settings.py".text = ''
-    exclude_rules = [ 'sl_ls' ]
-  '';
+{pkgs, ...}: {
+  home.packages = with pkgs; [nix-index];
+  programs.pay-respects.enable = true;
 }

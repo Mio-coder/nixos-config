@@ -16,10 +16,6 @@ with lib.hm.gvariant; {
         saved-view = "/org/gnome/desktop/interface/color-scheme";
       };
 
-      "org/gnome/Characters" = {
-        recent-characters = ["\347" "\322" "\261"];
-      };
-
       "org/gnome/Console" = {
         font-scale = 1.0;
       };
@@ -98,8 +94,6 @@ with lib.hm.gvariant; {
 
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
-        # cursor-size = 24;
-        # cursor-theme = "breeze_cursors";
         enable-animations = true;
         font-antialiasing = "grayscale";
         font-name = "Noto Sans,  10";
@@ -166,6 +160,7 @@ with lib.hm.gvariant; {
       "org/gnome/desktop/wm/preferences" = {
         button-layout = "icon:minimize,maximize,close";
         focus-mode = "mouse";
+        num-workspaces = 10;
       };
 
       "org/gnome/epiphany" = {
@@ -206,8 +201,10 @@ with lib.hm.gvariant; {
       "org/gnome/mutter" = {
         attach-modal-dialogs = false;
         center-new-windows = false;
+        dynamic-workspaces = false;
         edge-tiling = false;
       };
+
 
       "org/gnome/nautilus/preferences" = {
         default-folder-viewer = "icon-view";

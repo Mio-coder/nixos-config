@@ -11,7 +11,7 @@
     ./hmConfig/terminal/home_config.nix
     ./hmConfig/terminal/lofi.nix
     ./hmConfig/terminal/lvim.nix
-    # ./hmConfig/terminal/minionki.nix
+    ./hmConfig/terminal/minionki.nix
     ./hmConfig/terminal/pacman.nix
     ./hmConfig/terminal/shell.nix
     ./hmConfig/terminal/ssh.nix
@@ -40,13 +40,14 @@
     man-db
     python312Packages.ipython
     localsend
-    superTuxKart
     valgrind
-    cling
-
+    rsync
+    gnumake
     undollar # $ foo == foo
     libqalculate
     tldr # better man
+
+    cling
     devenv
     speedtest-rs
 
@@ -55,7 +56,13 @@
       // {
         name = "fhs";
         profile = ''export FHS=1'';
-        runScript = "bash";
+        runScript = writeShellScript "fhs-exec.sh" ''
+          if [ $# -eq 0 ]; then
+              exec bash
+          else
+              exec "$@"
+          fi
+        '';
       }))
   ];
   home.sessionVariables = {

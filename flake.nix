@@ -12,10 +12,6 @@
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak";
     };
-    better-cmd-not-found = {
-      url = "github:Mio-coder/better-cmd-not-found";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     winapps = {
       url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -81,7 +77,6 @@
           ./configuration.nix
           # Common NixOS modules
           inputs.nix-flatpak.nixosModules.nix-flatpak
-          inputs.better-cmd-not-found.nixosModules.default
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           # Home Manager configuration integrated into NixOS

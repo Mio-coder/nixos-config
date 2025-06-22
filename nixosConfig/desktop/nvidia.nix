@@ -1,16 +1,11 @@
-{config, ...}: {
-  # Graphics configuration for NVIDIA RTX 2070 (Turing architecture).
-  # Enable OpenGL support and use the proprietary NVIDIA driver.
+_: {
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
-    # Use the stable NVIDIA driver package from the kernelPackages.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-    # Enable modesetting for Wayland compatibility.
-    modesetting.enable = true;
-    # Use NVIDIA’s open-source kernel module (requires Turing or newer):contentReference[oaicite:8]{index=8}.
-    open = true;
-    # Enable `nvidia-settings` utility (optional).
-    nvidiaSettings = true;
+    open = false;
+    # datacenter.enable = true;
   };
+  # hardware.nvidia-container-toolkit.enable = true;
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
 }

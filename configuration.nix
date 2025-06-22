@@ -22,6 +22,7 @@
     ./nixosConfig/desktop/kde.nix
     ./nixosConfig/desktop/gnome.nix
     ./nixosConfig/desktop/winapps.nix
+    ./nixosConfig/desktop/nvidia.nix
   ];
   boot.kernelModules = ["config_ip_multicast"];
 
@@ -34,5 +35,6 @@
   system.stateVersion = "24.11"; # Did you read the comment?
 
   services.flatpak.enable = true;
+  services.tailscale.enable = true;
   services.logind.lidSwitch = "ignore";
 }
