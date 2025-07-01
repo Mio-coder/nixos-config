@@ -21,14 +21,8 @@
       "l"
       "ll"
       "ls"
-      "exit"
-      "bg"
-      "fg"
-      "poweroff"
-      "cd"
       ".."
       "..."
-      "lvim"
     ];
 
     initExtra = ''

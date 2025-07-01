@@ -1,8 +1,9 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    lunarvim
+    (lunarvim.overrideAttrs (finalAttrs: previousAttrs: {
+      runtimeDeps = previousAttrs.runtimeDeps ++ [python3 clang-tools];
+    }))
     nixd
   ];
-  xdg.configFile."lvim/config.lua".source = ../../dotfiles/lvim/config.lua;
-  home.file.".local/share/lvim/mason/bin/clangd".source = "${pkgs.llvmPackages_19.clang-tools}/bin/clangd";
+  xdg.configFile."lvim/config.lua".source = ./lvim_config.lua;
 }

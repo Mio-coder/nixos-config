@@ -160,7 +160,7 @@ with lib.hm.gvariant; {
       "org/gnome/desktop/wm/preferences" = {
         button-layout = "icon:minimize,maximize,close";
         focus-mode = "mouse";
-        num-workspaces = 10;
+        num-workspaces = 5;
       };
 
       "org/gnome/epiphany" = {
@@ -204,7 +204,6 @@ with lib.hm.gvariant; {
         dynamic-workspaces = false;
         edge-tiling = false;
       };
-
 
       "org/gnome/nautilus/preferences" = {
         default-folder-viewer = "icon-view";
