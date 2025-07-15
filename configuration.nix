@@ -23,6 +23,7 @@
     ./nixosConfig/desktop/gnome.nix
     ./nixosConfig/desktop/winapps.nix
     ./nixosConfig/desktop/nvidia.nix
+    ./nixosConfig/desktop/vnc.nix
   ];
   boot.kernelModules = ["config_ip_multicast"];
 

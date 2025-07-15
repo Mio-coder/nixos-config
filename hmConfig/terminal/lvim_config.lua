@@ -166,5 +166,8 @@ lvim.plugins = {
   },
   {
     "folke/zen-mode.nvim",
+    keys = { -- load the plugin only when using it's keybinding:
+      { "<leader>z", "<cmd>ZenMode<cr>" },
+    },
   },
 }

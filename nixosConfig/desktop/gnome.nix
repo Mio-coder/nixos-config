@@ -57,7 +57,7 @@
     };
 
     environment.systemPackages = with pkgs; [
-      xclip
+      wl-clipboard
     ];
     environment.gnome.excludePackages = with pkgs; [
       epiphany
@@ -67,5 +67,7 @@
       gnome-system-monitor
       gnome-weather
     ];
+    services.displayManager.autoLogin.enable = true;
+    services.displayManager.autoLogin.user = "mio";
   };
 }

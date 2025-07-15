@@ -46,6 +46,7 @@
     undollar # $ foo == foo
     libqalculate
     tldr # better man
+    rustdesk
 
     cling
     devenv
