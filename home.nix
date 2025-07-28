@@ -25,6 +25,7 @@
     ./hmConfig/desktop/dconf.nix
     ./hmConfig/desktop/kde.nix
     ./hmConfig/desktop/plasma.nix
+    ./hmConfig/desktop/vscode.nix
   ];
 
   home.sessionPath = [
@@ -51,6 +52,8 @@
     cling
     devenv
     speedtest-rs
+
+    lpkgs.oiejq
 
     # my own
     (buildFHSEnv (appimageTools.defaultFhsEnvArgs

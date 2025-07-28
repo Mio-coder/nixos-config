@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{...}: {
+{pkgs, ...}: {
   imports = [
     ./wm.nix
     # Include the results of the hardware scan.
@@ -36,6 +36,8 @@
   system.stateVersion = "24.11"; # Did you read the comment?
 
   services.flatpak.enable = true;
-  services.tailscale.enable = true;
+  # services.tailscale.enable = true;
   services.logind.lidSwitch = "ignore";
+
+  programs.nix-ld.enable = true;
 }

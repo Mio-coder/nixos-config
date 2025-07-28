@@ -61,6 +61,32 @@ lvim.builtin.nvimtree.setup.on_attach = function(bufnr)
     end
   end, opts("Open in Oil"))
 end
+local dap = require('dap')
+
+dap.configurations.cpp = {
+  {
+    name = "Debug lldb",
+    type = "cpp", 
+    request = "launch",
+    program = function()
+      local file = vim.fn.expand("%:p")  -- full path to current file
+      os.execute("g-- " .. file)
+      return vim.fn.getcwd() .. "/a.out"
+    end,
+    cwd = "${workspaceFolder}",
+    stopAtEntry = false,
+    args = {},
+    MIMode = "lldb",
+    miDebuggerPath = "/home/mio/.nix-profile/bin/lldb",
+    setupCommands = {
+      {
+        description = "Enable pretty-printing for gdb",
+        text = "-enable-pretty-printing",
+        ignoreFailures = true
+      }
+    }
+  }
+}
 
 lvim.plugins = {
   { -- autosave
@@ -167,7 +193,7 @@ lvim.plugins = {
   {
     "folke/zen-mode.nvim",
     keys = { -- load the plugin only when using it's keybinding:
-      { "<leader>z", "<cmd>ZenMode<cr>" },
+      { "<leader>z", "<cmd><cr>" },
     },
   },
 }

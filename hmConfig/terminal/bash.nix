@@ -44,7 +44,7 @@
   home.shell.enableBashIntegration = true;
   home.packages = with pkgs; [
     (writeShellScriptBin "g--" ''
-      g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -std=c++20 -DDEBUG -ggdb3 -g $@
+      ${pkgs.gcc}/bin/g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -std=c++20 -DDEBUG -ggdb3 -g $@
     '')
     (writeShellScriptBin "gr" ''
       FILE="$1"
@@ -52,7 +52,7 @@
       shift
       OUT="''${1:-$DIR/a.out}"
       shift
-      g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -std=c++20 -DDEBUG -ggdb3 -g -o $OUT $@ $FILE && cat $DIR/in.txt | $OUT
+      ${pkgs.gcc}/bin/g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -std=c++20 -DDEBUG -ggdb3 -g -o $OUT $@ $FILE && cat $DIR/in.txt | $OUT
     '')
     (writeShellScriptBin "fds" ''
       dirs=$(${fd}/bin/fd -td -u "$1")
