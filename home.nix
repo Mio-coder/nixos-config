@@ -48,12 +48,16 @@
     libqalculate
     tldr # better man
     rustdesk
-
     cling
-    devenv
     speedtest-rs
+    asciiquarium-transparent
+    comma
+    llvmPackages_21.clang-tools
+    lldb_21
+    pv
+    just
 
-    lpkgs.oiejq
+    devenv
 
     # my own
     (buildFHSEnv (appimageTools.defaultFhsEnvArgs

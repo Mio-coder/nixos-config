@@ -4,12 +4,6 @@
   config,
   ...
 }: {
-  imports = [../terminal/docker.nix];
-  nix.settings = {
-    substituters = ["https://winapps.cachix.org/"];
-    trusted-public-keys = ["winapps.cachix.org-1:HI82jWrXZsQRar/PChgIx1unmuEsiQMQq+zt05CD36g="];
-  };
-
   environment.systemPackages = [
     inputs.winapps.packages."${system}".winapps
     inputs.winapps.packages."${system}".winapps-launcher
@@ -37,7 +31,7 @@
         volumes = [
           "data:/storage"
           "${config.users.users.mio.home}:/shared"
-          "${inputs.winapps.packages."${system}".winapps}/src/oem:/oem"
+          "${inputs.winapps.outPath}/oem:/oem:ro"
         ];
         extraOptions = [
           "--cap-add=NET_ADMIN"
