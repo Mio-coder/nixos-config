@@ -1,0 +1,5 @@
+{...}: {
+  programs.distorbox = {
+    enable = true;
+  };
+}

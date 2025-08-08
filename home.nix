@@ -17,6 +17,7 @@
     ./hmConfig/terminal/ssh.nix
     ./hmConfig/terminal/starship.nix
     ./hmConfig/terminal/tmux.nix
+    ./hmConfig/terminal/nom.nix
     ./hmConfig/terminal/f.nix
     ./hmConfig/desktop/alacritty.nix
     ./hmConfig/desktop/firefox.nix

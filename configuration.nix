@@ -8,7 +8,7 @@
     ./hardware-configuration.nix
     ./nixosConfig/terminal/base.nix
     ./nixosConfig/terminal/nix.nix
-    ./nixosConfig/terminal/grub.nix
+    # ./nixosConfig/terminal/grub.nix
     ./nixosConfig/terminal/fans.nix
     ./nixosConfig/terminal/locale.nix
     ./nixosConfig/terminal/docker.nix
@@ -25,6 +25,22 @@
     ./nixosConfig/desktop/nvidia.nix
     ./nixosConfig/desktop/vnc.nix
   ];
+
+  boot.loader = {
+    efi = {
+      # canTouchEfiVariables = false;
+      efiSysMountPoint = "/boot";
+    };
+    systemd-boot.enable = false;
+    grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev"; # Don't install to firmware
+      useOSProber = true; # Disable automatic entry generation
+      configurationName = "nixos-dev";
+    };
+  };
+
   boot.kernelModules = ["config_ip_multicast"];
 
   # This value determines the NixOS release from which the default
@@ -37,6 +53,7 @@
 
   environment.systemPackages = with pkgs; [
     jq
+    cryptsetup
   ];
 
   services.flatpak.enable = true;
