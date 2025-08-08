@@ -26,6 +26,13 @@
     ./nixosConfig/desktop/vnc.nix
   ];
   boot.kernelModules = ["config_ip_multicast"];
+  boot.loader.grub.extraEntries = ''
+    menuentry "Boot encrypted NixOS on /dev/sda5" {
+      insmod chain
+      set root=(hd0,5)
+      chainloader +1
+    }
+  '';
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -37,6 +44,7 @@
 
   environment.systemPackages = with pkgs; [
     jq
+    cryptsetup
   ];
 
   services.flatpak.enable = true;

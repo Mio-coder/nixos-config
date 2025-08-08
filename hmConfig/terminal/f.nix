@@ -1,4 +1,4 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [nix-index];
+  # home.packages = with pkgs; [nix-index];
   programs.pay-respects.enable = true;
 }

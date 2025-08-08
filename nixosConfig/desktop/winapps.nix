@@ -13,7 +13,7 @@
     containers = {
       WinApps = {
         image = "ghcr.io/dockur/windows:latest";
-        autoStart = true;
+        autoStart = false;
         environment = {
           VERSION = "11";
           RAM_SIZE = "4G";

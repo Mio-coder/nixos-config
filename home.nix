@@ -5,19 +5,7 @@
 }: {
   imports = [
     ./wm.nix
-    ./hmConfig/terminal/bash.nix
-    ./hmConfig/terminal/btop.nix
-    ./hmConfig/terminal/git.nix
-    ./hmConfig/terminal/home_config.nix
-    ./hmConfig/terminal/lofi.nix
-    ./hmConfig/terminal/lvim.nix
-    ./hmConfig/terminal/minionki.nix
-    ./hmConfig/terminal/pacman.nix
-    ./hmConfig/terminal/shell.nix
-    ./hmConfig/terminal/ssh.nix
-    ./hmConfig/terminal/starship.nix
-    ./hmConfig/terminal/tmux.nix
-    ./hmConfig/terminal/f.nix
+    ./hmConfig/terminal
     ./hmConfig/desktop/alacritty.nix
     ./hmConfig/desktop/firefox.nix
     ./hmConfig/desktop/fonts.nix
@@ -51,13 +39,14 @@
     cling
     speedtest-rs
     asciiquarium-transparent
-    comma
     llvmPackages_21.clang-tools
     lldb_21
     pv
     just
 
     devenv
+    sd
+    diskus
 
     # my own
     (buildFHSEnv (appimageTools.defaultFhsEnvArgs

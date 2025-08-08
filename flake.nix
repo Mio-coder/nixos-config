@@ -1,8 +1,6 @@
 {
   description = "A simple NixOs flake";
   inputs = {
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     nur = {
@@ -22,11 +20,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-stable,
     home-manager,
     nur,
     agenix,
@@ -35,10 +34,6 @@
     system = "x86_64-linux";
     username = "mio";
 
-    pkgs-stable = import nixpkgs-stable {
-      inherit system;
-      config = {allowUnfree = true;};
-    };
     pkgs = import nixpkgs {
       inherit system;
       config = {
@@ -49,7 +44,7 @@
     };
 
     commonArgs = {
-      inherit inputs system username pkgs-stable;
+      inherit inputs system username;
       isNixos = true;
       lpkgs = import ./pkgs {inherit pkgs;};
     };
@@ -94,5 +89,14 @@
         ];
       };
     };
+    packages.${system}.news = let
+      evaledHM = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./home.nix
+        ];
+      };
+    in
+      evaledHM.config.news.json;
   };
 }
