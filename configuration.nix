@@ -19,6 +19,7 @@
     ./nixosConfig/terminal/vbox.nix
     ./nixosConfig/desktop/base.nix
     ./nixosConfig/desktop/sound.nix
+    ./nixosConfig/desktop/i3.nix
     ./nixosConfig/desktop/kde.nix
     ./nixosConfig/desktop/gnome.nix
     ./nixosConfig/desktop/winapps.nix

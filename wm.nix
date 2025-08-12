@@ -1,6 +1,7 @@
 _: {
   my = rec {
+    i3 = true;
     kde = false;
-    gnome = !kde;
+    gnome = !kde && !i3;
   };
 }
