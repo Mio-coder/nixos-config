@@ -1,7 +1,6 @@
 _: {
   my = rec {
-    # i3 = true;
-    i3 = false;
+    sway = true;
     kde = false;
     gnome = false;
   };

@@ -19,7 +19,7 @@
     ./nixosConfig/terminal/vbox.nix
     ./nixosConfig/desktop/base.nix
     ./nixosConfig/desktop/sound.nix
-    ./nixosConfig/desktop/i3.nix
+    ./nixosConfig/desktop/sway.nix
     ./nixosConfig/desktop/kde.nix
     ./nixosConfig/desktop/gnome.nix
     ./nixosConfig/desktop/winapps.nix
@@ -27,13 +27,13 @@
     ./nixosConfig/desktop/vnc.nix
   ];
   boot.kernelModules = ["config_ip_multicast"];
-  boot.loader.grub.extraEntries = ''
-    menuentry "Boot encrypted NixOS on /dev/sda5" {
-      insmod chain
-      set root=(hd0,5)
-      chainloader +1
-    }
-  '';
+  # boot.loader.grub.extraEntries = ''
+  #   menuentry "Boot encrypted NixOS on /dev/sda5" {
+  #     insmod chain
+  #     set root=(hd0,5)
+  #     chainloader +1
+  #   }
+  # '';
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

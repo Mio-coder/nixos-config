@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.my.vnc = lib.mkEnableOption "gnome";
+  options.my.vnc = lib.mkEnableOption "VNC/XRDP desktop access";
   config = lib.mkIf config.my.vnc {
     services.xrdp.enable = true;
     services.xrdp.defaultWindowManager = "${pkgs.gnome-session}/bin/gnome-session";

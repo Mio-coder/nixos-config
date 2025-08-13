@@ -9,7 +9,7 @@
     ./hmConfig/desktop/alacritty.nix
     ./hmConfig/desktop/firefox.nix
     ./hmConfig/desktop/fonts.nix
-    ./hmConfig/desktop/i3.nix
+    ./hmConfig/desktop/sway.nix
     ./hmConfig/desktop/gnome.nix
     ./hmConfig/desktop/dconf.nix
     ./hmConfig/desktop/kde.nix
