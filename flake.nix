@@ -65,7 +65,7 @@
     formatter.${system} = pkgs.alejandra;
 
     nixosConfigurations = {
-      omen-nixos = nixpkgs.lib.nixosSystem {
+      potato-nixos = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = nixosSpecialArgs;
         modules = [

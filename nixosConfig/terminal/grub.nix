@@ -5,7 +5,7 @@ _: {
     grub = {
       enable = true;
       device = "nodev";
-      useOSProber = true;
+      # useOSProber = true;
       efiSupport = true;
     };
     efi = {

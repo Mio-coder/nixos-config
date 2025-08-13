@@ -1,6 +1,6 @@
 {config, ...}: {
   networking = {
-    hostName = "omen-nixos";
+    hostName = "potato-nixos";
     networkmanager = {
       enable = true;
     };

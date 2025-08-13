@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   options.my.i3 = lib.mkEnableOption "i3 window manager (home)";
 
   config = lib.mkIf config.my.i3 {

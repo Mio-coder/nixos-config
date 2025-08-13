@@ -48,7 +48,7 @@
     cryptsetup
   ];
 
-  services.flatpak.enable = true;
+  # services.flatpak.enable = true;
   # services.tailscale.enable = true;
   services.logind.lidSwitch = "ignore";
 
