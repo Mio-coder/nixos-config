@@ -14,6 +14,7 @@
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "vmd" "usbhid" "uas" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
   boot.extraModulePackages = [];
+  networking.enableB43Firmware = true;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/cd874c04-5a38-4db2-ac63-84e7c2769e93";

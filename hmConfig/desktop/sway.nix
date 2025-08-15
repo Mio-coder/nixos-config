@@ -3,7 +3,19 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  luncher = pkgs.writeShellScript "custom-tofi-run" ''
+    cmd="$(tofi-run --require-match=false --font ${config.my.font.propo})"
+    [ -n "$cmd" ] || exit 0
+    swaymsg exec -- $cmd
+    # cmd="$(printf %s "$cmd" | sed 's/[[:space:]]*$//')"
+
+    # case "$cmd" in
+    #   *\$) swaymsg exec alacritty -e sh -lc "''${cmd%?}" ;;
+    #   *)   swaymsg exec sh -lc "$cmd" ;;
+    # esac
+  '';
+in {
   options.my.sway = lib.mkEnableOption "sway window manager (home)";
 
   config = lib.mkIf config.my.sway {
@@ -29,7 +41,7 @@
         # Your preferred terminal emulator
         set $term alacritty
         # Your preferred application launcher
-        set $menu "wofi --show drun"
+        set $menu "${luncher}"
 
         ### Output configuration
         #
@@ -259,7 +271,7 @@
 
     # Wayland utilities used by bindings/menu
     home.packages = with pkgs; [
-      wofi
+      tofi
       playerctl
       brightnessctl
       pulseaudio # for pactl client

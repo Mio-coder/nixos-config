@@ -33,15 +33,17 @@
       wlr.enable = true;
     };
 
-    # # Provide a simple TTY greeter that starts Sway
-    # services.greetd = {
-    #   enable = true;
-    #   settings.default_session = {
-    #     command = "sway";
-    #     # Optional: log in with the first user at the greeter
-    #     # user = "greeter"; # leave unset to show a login prompt
-    #   };
-    # };
+    # Provide a simple TTY greeter that starts Sway
+    services.greetd = {
+      enable = true;
+      settings = rec {
+        initial_session = {
+          command = "${pkgs.sway}/bin/sway";
+          user = "mio";
+        };
+        default_session = initial_session;
+      };
+    };
 
     # Services sway uses
     users.users.mio.extraGroups = ["video"];
