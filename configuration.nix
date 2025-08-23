@@ -51,6 +51,16 @@
   # services.flatpak.enable = true;
   # services.tailscale.enable = true;
   services.logind.lidSwitch = "ignore";
-
+  networking.firewall.enable = false;
+  users = {
+    defaultUserShell = pkgs.dash;
+    users.root.shell = pkgs.dash;
+  };
+  environment.shells = with pkgs; [
+    dash
+  ];
+  # users.users.mio = {
+  #     useDefaultShell = true;
+  # };
   programs.nix-ld.enable = true;
 }
