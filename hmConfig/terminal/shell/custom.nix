@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     (writeShellScriptBin "g--" ''
-      ${gcc}/bin/g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -std=c++20 -DDEBUG -ggdb3 -g $@
+      ${gcc}/bin/g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -Wshadow -std=c++20 -DDEBUG -ggdb3 -g $@
     '')
     (writeShellScriptBin "gr" ''
       FILE="$1"

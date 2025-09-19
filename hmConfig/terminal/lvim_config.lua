@@ -34,6 +34,7 @@ lvim.builtin.which_key.mappings["f"] = {}
 lvim.lsp.buffer_mappings.normal_mode["<leader>la"] = nil;
 
 
+
 -- Custom function to open folder in oil.nvim, file normally
 local function open_in_oil_or_edit(node)
   if node.type == "directory" then

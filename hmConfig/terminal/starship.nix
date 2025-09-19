@@ -53,7 +53,8 @@ _: {
       custom.sudo = {
         description = "valid sudo timestamp marker";
         format = "[!](bold fg:bright-red) ";
-        when = "sudo -vn &>/dev/null";
+        when = "sudo -vn";
+        shell = ["dash"];
       };
     };
   };
