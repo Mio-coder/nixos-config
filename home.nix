@@ -36,7 +36,6 @@
     undollar # $ foo == foo
     libqalculate
     tldr # better man
-    rustdesk
     cling
     speedtest-rs
     asciiquarium-transparent

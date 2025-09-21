@@ -42,8 +42,8 @@
   ];
 
   # services.flatpak.enable = true;
-  # services.tailscale.enable = true;
-  services.logind.lidSwitch = "ignore";
+  services.tailscale.enable = true;
+  services.logind.settings.Login.HandleLidSwitch = "ignore";
   networking.firewall.enable = false;
   users = {
     defaultUserShell = pkgs.dash;
@@ -53,4 +53,5 @@
     dash
   ];
   programs.nix-ld.enable = true;
+  hardware.bluetooth.enable = true;
 }

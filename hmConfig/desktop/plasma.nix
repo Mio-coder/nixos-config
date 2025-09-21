@@ -4,7 +4,7 @@
   inputs,
   ...
 }: {
-  imports = [inputs.plasma-manager.homeManagerModules.plasma-manager];
+  imports = [inputs.plasma-manager.homeModules.plasma-manager];
   config = lib.mkIf config.my.kde {
     programs.plasma = {
       enable = true;

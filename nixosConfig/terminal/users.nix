@@ -6,6 +6,6 @@
     description = "mio";
     extraGroups = ["wheel"];
     hashedPasswordFile = config.age.secrets.password.path;
-    initialPassword = "mio123"; # what were you expecting?
+    # initialPassword = "mio123"; # what were you expecting?
   };
 }

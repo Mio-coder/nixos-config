@@ -1,7 +1,16 @@
 {
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
   description = "A simple NixOs flake";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     home-manager.url = "github:nix-community/home-manager";
     nur = {
       url = "github:nix-community/NUR";
@@ -40,7 +49,9 @@
         allowUnfree = true;
         allowUnfreePredicate = _: true;
       };
-      overlays = [nur.overlays.default];
+      overlays = [
+        nur.overlays.default
+      ];
     };
 
     commonArgs = {

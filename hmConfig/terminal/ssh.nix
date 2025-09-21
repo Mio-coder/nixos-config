@@ -10,6 +10,10 @@ _: {
         hostname = "minionki.staszic.waw.pl";
         identityFile = "~/.ssh/staszic";
       };
+      "*" = {
+        hashKnownHosts = false;
+        userKnownHostsFile = "~/.ssh/known_hosts";
+      };
     };
   };
   home.file.".ssh/config" = {
