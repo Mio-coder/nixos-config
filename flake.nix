@@ -9,6 +9,7 @@
   };
   description = "A simple NixOs flake";
   inputs = {
+    nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     home-manager.url = "github:nix-community/home-manager";
@@ -51,6 +52,9 @@
       };
       overlays = [
         nur.overlays.default
+        (final: prev: {
+          yt-dlp = inputs.nixpkgs-master.legacyPackages.${system}.yt-dlp;
+        })
       ];
     };
 
