@@ -1,5 +1,5 @@
 _: {
-  my = rec {
+  my = {
     sway = true;
     kde = false;
     gnome = false;

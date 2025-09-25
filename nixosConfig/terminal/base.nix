@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     neovim
     git
@@ -6,7 +10,11 @@
     fd
     sl
     ripgrep
-    btop-cuda
+    (
+      if config.my.nvidia
+      then btop-cuda
+      else btop
+    )
   ];
   environment.variables.EDITOR = "nvim";
 

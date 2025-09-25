@@ -1,17 +1,15 @@
-{pkgs, ...}: let
-  format = pkgs.formats.yaml {};
-  cfg = {
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    nom
+  ];
+
+  xdg.configFile."nom/config.yml".source = (pkgs.formats.yaml {}).generate "nom-config" {
     feeds = [
       {
         url = "https://github.com/llvm/llvm-project/commits/main/clang/tools/clang-repl.atom";
       }
     ];
   };
-in {
-  home.packages = with pkgs; [
-    nom
-  ];
-  xdg.configFile."nom/config.yml".source = format.generate "nom-config" cfg;
 
   systemd.user = {
     services.nom_refresh = {

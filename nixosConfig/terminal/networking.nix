@@ -1,6 +1,10 @@
-{config, ...}: {
+{
+  config,
+  hostname,
+  ...
+}: {
   networking = {
-    hostName = "potato-nixos";
+    hostName = hostname;
     networkmanager = {
       enable = true;
     };

@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  options.my.sway = lib.mkEnableOption "sway window manager (system)";
+  options.my.sway = lib.mkEnableOption "Sway window manager";
 
   config = lib.mkIf config.my.sway {
     # Core Sway/Wayland enablement

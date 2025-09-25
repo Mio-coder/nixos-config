@@ -1,27 +1,20 @@
 {
   pkgs,
   lpkgs,
+  hostname,
   ...
 }: {
   imports = [
-    ./wm.nix
     ./hmConfig/terminal
-    ./hmConfig/desktop/alacritty.nix
-    ./hmConfig/desktop/firefox.nix
-    ./hmConfig/desktop/fonts.nix
-    ./hmConfig/desktop/sway.nix
-    ./hmConfig/desktop/gnome.nix
-    ./hmConfig/desktop/dconf.nix
-    ./hmConfig/desktop/kde.nix
-    ./hmConfig/desktop/plasma.nix
-    ./hmConfig/desktop/vscode.nix
+    ./hmConfig/desktop
+    ./hosts/${hostname}/home.nix
+    ./hosts/${hostname}/wm.nix
   ];
 
   home.sessionPath = [
     "$HOME/bin"
     "$HOME/.local/bin"
   ];
-  my.lofi.download = true;
 
   home.packages = with pkgs; [
     uv

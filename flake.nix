@@ -60,7 +60,6 @@
 
     commonArgs = {
       inherit inputs system username;
-      isNixos = true;
       lpkgs = import ./pkgs {inherit pkgs;};
     };
 
@@ -82,7 +81,7 @@
     nixosConfigurations = {
       potato-nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = nixosSpecialArgs;
+        specialArgs = nixosSpecialArgs // {hostname = "potato-nixos";};
         modules = [
           ./configuration.nix
           # Common NixOS modules
@@ -92,7 +91,7 @@
           # Home Manager configuration integrated into NixOS
           {
             home-manager = {
-              extraSpecialArgs = homeManagerSpecialArgs;
+              extraSpecialArgs = homeManagerSpecialArgs // {hostname = "potato-nixos";};
               useUserPackages = true;
               backupFileExtension = "bak";
               users.${username} = import ./home.nix;

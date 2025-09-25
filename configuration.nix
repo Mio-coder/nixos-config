@@ -1,30 +1,16 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{pkgs, ...}: {
+{
+  pkgs,
+  hostname,
+  ...
+}: {
   imports = [
-    ./wm.nix
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    ./nixosConfig/terminal/base.nix
-    ./nixosConfig/terminal/nix.nix
-    ./nixosConfig/terminal/grub.nix
-    ./nixosConfig/terminal/fans.nix
-    ./nixosConfig/terminal/locale.nix
-    ./nixosConfig/terminal/docker.nix
-    ./nixosConfig/terminal/emulate_arch.nix
-    ./nixosConfig/terminal/networking.nix
-    ./nixosConfig/terminal/ssh_server.nix
-    ./nixosConfig/terminal/users.nix
-    ./nixosConfig/terminal/vbox.nix
-    ./nixosConfig/desktop/base.nix
-    ./nixosConfig/desktop/sound.nix
-    ./nixosConfig/desktop/sway.nix
-    ./nixosConfig/desktop/kde.nix
-    ./nixosConfig/desktop/gnome.nix
-    ./nixosConfig/desktop/winapps.nix
-    ./nixosConfig/desktop/nvidia.nix
-    ./nixosConfig/desktop/vnc.nix
+    ./hosts/${hostname}/wm.nix
+    ./hosts/${hostname}/hardware-configuration.nix
+    ./nixosConfig/terminal
+    ./nixosConfig/desktop
   ];
   boot.kernelModules = ["config_ip_multicast"];
 

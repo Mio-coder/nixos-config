@@ -1,4 +1,4 @@
-_: {
+{lib, ...}: {
   programs.git = {
     enable = true;
     userName = "Mio-coder";
@@ -6,7 +6,7 @@ _: {
   };
 
   programs.ssh = {
-    enable = true;
+    enable = lib.mkDefault true;
     matchBlocks = {
       "github.com" = {
         identityFile = "~/.ssh/id_ed25519";
