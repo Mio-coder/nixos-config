@@ -37,10 +37,13 @@
     lldb_21
     pv
     just
+    htop
 
     devenv
     sd
     diskus
+
+    feh
   ];
   home.sessionVariables = {
     CPLUS_INCLUDE_PATH = "${lpkgs.dbg-macro}/usr/include";

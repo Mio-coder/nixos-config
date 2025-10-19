@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     (writeShellScriptBin "g--" ''
-      ${gcc}/bin/g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -Wshadow -std=c++20 -DDEBUG -ggdb3 -g $@
+      ${gcc}/bin/g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -Wshadow -std=c++23 -DDEBUG -ggdb3 -g $@
     '')
     (writeShellScriptBin "gr" ''
       FILE="$1"
@@ -9,7 +9,7 @@
       shift
       OUT="''${1:-$DIR/a.out}"
       shift
-      ${gcc}/bin/g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -std=c++20 -DDEBUG -ggdb3 -g -o $OUT $@ $FILE && cat $DIR/in.txt | $OUT
+      ${gcc}/bin/g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -std=c++23 -DDEBUG -ggdb3 -g -o $OUT $@ $FILE && cat $DIR/in.txt | $OUT
     '')
     (writeShellScriptBin "fds" ''
       dirs=$(${fd}/bin/fd -td -u "$1")

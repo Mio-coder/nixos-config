@@ -28,7 +28,7 @@
       name = "lofi_download";
       runtimeInputs = [spotdl ffmpeg];
       text = ''
-        spotdl download https://open.spotify.com/playlist/0vvXsWCC9xrXsKd4FyS8kM --format mp3 --threads 12 --output ~/Music/lofi/ | ${lofi_stats}/bin/lofi_stats
+        spotdl download https://open.spotify.com/playlist/0vvXsWCC9xrXsKd4FyS8kM --format mp3 --threads 12 --output ~/Music/lofi/ --yt-dlp-args "--cookies-from-browser firefox" | ${lofi_stats}/bin/lofi_stats
       '';
     };
   lofi_play = with pkgs;
@@ -77,10 +77,10 @@ in {
           };
           timers.lofi_download = {
             Unit = {
-              Description = "Download latest lofi music daily";
+              Description = "Download latest lofi music";
             };
             Timer = {
-              OnCalendar = "daily";
+              OnCalendar = "monthly";
               Persistent = true;
             };
             Install = {
