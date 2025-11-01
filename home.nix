@@ -2,6 +2,7 @@
   pkgs,
   lpkgs,
   hostname,
+  config,
   ...
 }: {
   imports = [
@@ -12,8 +13,8 @@
   ];
 
   home.sessionPath = [
-    "$HOME/bin"
     "$HOME/.local/bin"
+    "$HOME/.cargo/bin"
   ];
 
   home.packages = with pkgs; [
@@ -25,11 +26,12 @@
     python312Packages.ipython
     localsend
     valgrind
+    gdb
     rsync
     gnumake
-    undollar # $ foo == foo
+    undollar
     libqalculate
-    tldr # better man
+    tldr
     cling
     speedtest-rs
     asciiquarium-transparent
@@ -38,18 +40,27 @@
     pv
     just
     htop
+    prismlauncher # takes long to download
 
     devenv
     sd
     diskus
 
     feh
+
+    # find a tool to unite them all, (tar, zstd, gzip, xz, 7z), preferibly parrarel
+    unzip
   ];
   home.sessionVariables = {
     CPLUS_INCLUDE_PATH = "${lpkgs.dbg-macro}/usr/include";
   };
 
+  # TODO: move .gdbinit to .config
   home.file = {
-    ".gdbinit".text = "set debuginfod enabled on";
+    ".gdbinit".text = ''
+      set debuginfod enabled on
+      set startup-with-shell off
+    '';
+    "nix-bin".source = config.lib.file.mkOutOfStoreSymlink "/etc/profiles/per-user/mio/bin";
   };
 }

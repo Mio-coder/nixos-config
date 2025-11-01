@@ -88,11 +88,9 @@
         specialArgs = nixosSpecialArgs // {hostname = "potato-nixos";};
         modules = [
           ./configuration.nix
-          # Common NixOS modules
           inputs.nix-flatpak.nixosModules.nix-flatpak
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
-          # Home Manager configuration integrated into NixOS
           {
             home-manager = {
               extraSpecialArgs = homeManagerSpecialArgs // {hostname = "potato-nixos";};
@@ -100,8 +98,7 @@
               backupFileExtension = "bak";
               users.${username} = import ./home.nix;
             };
-          }
-          {
+            services.nixseparatedebuginfod.enable = true;
             environment.systemPackages = [agenix.packages.${system}.default];
           }
         ];

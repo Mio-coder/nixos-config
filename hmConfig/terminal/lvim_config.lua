@@ -3,21 +3,18 @@
 -- Video Tutorials: https://www.youtube.com/watch?v=sFA9kX-Ud_c&list=PLhoH5vyxr6QqGu0i7tt_XoVK9v-KvZ3m6
 -- Forum: https://www.reddit.com/r/lunarvim/
 -- Discord: https://discord.com/invite/Xb9B4Ny
--- vim.opt.relativenumber = true -- relative line numbers
+vim.opt.relativenumber = true -- relative line numbers
 
 -- lvim options
 lvim.builtin.lir.active = false -- i use oil.nvim
 lvim.builtin.autopairs.active = false
+lvim.builtin.terminal.active = false
 
 -- disable line moving
 lvim.keys.normal_mode["<A-k>"] = false
 lvim.keys.normal_mode["<A-j>"] = false
 lvim.keys.visual_block_mode["<A-j>"] = false
 lvim.keys.visual_block_mode["<A-k>"] = false
-
--- Set the backspace option
-vim.o.backspace = 'indent,eol,start'
-
 lvim.keys.insert_mode["<A-Up>"] = false
 lvim.keys.insert_mode["<A-Down>"] = false
 lvim.keys.insert_mode["<A-Left>"] = false
@@ -28,13 +25,18 @@ lvim.keys.insert_mode["<Esc><Down>"] = false
 lvim.keys.insert_mode["<Esc><Left>"] = false
 lvim.keys.insert_mode["<Esc><Right>"] = false
 
+-- Set the backspace option
+vim.o.backspace = 'indent,eol,start'
+
 lvim.keys.insert_mode["<C-BS>"] = "<C-W>"
 lvim.keys.normal_mode["<C-n>"] = "<cmd>noh<cr>"
 lvim.keys.normal_mode["<leader>f"] = "<cmd>Telescope find_files<cr>"
 lvim.builtin.which_key.mappings["f"] = {}
 lvim.lsp.buffer_mappings.normal_mode["<leader>la"] = nil;
+vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
 
-
+vim.o.shell = 'ish'
 
 -- Custom function to open folder in oil.nvim, file normally
 local function open_in_oil_or_edit(node)
@@ -63,32 +65,6 @@ lvim.builtin.nvimtree.setup.on_attach = function(bufnr)
     end
   end, opts("Open in Oil"))
 end
-local dap = require('dap')
-
-dap.configurations.cpp = {
-  {
-    name = "Debug lldb",
-    type = "cpp", 
-    request = "launch",
-    program = function()
-      local file = vim.fn.expand("%:p")  -- full path to current file
-      os.execute("g-- " .. file)
-      return vim.fn.getcwd() .. "/a.out"
-    end,
-    cwd = "${workspaceFolder}",
-    stopAtEntry = false,
-    args = {},
-    MIMode = "lldb",
-    miDebuggerPath = "/home/mio/.nix-profile/bin/lldb",
-    setupCommands = {
-      {
-        description = "Enable pretty-printing for gdb",
-        text = "-enable-pretty-printing",
-        ignoreFailures = true
-      }
-    }
-  }
-}
 
 lvim.plugins = {
   { -- autosave
@@ -195,7 +171,7 @@ lvim.plugins = {
   {
     "folke/zen-mode.nvim",
     keys = { -- load the plugin only when using it's keybinding:
-      { "<leader>z", "<cmd><cr>" },
+      { "<leader>z", "<cmd>ZenMode<cr>" },
     },
   },
 }

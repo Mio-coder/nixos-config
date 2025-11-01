@@ -8,7 +8,6 @@
     git
     wget
     fd
-    sl
     ripgrep
     (
       if config.my.nvidia

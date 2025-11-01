@@ -25,6 +25,7 @@
   environment.systemPackages = with pkgs; [
     jq
     cryptsetup
+    file
   ];
 
   # services.flatpak.enable = true;

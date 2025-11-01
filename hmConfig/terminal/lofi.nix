@@ -95,7 +95,6 @@ in {
           };
           Service = {
             ExecStart = "${lofi_play}/bin/lofi_play";
-            Restart = "always";
           };
         };
       }
