@@ -57,6 +57,7 @@ in {
         # This will lock your screen after 300 seconds of inactivity, then turn off
         # your displays after another 300 seconds, and turn your screens back on when
         # resumed. It will also lock your screen before your computer goes to sleep.
+        exec hyprlock --no-fade
 
         ### Input configuration
 
@@ -284,15 +285,14 @@ in {
     programs.tofi = {
       enable = true;
       settings = {
-        text-color = "#ffffff";
-        background-color = "#323232";
-        prompt-background = "#32323200";
-        input-background = "#32323200";
-        default-result-background = "#32323200";
-        selection-color = "#F92672";
-        selection-background = "#32323200";
-        alternate-result-background = "#32323200";
-        text-cursor-color = "#ffffff";
+        text-color = "#cdd6f4";
+        prompt-color = "#f38ba8";
+        selection-color = "#f9e2af";
+        background-color = "#1e1e2e";
+        outline-width = 0;
+        border-width = 0;
+        padding-left = "2%";
+        padding-top = "2%";
       };
     };
   };

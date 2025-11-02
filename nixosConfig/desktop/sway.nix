@@ -13,6 +13,7 @@
       wrapperFeatures.gtk = true; # makes GTK apps pick up themes
     };
     security.polkit.enable = true;
+    security.pam.services.hyprlock = {};
     programs.xwayland.enable = true;
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -44,16 +45,6 @@
         default_session = initial_session;
       };
     };
-    # services.displayManager.ly = {
-    #   enable = true;
-    #   x11Support = false;
-    #   settings = {
-    #     clear_password = true;
-    #     brightness_up_cmd = "light -A 10";
-    #     brightness_down_cmd = "light -U 10";
-    #     battery_id = "BAT0";
-    #   };
-    # };
 
     # Services sway uses
     users.users.mio.extraGroups = ["video"];
