@@ -1,5 +1,6 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i dash -p dash alejandra git 
+#!/usr/bin/env nix
+#! nix shell nixpkgs#dash nixpkgs#alejandra nixpkgs#git --command dash
+sudo true || true
 alejandra . -q
 git add . || true
 sudo nixos-rebuild switch --flake .

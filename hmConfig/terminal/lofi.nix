@@ -28,12 +28,12 @@
       name = "lofi_download";
       runtimeInputs = [spotdl ffmpeg];
       text = ''
-        spotdl download https://open.spotify.com/playlist/0vvXsWCC9xrXsKd4FyS8kM --format mp3 --threads 12 --output ~/Music/lofi/ --yt-dlp-args "--cookies-from-browser firefox" | ${lofi_stats}/bin/lofi_stats
+        spotdl download https://open.spotify.com/playlist/0vvXsWCC9xrXsKd4FyS8kM --format mp3 --skip-album-art --threads 12 --output ~/Music/lofi/ --yt-dlp-args "--cookies-from-browser firefox" | ${lofi_stats}/bin/lofi_stats
       '';
     };
-  lofi_play = with pkgs;
+  lofi = with pkgs;
     writeShellApplication {
-      name = "lofi_play";
+      name = "lofi";
       runtimeInputs = [mpv];
       text =
         if config.my.lofi.download
@@ -55,12 +55,15 @@ in {
   config = {
     home.packages = with pkgs; [
       (writeShellScriptBin "lofi" ''
-        if systemctl --user is-active --quiet lofi_play; then
+        if systemctl --user is-active --quiet lofi; then
             playerctl play
         else
-            systemctl --user start lofi_play
+            systemctl --user start lofi
         fi
-        journalctl --user -u lofi_play -f
+        # heuristic for terminal
+        if tty | grep -q pts; then
+          journalctl --user -u lofi -f
+        fi
       '')
       playerctl
     ];
@@ -89,12 +92,12 @@ in {
           };
         })
       {
-        services.lofi_play = {
+        services.lofi = {
           Unit = {
             Description = "Play lofi music";
           };
           Service = {
-            ExecStart = "${lofi_play}/bin/lofi_play";
+            ExecStart = "${lofi}/bin/lofi";
           };
         };
       }
