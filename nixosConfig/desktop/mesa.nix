@@ -8,7 +8,7 @@
     enable32Bit = true;
     extraPackages = with pkgs; [
       intel-media-driver # newer Intel driver (for Gen8+ but works better sometimes)
-      vaapiIntel # legacy driver, needed for Gen7/HD4000
+      intel-vaapi-driver
       libvdpau-va-gl # VDPAU → VA-API bridge
     ];
   };

@@ -1,9 +1,9 @@
 {pkgs, ...}: {
-  programs.vscode = {
-    enable = true;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
-      vscodevim.vim
-      ms-vscode.cpptools-extension-pack
-    ];
-  };
+  # programs.vscode = {
+  #   enable = true;
+  #   profiles.default.extensions = with pkgs.vscode-extensions; [
+  #     vscodevim.vim
+  #     ms-vscode.cpptools-extension-pack
+  #   ];
+  # };
 }

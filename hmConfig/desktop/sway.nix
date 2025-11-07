@@ -46,6 +46,7 @@ in {
         #   output HDMI-A-1 resolution 1920x1080 position 1920,0
         #
         # You can get the names of your outputs by running: swaymsg -t get_outputs
+        output LVDS-1 mode 1366x768@40.002Hz
 
         ### Idle configuration
         #

@@ -98,7 +98,7 @@
               backupFileExtension = "bak";
               users.${username} = import ./home.nix;
             };
-            services.nixseparatedebuginfod.enable = true;
+            services.nixseparatedebuginfod2.enable = true;
             environment.systemPackages = [agenix.packages.${system}.default];
           }
         ];
