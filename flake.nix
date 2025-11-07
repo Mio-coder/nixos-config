@@ -7,7 +7,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
-  description = "A simple NixOs flake";
+  description = "Mio-coder's Nixos config";
   inputs = {
     nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -31,35 +31,32 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
   outputs = {
     self,
     nixpkgs,
     home-manager,
-    nur,
-    agenix,
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    username = "mio";
 
     pkgs = import nixpkgs {
       inherit system;
       config = {
         allowUnfree = true;
-        allowUnfreePredicate = _: true;
       };
       overlays = [
-        nur.overlays.default
+        inputs.nur.overlays.default
         (final: prev: {
           yt-dlp = inputs.nixpkgs-master.legacyPackages.${system}.yt-dlp;
         })
+        (import ./pkgs)
       ];
     };
 
     customArgs = {
       inherit inputs system;
-      lpkgs = import ./pkgs {inherit pkgs;};
     };
   in {
     formatter.${system} = pkgs.alejandra;
@@ -75,7 +72,7 @@
         modules = [
           ./configuration.nix
           inputs.nix-flatpak.nixosModules.nix-flatpak
-          agenix.nixosModules.default
+          inputs.agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -87,10 +84,10 @@
                 };
               useUserPackages = true;
               backupFileExtension = "bak";
-              users.${username} = import ./home.nix;
+              users.mio = import ./home.nix;
             };
             services.nixseparatedebuginfod2.enable = true;
-            environment.systemPackages = [agenix.packages.${system}.default];
+            environment.systemPackages = [inputs.agenix.packages.${system}.default];
           }
         ];
       };

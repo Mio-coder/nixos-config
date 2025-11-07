@@ -22,13 +22,7 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
 
-  environment.systemPackages = with pkgs; [
-    jq
-    cryptsetup
-    file
-  ];
-
-  # services.flatpak.enable = true;
+  services.flatpak.enable = true;
   services.tailscale.enable = true;
   services.logind.settings.Login.HandleLidSwitch = "ignore";
   networking.firewall.enable = false;
@@ -40,6 +34,4 @@
     dash
   ];
   programs.nix-ld.enable = true;
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
 }

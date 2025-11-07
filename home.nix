@@ -1,6 +1,5 @@
 {
   pkgs,
-  lpkgs,
   hostname,
   config,
   ...
@@ -41,6 +40,7 @@
     just
     htop
     prismlauncher # takes long to download
+    oiejq
 
     devenv
     sd
@@ -52,7 +52,7 @@
     unzip
   ];
   home.sessionVariables = {
-    CPLUS_INCLUDE_PATH = "${lpkgs.dbg-macro}/usr/include";
+    CPLUS_INCLUDE_PATH = "${pkgs.dbg-macro}/usr/include";
   };
 
   # TODO: move .gdbinit to .config
@@ -61,6 +61,7 @@
       set debuginfod enabled on
       set startup-with-shell off
     '';
+    # I dont want to figure out where it points to
     "nix-bin".source = config.lib.file.mkOutOfStoreSymlink "/etc/profiles/per-user/mio/bin";
   };
 }
