@@ -1,8 +1,10 @@
 {lib, ...}: {
   programs.git = {
     enable = true;
-    userName = "Mio-coder";
-    userEmail = "78543744+Mio-coder@users.noreply.github.com";
+    settings.user = {
+      name = "Mio-coder";
+      email = "78543744+Mio-coder@users.noreply.github.com";
+    };
   };
 
   programs.ssh = {

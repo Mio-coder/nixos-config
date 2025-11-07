@@ -25,11 +25,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix.url = "github:ryantm/agenix";
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     disko = {
@@ -62,30 +57,21 @@
       ];
     };
 
-    commonArgs = {
-      inherit inputs system username;
+    customArgs = {
+      inherit inputs system;
       lpkgs = import ./pkgs {inherit pkgs;};
     };
-
-    nixosSpecialArgs =
-      commonArgs
-      // {
-        inherit home-manager;
-        inherit self;
-        outputs = self;
-      };
-    homeManagerSpecialArgs =
-      commonArgs
-      // {
-        inherit self pkgs;
-      };
   in {
     formatter.${system} = pkgs.alejandra;
 
     nixosConfigurations = {
       potato-nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = nixosSpecialArgs // {hostname = "potato-nixos";};
+        specialArgs =
+          customArgs
+          // {
+            hostname = "potato-nixos";
+          };
         modules = [
           ./configuration.nix
           inputs.nix-flatpak.nixosModules.nix-flatpak
@@ -93,7 +79,12 @@
           home-manager.nixosModules.home-manager
           {
             home-manager = {
-              extraSpecialArgs = homeManagerSpecialArgs // {hostname = "potato-nixos";};
+              extraSpecialArgs =
+                customArgs
+                // {
+                  inherit pkgs;
+                  hostname = "potato-nixos";
+                };
               useUserPackages = true;
               backupFileExtension = "bak";
               users.${username} = import ./home.nix;
