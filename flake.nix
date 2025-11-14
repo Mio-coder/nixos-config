@@ -34,7 +34,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
   outputs = {
-    self,
     nixpkgs,
     home-manager,
     ...
@@ -50,6 +49,7 @@
         inputs.nur.overlays.default
         (final: prev: {
           yt-dlp = inputs.nixpkgs-master.legacyPackages.${system}.yt-dlp;
+          spotdl = inputs.nixpkgs-master.legacyPackages.${system}.spotdl;
         })
         (import ./pkgs)
       ];

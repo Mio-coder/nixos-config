@@ -1,3 +1,4 @@
+# home-manager
 {
   config,
   lib,
@@ -246,8 +247,8 @@ in {
             bindsym --locked XF86AudioPrev exec playerctl previous
 
             # Special key to take a screenshot with grim
-            bindsym Print exec grim -g "$(slurp)" - | tee "$HOME/Screenshots/screenshot_$(date +%F_%H-%M-%S).png" | wl-copy
-            bindsym Shift+Print exec grim - | tee "$HOME/Screenshots/screenshot_$(date +%F_%H-%M-%S).png" | wl-copy
+            bindsym Print exec grim -g "$(slurp)" - | wl-copy
+            bindsym Shift+Print exec grim - | wl-copy
 
         #
         # Status Bar:

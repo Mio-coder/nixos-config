@@ -14,9 +14,9 @@
       autoStart = false;
       environment = {
         VERSION = "11";
-        RAM_SIZE = "4G";
-        CPU_CORES = "4";
-        DISK_SIZE = "64G";
+        RAM_SIZE = "2G";
+        CPU_CORES = "2";
+        DISK_SIZE = "10G";
         USERNAME = "MyWindowsUser";
         PASSWORD = "MyWindowsPassword";
         HOME = config.users.users.mio.home;

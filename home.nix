@@ -41,12 +41,12 @@
     htop
     prismlauncher # takes long to download
     oiejq
+    feh
 
     devenv
     sd
     diskus
-
-    feh
+    miniserve
 
     # find a tool to unite them all, (tar, zstd, gzip, xz, 7z), preferibly parrarel
     unzip
@@ -55,12 +55,7 @@
     CPLUS_INCLUDE_PATH = "${pkgs.dbg-macro}/usr/include";
   };
 
-  # TODO: move .gdbinit to .config
   home.file = {
-    ".gdbinit".text = ''
-      set debuginfod enabled on
-      set startup-with-shell off
-    '';
     # I dont want to figure out where it points to
     "nix-bin".source = config.lib.file.mkOutOfStoreSymlink "/etc/profiles/per-user/mio/bin";
   };
