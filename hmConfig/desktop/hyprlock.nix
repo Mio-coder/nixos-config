@@ -17,7 +17,7 @@
 
         background = {
           monitor = "";
-          path = "/nix/store/camkw1v81801jwfrdiyps2rhlhpvcbcx-sway-1.11/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png";
+          path = "${pkgs.sway-unwrapped}/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png";
           blur_passes = 2;
           blur_size = 3;
           color = "rgba(46, 87, 111, 0.5)";
@@ -57,15 +57,11 @@
           inner_color = "rgba(46, 87, 111, 0.5)";
           font_color = "rgb(cdd6f4)";
           fade_on_empty = false;
-          # text = "rgb(cdd6f4)";
-          # textAlpha = "cdd6f4";
-          # accent = "rgb(89b4fa)";
-          # accentAlpha = "89b4fa";
-          placeholder_text = ''<span foreground=#cdd6f4><i>󰌾 Logged in as </i><span foreground=#89b4fa>$USER</span></span>'';
+          placeholder_text = ''󰌾 Logged in as $USER'';
           hide_input = false;
           check_color = "rgb(89b4fa)";
           fail_color = "rgb(f38ba8)";
-          fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
+          fail_text = "$ATTEMPTS";
           capslock_color = "rgb(f9e2af)";
           position = "0, -47";
           halign = "center";
