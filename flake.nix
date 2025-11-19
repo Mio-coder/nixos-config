@@ -83,7 +83,6 @@
                   hostname = "potato-nixos";
                 };
               useUserPackages = true;
-              backupFileExtension = "bak";
               users.mio = import ./home.nix;
             };
             services.nixseparatedebuginfod2.enable = true;
@@ -92,14 +91,51 @@
         ];
       };
     };
-    packages.${system}.news = let
-      evaledHM = home-manager.lib.homeManagerConfiguration {
+    # for hm news
+    packages.${system} = {
+      homeConfigurations."mio" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
           ./home.nix
         ];
+        extraSpecialArgs =
+          customArgs
+          // {
+            inherit pkgs;
+            hostname = "potato-nixos";
+          };
       };
-    in
-      evaledHM.config.news.json;
+      iso = let
+        sys = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ({
+              lib,
+              modulesPath,
+              pkgs,
+              ...
+            }: {
+              imports = [(modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")];
+              networking.networkmanager.enable = true;
+              services.getty.autologinUser = lib.mkForce "root";
+              services.openssh = {
+                enable = true;
+                settings.PasswordAuthentication = false;
+              };
+              services.logind.settings.Login.HandleLidSwitch = "ignore";
+              environment.systemPackages = with pkgs; [btop-cuda];
+              # isoImage.squashfsCompression = "gzip -Xcompression-level 1";
+              # isoImage.squashfsCompression = null;
+              nix.settings.experimental-features = ["nix-command" "flakes"];
+              users.users.root.openssh.authorizedKeys.keys = [
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN7e36e3VVEv09BUoQ9pznnDRu0ma0tu8bEbzuAeqUQA"
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMz7v8TolMVBNSrX8r8Lvav2wyGEIWLi8sEWSeVXNLj3"
+              ];
+            })
+          ];
+        };
+      in
+        sys.config.system.build.isoImage;
+    };
   };
 }

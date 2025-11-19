@@ -3,10 +3,6 @@ _: {
     enable = true;
     enableDefaultConfig = false;
     matchBlocks = {
-      "github.com" = {
-        identityFile = "~/.ssh/id_ed25519";
-        user = "git";
-      };
       "minionki" = {
         hostname = "minionki.staszic.waw.pl";
         identityFile = "~/.ssh/staszic";
@@ -14,6 +10,7 @@ _: {
       "*" = {
         hashKnownHosts = false;
         userKnownHostsFile = "~/.ssh/known_hosts";
+        identityFile = "~/.ssh/id_ed25519";
       };
     };
   };

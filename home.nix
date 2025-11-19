@@ -2,6 +2,7 @@
   pkgs,
   hostname,
   config,
+  inputs,
   ...
 }: {
   imports = [
@@ -26,6 +27,7 @@
     localsend
     valgrind
     gdb
+    gcc
     rsync
     gnumake
     undollar
@@ -58,5 +60,6 @@
   home.file = {
     # I dont want to figure out where it points to
     "nix-bin".source = config.lib.file.mkOutOfStoreSymlink "/etc/profiles/per-user/mio/bin";
+    ".nixos-config".source = inputs.self.outPath;
   };
 }

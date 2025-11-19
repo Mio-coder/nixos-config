@@ -21,6 +21,7 @@
               "AAAAC3NzaC1lZDI1NTE5AAAAIN7e36e3VVEv09BUoQ9pznnDRu0ma0tu8bEbzuAeqUQA"
               "AAAAC3NzaC1lZDI1NTE5AAAAIMz7v8TolMVBNSrX8r8Lvav2wyGEIWLi8sEWSeVXNLj3"
             ];
+            system.stateVersion = "25.05";
           };
         }
       )
