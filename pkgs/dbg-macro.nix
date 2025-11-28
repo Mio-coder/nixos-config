@@ -3,15 +3,14 @@
   fetchFromGitHub,
   lib,
 }:
-stdenv.mkDerivation rec {
-  pname = "dbg-macro";
-  version = "0.5.1";
+stdenv.mkDerivation {
+  name = "dbg-macro";
 
   src = fetchFromGitHub {
     owner = "sharkdp";
     repo = "dbg-macro";
-    rev = "v${version}";
-    sha256 = "sha256-wpP31skcgNwbJBLDp83le+pJJtkMhr44B8BlMfze0w4=";
+    rev = "c2ad2915d0029cf2f38f27ff05acfd6ea57ccdc5";
+    hash = "sha256-ZP3Qk3/hfzjO5csohs78PJfBqFY+pR4SiHe28XukEmY=";
   };
 
   dontBuild = true;

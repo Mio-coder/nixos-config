@@ -66,6 +66,29 @@ lvim.builtin.nvimtree.setup.on_attach = function(bufnr)
   end, opts("Open in Oil"))
 end
 
+--
+-- 1. Set the delay (in milliseconds)
+vim.o.updatetime = 500          -- or: vim.opt.updatetime = 500
+
+-- 2. Configure diagnostics: no automatic inline virtual text
+vim.diagnostic.config({
+  virtual_text = false,         -- disable always-on inline diagnostics
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+})
+
+-- 3. Function to show inline diagnostics manually
+local function show_inline_diagnostics()
+  vim.diagnostic.show(nil, 0, nil, { virtual_text = true })
+end
+
+-- 4. Show them only after CursorHold (i.e. after updatetime delay)
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = show_inline_diagnostics,
+})
+-- 
+
 lvim.plugins = {
   { -- autosave
     "Pocco81/auto-save.nvim",

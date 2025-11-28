@@ -44,6 +44,7 @@
     prismlauncher # takes long to download
     oiejq
     feh
+    tridactyl-native
 
     devenv
     sd
