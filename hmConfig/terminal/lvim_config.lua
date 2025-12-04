@@ -68,11 +68,11 @@ end
 
 --
 -- 1. Set the delay (in milliseconds)
-vim.o.updatetime = 500          -- or: vim.opt.updatetime = 500
+vim.o.updatetime = 500 -- or: vim.opt.updatetime = 500
 
 -- 2. Configure diagnostics: no automatic inline virtual text
 vim.diagnostic.config({
-  virtual_text = false,         -- disable always-on inline diagnostics
+  virtual_text = false, -- disable always-on inline diagnostics
   signs = true,
   underline = true,
   update_in_insert = false,
@@ -87,7 +87,7 @@ end
 vim.api.nvim_create_autocmd("CursorHold", {
   callback = show_inline_diagnostics,
 })
--- 
+--
 
 lvim.plugins = {
   { -- autosave

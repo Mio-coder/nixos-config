@@ -50,6 +50,7 @@
         (final: prev: {
           yt-dlp = inputs.nixpkgs-master.legacyPackages.${system}.yt-dlp;
           spotdl = inputs.nixpkgs-master.legacyPackages.${system}.spotdl;
+          firefox = inputs.nixpkgs-stable.legacyPackages.${system}.firefox;
         })
         (import ./pkgs)
       ];
