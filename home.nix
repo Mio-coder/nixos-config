@@ -45,11 +45,13 @@
     oiejq
     feh
     tridactyl-native
+    clock-rs
+    miniserve
 
     devenv
     sd
     diskus
-    miniserve
+    ripgrep-all
 
     # find a tool to unite them all, (tar, zstd, gzip, xz, 7z), preferibly parrarel
     unzip

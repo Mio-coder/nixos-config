@@ -1,0 +1,17 @@
+diff --git a/dbg.h b/dbg.h
+index 412f0db..4c84c9a 100644
+--- a/dbg.h
++++ b/dbg.h
+@@ -888,9 +888,11 @@ class DebugOutput {
+       output << ansi(ANSI_EXPRESSION) << *expr << ansi(ANSI_RESET) << " = ";
+     }
+     output << ansi(ANSI_VALUE) << stream_value.str() << ansi(ANSI_RESET);
++    #ifndef DBG_NO_TYPE
+     if (print_expr_and_type) {
+       output << " (" << ansi(ANSI_TYPE) << *type << ansi(ANSI_RESET) << ")";
+     }
++    #endif // DBG_NO_TYPE
+     if (close_line) {
+       output << std::endl;
+     } else {
+
