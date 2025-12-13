@@ -34,4 +34,11 @@
     dash
   ];
   programs.nix-ld.enable = true;
+  nix.sshServe.enable = true;
+  nix.sshServe.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINN77EFKHPd/rL+TxKW8sWfMQP5goxsefKHmcKo25bQh"
+  ];
+  nix.settings.secret-key-files = ["/etc/nix/signing-key.sec"];
+  services.upower.enable = true;
+  services.upower.criticalPowerAction = "Hibernate";
 }

@@ -1,0 +1,5 @@
+{...}: {
+  my = {
+    lofi.download = true;
+  };
+}

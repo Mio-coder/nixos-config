@@ -2,9 +2,11 @@
   nixConfig = {
     extra-substituters = [
       "https://nix-community.cachix.org"
+      # "ssh://nix-ssh@10.0.0.1"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nix-ssh-cache-1:rfhTK/K9jVr5Kr19Ae5xapwt1BvrX0U18w8rsR+fnCU="
     ];
   };
   description = "Mio-coder's Nixos config";
@@ -33,110 +35,110 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
-  outputs = {
-    nixpkgs,
-    home-manager,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
 
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {
-        allowUnfree = true;
-      };
-      overlays = [
-        inputs.nur.overlays.default
-        (final: prev: {
-          yt-dlp = inputs.nixpkgs-master.legacyPackages.${system}.yt-dlp;
-          spotdl = inputs.nixpkgs-master.legacyPackages.${system}.spotdl;
-          firefox = inputs.nixpkgs-stable.legacyPackages.${system}.firefox;
-        })
-        (import ./pkgs)
-      ];
-    };
-
-    customArgs = {
-      inherit inputs system;
-    };
-  in {
-    formatter.${system} = pkgs.alejandra;
-
-    nixosConfigurations = {
-      potato-nixos = nixpkgs.lib.nixosSystem {
+      pkgs = import nixpkgs {
         inherit system;
-        specialArgs =
-          customArgs
-          // {
+        config = {
+          allowUnfree = true;
+        };
+        overlays = [
+          inputs.nur.overlays.default
+          (final: prev: {
+            yt-dlp = inputs.nixpkgs-master.legacyPackages.${system}.yt-dlp;
+            spotdl = inputs.nixpkgs-master.legacyPackages.${system}.spotdl;
+            firefox = inputs.nixpkgs-stable.legacyPackages.${system}.firefox;
+          })
+          (import ./pkgs)
+        ];
+      };
+
+      customArgs = {
+        inherit inputs system;
+      };
+    in
+    {
+      formatter.${system} = pkgs.alejandra;
+
+      nixosConfigurations = {
+        potato-nixos = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = customArgs // {
             hostname = "potato-nixos";
           };
-        modules = [
-          ./configuration.nix
-          inputs.nix-flatpak.nixosModules.nix-flatpak
-          inputs.agenix.nixosModules.default
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              extraSpecialArgs =
-                customArgs
-                // {
+          modules = [
+            ./configuration.nix
+            inputs.nix-flatpak.nixosModules.nix-flatpak
+            inputs.agenix.nixosModules.default
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                extraSpecialArgs = customArgs // {
                   inherit pkgs;
                   hostname = "potato-nixos";
                 };
-              useUserPackages = true;
-              users.mio = import ./home.nix;
-            };
-            services.nixseparatedebuginfod2.enable = true;
-            environment.systemPackages = [inputs.agenix.packages.${system}.default];
-          }
-        ];
+                useUserPackages = true;
+                users.mio = import ./home.nix;
+              };
+              services.nixseparatedebuginfod2.enable = true;
+              environment.systemPackages = [ inputs.agenix.packages.${system}.default ];
+            }
+          ];
+        };
+        omen-nixos = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = customArgs // {
+            hostname = "omen-nixos";
+          };
+          modules = [
+            ./configuration.nix
+            inputs.nix-flatpak.nixosModules.nix-flatpak
+            inputs.agenix.nixosModules.default
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                extraSpecialArgs = customArgs // {
+                  inherit pkgs;
+                  hostname = "omen-nixos";
+                };
+                useUserPackages = true;
+                users.mio = import ./home.nix;
+              };
+              services.nixseparatedebuginfod2.enable = true;
+              environment.systemPackages = [ inputs.agenix.packages.${system}.default ];
+            }
+          ];
+        };
       };
-    };
-    # for hm news
-    packages.${system} = {
-      homeConfigurations."mio" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./home.nix
-        ];
-        extraSpecialArgs =
-          customArgs
-          // {
+      # for hm news
+      packages.${system} = {
+        homeConfigurations."mio" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./home.nix
+          ];
+          extraSpecialArgs = customArgs // {
             inherit pkgs;
             hostname = "potato-nixos";
           };
-      };
-      iso = let
-        sys = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            ({
-              lib,
-              modulesPath,
-              pkgs,
-              ...
-            }: {
-              imports = [(modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")];
-              networking.networkmanager.enable = true;
-              services.getty.autologinUser = lib.mkForce "root";
-              services.openssh = {
-                enable = true;
-                settings.PasswordAuthentication = false;
-              };
-              services.logind.settings.Login.HandleLidSwitch = "ignore";
-              environment.systemPackages = with pkgs; [btop-cuda];
-              # isoImage.squashfsCompression = "gzip -Xcompression-level 1";
-              # isoImage.squashfsCompression = null;
-              nix.settings.experimental-features = ["nix-command" "flakes"];
-              users.users.root.openssh.authorizedKeys.keys = [
-                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN7e36e3VVEv09BUoQ9pznnDRu0ma0tu8bEbzuAeqUQA"
-                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMz7v8TolMVBNSrX8r8Lvav2wyGEIWLi8sEWSeVXNLj3"
-              ];
-            })
-          ];
         };
-      in
-        sys.config.system.build.isoImage;
+        iso =
+          let
+            sys = nixpkgs.lib.nixosSystem {
+              inherit system;
+              modules = [
+                (import ./iso.nix)
+              ];
+            };
+          in
+          sys.config.system.build.isoImage;
+      };
     };
-  };
 }

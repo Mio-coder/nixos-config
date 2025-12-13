@@ -10,10 +10,10 @@
       fi
     '')
     (writeShellScriptBin "g--" ''
-      ${gcc}/bin/g++ -O3 -Wall -Wextra -Wpedantic -Weffc++ -Wshadow -std=c++23 -DDEBUG -ggdb3 -g $@
+      ${gcc}/bin/g++ -O0 -Wall -Wextra -Wpedantic -Weffc++ -Wshadow -std=c++23 -DDEBUG -ggdb3 -g $@
     '')
     (writeShellScriptBin "fds" ''
-      dirs=$(${fd}/bin/fd -td -u "$1")
+      dirs=$(${fd}/bin/fd -td -u -E \.git "$1")
       dir_count=$(echo "$dirs" | wc -l)
 
       if [[ $dir_count -eq 0 ]]; then
