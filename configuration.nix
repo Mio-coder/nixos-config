@@ -36,7 +36,7 @@
   programs.nix-ld.enable = true;
   nix.sshServe.enable = true;
   nix.sshServe.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINN77EFKHPd/rL+TxKW8sWfMQP5goxsefKHmcKo25bQh"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMFe4qGpEm/tPdufXpSCPHYOU9mkGdLRBrBaZ3PR8c7s root@nixos"
   ];
   nix.settings.secret-key-files = ["/etc/nix/signing-key.sec"];
   services.upower.enable = true;

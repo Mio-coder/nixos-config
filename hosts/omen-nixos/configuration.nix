@@ -1,6 +1,6 @@
 {...}: {
   my = {
     bluetooth = true;
-    nvidia = true;
+    #   nvidia = true;
   };
 }

@@ -4,7 +4,8 @@ let
 
   system1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGcAShSDx+v1XRMxCqcQyeFuw9yF2JuarbunMQqAUOCE";
   system2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDXaKGMDcoacWoIqgYoPx9WMiDpFIAWGwE7nXRhi+oD0";
-  systems = [system1 system2];
+  system3 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFfx1UtEs1eYUxENp5CjYUw/iFybVZXebrhQWkn4L8GS";
+  systems = [system1 system2 system3];
   all = users ++ systems;
 in {
   "password.age".publicKeys = all;
