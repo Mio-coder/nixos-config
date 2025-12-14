@@ -3,9 +3,8 @@
   modulesPath,
   pkgs,
   ...
-}:
-{
-  imports = [ (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix") ];
+}: {
+  imports = [(modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")];
   networking.networkmanager.enable = true;
   networking.networkmanager.ensureProfiles.profiles = {
     "Static lan" = {
@@ -13,7 +12,7 @@
         id = "Static lan";
         type = "ethernet";
       };
-      ethernet = { };
+      ethernet = {};
       ipv4 = {
         address1 = "10.0.0.2/8";
         ignore-auto-dns = "true";
@@ -26,7 +25,7 @@
         addr-gen-mode = "default";
         method = "auto";
       };
-      proxy = { };
+      proxy = {};
     };
   };
   services.getty.autologinUser = lib.mkForce "root";
@@ -38,7 +37,7 @@
     };
   };
   services.logind.settings.Login.HandleLidSwitch = "ignore";
-  environment.systemPackages = with pkgs; [ btop-cuda ];
+  environment.systemPackages = with pkgs; [btop-cuda];
   # isoImage.squashfsCompression = "gzip -Xcompression-level 1";
   isoImage.squashfsCompression = null;
   nix.settings.experimental-features = [
@@ -53,8 +52,8 @@
     '';
   };
   nix.settings = {
-    substituters = [ "ssh://nix-ssh@10.0.0.1" ];
-    trusted-public-keys = [ "nix-ssh-cache-1:rfhTK/K9jVr5Kr19Ae5xapwt1BvrX0U18w8rsR+fnCU=" ];
+    substituters = ["ssh://nix-ssh@10.0.0.1"];
+    trusted-public-keys = ["nix-ssh-cache-1:rfhTK/K9jVr5Kr19Ae5xapwt1BvrX0U18w8rsR+fnCU="];
   };
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN7e36e3VVEv09BUoQ9pznnDRu0ma0tu8bEbzuAeqUQA"

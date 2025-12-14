@@ -5,3 +5,4 @@ ssh-keygen
 swapon /dev/nvme0n1p4
 cat ./.ssh/id_ed25519.pub
 # nix run disko#disko-install -- --flake .#omen-nixos --disk main /dev/nvme1n1
+# https://github.com/nix-community/disko/blob/be1a6b8a05afdd5d5fa69fcaf3c4ead7014c9fd8/disko-install#L288C1-L289C99
