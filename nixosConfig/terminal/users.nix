@@ -8,8 +8,6 @@
       extraGroups = ["wheel"];
       hashedPasswordFile = config.age.secrets.password.path;
     };
-    root = {
-      hashedPasswordFile = config.age.secrets.password.path;
-    };
+    root.hashedPasswordFile = config.age.secrets.password.path;
   };
 }

@@ -40,6 +40,7 @@
         then ''
           exec mpv \
              ~/Music/lofi/ \
+             --quiet \
              --vid=no \
              --shuffle \
              --script=${pkgs.mpvScripts.mpris}/share/mpv/scripts/mpris.so
@@ -47,6 +48,7 @@
         else ''
           exec mpv https://www.youtube.com/watch?v=jfKfPfyJRdk \
              --vid=no \
+             --quiet \
              --script=${pkgs.mpvScripts.mpris}/share/mpv/scripts/mpris.so
         '';
     };

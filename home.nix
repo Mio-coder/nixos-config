@@ -48,6 +48,8 @@
     tridactyl-native
     clock-rs
     miniserve
+    cudatext
+    ncpamixer
 
     devenv
     sd
@@ -56,6 +58,13 @@
     (pkgs.writeShellScriptBin "szkopul-g++" ''
       ${inputs.nixpkgs-gcc.legacyPackages.${system}.gcc}/bin/g++ $@
     '')
+    (pkgs.writeShellApplication {
+      name = "ns";
+      runtimeInputs = [fzf nix-search-tv];
+      text = ''
+        nix-search-tv print | fzf --preview 'nix-search-tv preview {}' --scheme history
+      '';
+    })
 
     # find a tool to unite them all, (tar, zstd, gzip, xz, 7z), preferibly parrarel
     unzip

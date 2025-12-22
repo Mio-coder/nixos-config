@@ -62,31 +62,30 @@
     customArgs = {
       inherit inputs system;
     };
-    mkHost = hostname:
+    mkHost = hostname: let
+      hostArgs =
+        customArgs
+        // {
+          inherit hostname;
+        };
+    in
       nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs =
-          customArgs
-          // {
-            inherit hostname;
-          };
+          hostArgs;
         modules = [
           ./configuration.nix
-          inputs.nix-flatpak.nixosModules.nix-flatpak
-          inputs.agenix.nixosModules.default
-          home-manager.nixosModules.home-manager
+          inputs.home-manager.nixosModules.home-manager
           {
             home-manager = {
               extraSpecialArgs =
-                customArgs
+                hostArgs
                 // {
-                  inherit pkgs hostname;
+                  inherit pkgs;
                 };
               useUserPackages = true;
               users.mio = import ./home.nix;
             };
-            services.nixseparatedebuginfod2.enable = true;
-            environment.systemPackages = [inputs.agenix.packages.${system}.default];
           }
         ];
       };

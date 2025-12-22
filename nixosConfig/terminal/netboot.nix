@@ -1,8 +1,4 @@
-{
-  inputs,
-  config,
-  ...
-}: let
+{inputs, ...}: let
   sys = inputs.nixpkgs-stable.lib.nixosSystem {
     system = "x86_64-linux";
     modules = [
@@ -29,18 +25,18 @@
   };
   build = sys.config.system.build;
 in {
-  services.pixiecore = {
-    # enable = true;
-    enable = false;
-    openFirewall = true;
-    # dhcpNoBind = true; # use existing DHCP server
-    port = 64172;
-    statusPort = 64172;
+  # services.pixiecore = {
+  #   # enable = true;
+  #   enable = false;
+  #   openFirewall = true;
+  #   # dhcpNoBind = true; # use existing DHCP server
+  #   port = 64172;
+  #   statusPort = 64172;
 
-    mode = "boot";
-    kernel = "${build.kernel}/bzImage";
-    initrd = "${build.netbootRamdisk}/initrd";
-    cmdLine = "init=${build.toplevel}/init loglevel=4";
-    debug = true;
-  };
+  #   mode = "boot";
+  #   kernel = "${build.kernel}/bzImage";
+  #   initrd = "${build.netbootRamdisk}/initrd";
+  #   cmdLine = "init=${build.toplevel}/init loglevel=4";
+  #   debug = true;
+  # };
 }

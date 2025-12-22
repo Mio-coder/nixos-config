@@ -4,6 +4,8 @@
 {
   pkgs,
   hostname,
+  system,
+  inputs,
   ...
 }: {
   imports = [
@@ -12,6 +14,8 @@
     ./hosts/${hostname}/configuration.nix
     ./nixosConfig/terminal
     ./nixosConfig/desktop
+    inputs.nix-flatpak.nixosModules.nix-flatpak
+    inputs.agenix.nixosModules.default
   ];
   boot.kernelModules = ["config_ip_multicast"];
 
@@ -23,9 +27,16 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
 
-  services.flatpak.enable = true;
-  services.tailscale.enable = true;
-  services.logind.settings.Login.HandleLidSwitch = "ignore";
+  services = {
+    flatpak.enable = true;
+    tailscale.enable = true;
+    logind.settings.Login.HandleLidSwitch = "ignore";
+    nixseparatedebuginfod2.enable = true;
+    upower = {
+      enable = true;
+      criticalPowerAction = "Hibernate";
+    };
+  };
   networking.firewall.enable = false;
   users = {
     defaultUserShell = pkgs.dash;
@@ -35,6 +46,7 @@
     dash
   ];
   programs.nix-ld.enable = true;
-  services.upower.enable = true;
-  services.upower.criticalPowerAction = "Hibernate";
+  environment.systemPackages = [
+    inputs.agenix.packages.${system}.default
+  ];
 }

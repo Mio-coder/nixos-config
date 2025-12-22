@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     neovim
     git
@@ -14,12 +10,6 @@
     file
   ];
   environment.variables.EDITOR = "nvim";
-
-  # flakes
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
 
   # time
   services.chrony.enable = true;

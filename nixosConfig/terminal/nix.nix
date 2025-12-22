@@ -15,6 +15,10 @@
       ];
       trusted-users = ["root" "mio"];
       auto-optimise-store = true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
     optimise = {
       automatic = true;

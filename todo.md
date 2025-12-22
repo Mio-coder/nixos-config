@@ -1,12 +1,10 @@
+ - nix-search-tv
+ - remove core dumps
+
  - change lvim default register to something diffrent then system
  - wleave https://github.com/catppuccin/wlogout
- - cudatext
- - nix-search-tv
  - xdg.terminal-exec
- - programs.gcc.colors
- - remove core dumps
  - tridactyl dark theme
- - ncpamixer
  - check:
 gru 16 21:01:33 omen-nixos chronyd[1904]: Forward time jump detected!
 gru 16 21:01:33 omen-nixos chronyd[1904]: Can't synchronise: no selectable sources (0 unreachable sources)
