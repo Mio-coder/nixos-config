@@ -14,6 +14,7 @@
     nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-gcc.url = "github:nixos/nixpkgs/1634419f4f629111c7b66f370155a26d98c53505";
     home-manager.url = "github:nix-community/home-manager";
     nur = {
       url = "github:nix-community/NUR";
@@ -61,66 +62,40 @@
     customArgs = {
       inherit inputs system;
     };
+    mkHost = hostname:
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs =
+          customArgs
+          // {
+            inherit hostname;
+          };
+        modules = [
+          ./configuration.nix
+          inputs.nix-flatpak.nixosModules.nix-flatpak
+          inputs.agenix.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              extraSpecialArgs =
+                customArgs
+                // {
+                  inherit pkgs hostname;
+                };
+              useUserPackages = true;
+              users.mio = import ./home.nix;
+            };
+            services.nixseparatedebuginfod2.enable = true;
+            environment.systemPackages = [inputs.agenix.packages.${system}.default];
+          }
+        ];
+      };
   in {
     formatter.${system} = pkgs.alejandra;
 
     nixosConfigurations = {
-      potato-nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs =
-          customArgs
-          // {
-            hostname = "potato-nixos";
-          };
-        modules = [
-          ./configuration.nix
-          inputs.nix-flatpak.nixosModules.nix-flatpak
-          inputs.agenix.nixosModules.default
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              extraSpecialArgs =
-                customArgs
-                // {
-                  inherit pkgs;
-                  hostname = "potato-nixos";
-                };
-              useUserPackages = true;
-              users.mio = import ./home.nix;
-            };
-            services.nixseparatedebuginfod2.enable = true;
-            environment.systemPackages = [inputs.agenix.packages.${system}.default];
-          }
-        ];
-      };
-      omen-nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs =
-          customArgs
-          // {
-            hostname = "omen-nixos";
-          };
-        modules = [
-          ./configuration.nix
-          inputs.nix-flatpak.nixosModules.nix-flatpak
-          inputs.agenix.nixosModules.default
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              extraSpecialArgs =
-                customArgs
-                // {
-                  inherit pkgs;
-                  hostname = "omen-nixos";
-                };
-              useUserPackages = true;
-              users.mio = import ./home.nix;
-            };
-            services.nixseparatedebuginfod2.enable = true;
-            environment.systemPackages = [inputs.agenix.packages.${system}.default];
-          }
-        ];
-      };
+      potato-nixos = mkHost "potato-nixos";
+      omen-nixos = mkHost "omen-nixos";
     };
     # for hm news
     packages.${system} = {
@@ -133,7 +108,7 @@
           customArgs
           // {
             inherit pkgs;
-            hostname = "potato-nixos";
+            hostname = "omen-nixos";
           };
       };
       iso = let

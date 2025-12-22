@@ -3,6 +3,7 @@
   hostname,
   config,
   inputs,
+  system,
   ...
 }: {
   imports = [
@@ -52,6 +53,9 @@
     sd
     diskus
     ripgrep-all
+    (pkgs.writeShellScriptBin "szkopul-g++" ''
+      ${inputs.nixpkgs-gcc.legacyPackages.${system}.gcc}/bin/g++ $@
+    '')
 
     # find a tool to unite them all, (tar, zstd, gzip, xz, 7z), preferibly parrarel
     unzip

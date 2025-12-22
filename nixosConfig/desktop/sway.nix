@@ -11,7 +11,6 @@
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true; # makes GTK apps pick up themes
-      extraOptions = ["--unsupported-gpu"];
     };
     security.polkit.enable = true;
     security.pam.services.hyprlock = {};
@@ -40,7 +39,7 @@
       enable = true;
       settings = rec {
         initial_session = {
-          command = "${pkgs.sway}/bin/sway --unsupported-gpu";
+          command = "${pkgs.sway}/bin/sway";
           user = "mio";
         };
         default_session = initial_session;

@@ -9,6 +9,7 @@
   imports = [
     ./hosts/${hostname}/wm.nix
     ./hosts/${hostname}/hardware-configuration.nix
+    ./hosts/${hostname}/configuration.nix
     ./nixosConfig/terminal
     ./nixosConfig/desktop
   ];
@@ -34,11 +35,6 @@
     dash
   ];
   programs.nix-ld.enable = true;
-  nix.sshServe.enable = true;
-  nix.sshServe.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMFe4qGpEm/tPdufXpSCPHYOU9mkGdLRBrBaZ3PR8c7s root@nixos"
-  ];
-  nix.settings.secret-key-files = ["/etc/nix/signing-key.sec"];
   services.upower.enable = true;
   services.upower.criticalPowerAction = "Hibernate";
 }

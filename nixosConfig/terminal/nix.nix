@@ -7,7 +7,7 @@
     settings = {
       substituters = [
         "https://nix-community.cachix.org"
-        "https://nixos-raspberrypi.cachix.org"
+        # "https://nixos-raspberrypi.cachix.org"
       ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -26,6 +26,10 @@
     '';
     package = pkgs.nixVersions.git;
   };
-
   nixpkgs.config.allowUnfree = lib.mkForce true;
+  nix.sshServe.enable = true;
+  nix.sshServe.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMFe4qGpEm/tPdufXpSCPHYOU9mkGdLRBrBaZ3PR8c7s root@nixos"
+  ];
+  nix.settings.secret-key-files = ["/etc/nix/signing-key.sec"];
 }

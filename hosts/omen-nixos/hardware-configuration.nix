@@ -8,7 +8,6 @@
   imports =
     [
       (modulesPath + "/installer/scan/not-detected.nix")
-      (inputs.nixos-hardware.outPath + "/common/gpu/nvidia/turing")
       inputs.disko.nixosModules.disko
       ./disk-config.nix
     ]
@@ -18,6 +17,7 @@
       common-pc-ssd
     ]);
 
+  boot.loader.grub.useOSProber = true;
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"

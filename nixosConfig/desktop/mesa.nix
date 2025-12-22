@@ -6,6 +6,6 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    package = inputs.nixpkgs-stable.legacyPackages.${system}.mesa;
+    # package = inputs.nixpkgs-stable.legacyPackages.${system}.mesa;
   };
 }

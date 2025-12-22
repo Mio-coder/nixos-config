@@ -30,7 +30,8 @@
   build = sys.config.system.build;
 in {
   services.pixiecore = {
-    enable = true;
+    # enable = true;
+    enable = false;
     openFirewall = true;
     # dhcpNoBind = true; # use existing DHCP server
     port = 64172;

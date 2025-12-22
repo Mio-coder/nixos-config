@@ -9,12 +9,7 @@
     wget
     fd
     ripgrep
-    #   (
-    #     if config.my.nvidia
-    #     then btop-cuda
-    #     else btop
     btop
-    #   )
     jq
     file
   ];

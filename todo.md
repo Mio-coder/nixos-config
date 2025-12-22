@@ -4,6 +4,17 @@
  - nix-search-tv
  - xdg.terminal-exec
  - programs.gcc.colors
+ - remove core dumps
+ - tridactyl dark theme
+ - ncpamixer
+ - check:
+gru 16 21:01:33 omen-nixos chronyd[1904]: Forward time jump detected!
+gru 16 21:01:33 omen-nixos chronyd[1904]: Can't synchronise: no selectable sources (0 unreachable sources)
+gru 16 21:03:42 omen-nixos chronyd[1904]: Selected source 109.206.205.233 (2.nixos.pool.ntp.org)
+gru 16 21:03:42 omen-nixos chronyd[1904]: System clock wrong by 1.516003 seconds
+ - disable verbose lofi
+ - vol up + down = pause
+
 
 to see:
  - anki

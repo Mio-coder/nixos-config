@@ -37,7 +37,7 @@
     };
   };
   services.logind.settings.Login.HandleLidSwitch = "ignore";
-  environment.systemPackages = with pkgs; [btop-cuda];
+  environment.systemPackages = with pkgs; [btop-cuda nvim];
   # isoImage.squashfsCompression = "gzip -Xcompression-level 1";
   isoImage.squashfsCompression = null;
   nix.settings.experimental-features = [
