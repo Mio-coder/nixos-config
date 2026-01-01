@@ -10,7 +10,7 @@
   ];
   networking.interfaces.eno1.useDHCP = false;
   services.dnsmasq = {
-    enable = true;
+    # enable = true;
     settings = {
       interface = "eno1";
       bind-interfaces = true;

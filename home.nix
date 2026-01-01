@@ -50,6 +50,7 @@
     miniserve
     cudatext
     ncpamixer
+    libreoffice
 
     devenv
     sd

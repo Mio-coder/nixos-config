@@ -35,22 +35,17 @@
     writeShellApplication {
       name = "lofi";
       runtimeInputs = [mpv];
-      text =
-        if config.my.lofi.download
-        then ''
-          exec mpv \
-             ~/Music/lofi/ \
-             --quiet \
-             --vid=no \
-             --shuffle \
-             --script=${pkgs.mpvScripts.mpris}/share/mpv/scripts/mpris.so
-        ''
-        else ''
-          exec mpv https://www.youtube.com/watch?v=jfKfPfyJRdk \
-             --vid=no \
-             --quiet \
-             --script=${pkgs.mpvScripts.mpris}/share/mpv/scripts/mpris.so
-        '';
+      text = let
+        path =
+          if config.my.lofi.download
+          then " ~/Music/lofi/ --shuffle "
+          else "https://www.youtube.com/watch?v=jfKfPfyJRdk";
+      in ''
+        exec mpv ${path} \
+           --vid=no \
+           --quiet \
+           --script=${pkgs.mpvScripts.mpris}/share/mpv/scripts/mpris.so
+      '';
     };
 in {
   options.my.lofi.download = lib.mkEnableOption "download";
@@ -73,34 +68,22 @@ in {
       (lib.mkIf config.my.lofi.download
         {
           services.lofi_download = {
-            Unit = {
-              Description = "Download latest lofi music";
-            };
-            Service = {
-              ExecStart = "${lofi_download}/bin/lofi_download";
-            };
+            Unit.Description = "Download latest lofi music";
+            Service.ExecStart = "${lofi_download}/bin/lofi_download";
           };
           timers.lofi_download = {
-            Unit = {
-              Description = "Download latest lofi music";
-            };
+            Unit.Description = "Download latest lofi music";
             Timer = {
               OnCalendar = "monthly";
               Persistent = true;
             };
-            Install = {
-              WantedBy = ["timers.target"];
-            };
+            Install.WantedBy = ["timers.target"];
           };
         })
       {
         services.lofi = {
-          Unit = {
-            Description = "Play lofi music";
-          };
-          Service = {
-            ExecStart = "${lofi}/bin/lofi";
-          };
+          Unit.Description = "Play lofi music";
+          Service.ExecStart = "${lofi}/bin/lofi";
         };
       }
     ];

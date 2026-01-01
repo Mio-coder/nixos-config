@@ -37,19 +37,29 @@
     };
   };
   services.logind.settings.Login.HandleLidSwitch = "ignore";
-  environment.systemPackages = with pkgs; [btop-cuda nvim];
+  environment.systemPackages = with pkgs; [btop-cuda neovim];
   # isoImage.squashfsCompression = "gzip -Xcompression-level 1";
   isoImage.squashfsCompression = null;
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
-  programs.ssh = {
-    enable = true;
-    extraConfig = ''
-      Host 10.0.0.1
-        IdentityFile /etc/ssh/ssh_host_ed25519_key
-    '';
+  programs.ssh.extraConfig = ''
+    Host 10.0.0.1
+      IdentityFile /etc/ssh/ssh_host_ed25519_key
+  '';
+  systemd.services.beep5 = {
+    description = "Beep 5 times";
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "beep5" ''
+        for i in {1..5}; do
+          printf '\a'
+          sleep 0.3
+        done
+      '';
+    };
   };
   nix.settings = {
     substituters = ["ssh://nix-ssh@10.0.0.1"];
