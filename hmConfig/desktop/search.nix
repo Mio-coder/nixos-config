@@ -32,10 +32,10 @@ pkgs: [
   {
     key = "nix-wiki";
     name = "NixOS Wiki";
-    template = "https://search.nixos.org/options";
+    template = "https://nixos.wiki/index.php";
     params = [
       {
-        name = "query";
+        name = "search";
         value = "{searchTerms}";
       }
     ];
@@ -47,6 +47,7 @@ pkgs: [
     name = "hearch";
     template = "https://hearch.co/search";
     icon = "https://hearch.co/_app/immutable/assets/logo.DDnVPknL.svg";
+    definedAliases = ["@he"];
   }
   {
     key = "ddg";
@@ -64,26 +65,6 @@ pkgs: [
     };
   }
   {
-    key = "github";
-    name = "Github";
-    template = "https://github.com/search";
-    params = [
-      {
-        name = "q";
-        value = "{searchTerms}";
-      }
-      {
-        name = "type";
-        value = "repositories";
-      }
-    ];
-    icon = pkgs.fetchurl {
-      url = "https://github.githubassets.com/favicons/favicon.svg";
-      hash = "sha256-apV3zU9/prdb3hAlr4W5ROndE4g3O1XMum6fgKwurmA=";
-    };
-    definedAliases = ["@gh"];
-  }
-  {
     key = "home-manager-options";
     name = "Home Manager Options";
     template = "https://home-manager-options.extranix.com/";
@@ -93,7 +74,7 @@ pkgs: [
         value = "{searchTerms}";
       }
     ];
-    definedAliases = ["@hmo"];
+    definedAliases = ["@hm"];
     icon = pkgs.fetchurl {
       url = "https://home-manager.dev/favicon.png";
       hash = "sha256-gMbZLUUw3MZi1vfw0EkB3CUFiz4Bj/ovKq/N3DDWSbU=";

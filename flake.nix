@@ -50,10 +50,21 @@
       };
       overlays = [
         inputs.nur.overlays.default
+        (final: prev:
+          with inputs.nixpkgs-master.legacyPackages.${system}; {
+            # always updated
+            inherit yt-dlp spotdl;
+          })
+        (final: prev:
+          with inputs.nixpkgs-stable.legacyPackages.${system}; {
+            # rearly updated
+            inherit firefox elinks;
+          })
         (final: prev: {
-          yt-dlp = inputs.nixpkgs-master.legacyPackages.${system}.yt-dlp;
-          spotdl = inputs.nixpkgs-master.legacyPackages.${system}.spotdl;
-          firefox = inputs.nixpkgs-stable.legacyPackages.${system}.firefox;
+          # patches
+          batsignal = prev.batsignal.overrideAttrs {
+            patches = [./pkgs/batsignal.patch];
+          };
         })
         (import ./pkgs)
       ];

@@ -1,0 +1,13 @@
+diff --git a/main.c b/main.c
+index 6529f13..2be8ddf 100644
+--- a/main.c
++++ b/main.c
+@@ -82,7 +82,7 @@ void cleanup()
+   }
+ }
+ 
+-void signal_handler()
++void signal_handler(int)
+ {
+   exit(EXIT_SUCCESS);
+ }
