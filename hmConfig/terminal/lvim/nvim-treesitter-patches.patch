@@ -1,0 +1,63 @@
+diff --git a/lua/nvim-treesitter/indent.lua b/lua/nvim-treesitter/indent.lua
+index a9e5e6ce..5eb41eb4 100644
+--- a/lua/nvim-treesitter/indent.lua
++++ b/lua/nvim-treesitter/indent.lua
+@@ -149,7 +149,7 @@ function M.get_indent(lnum)
+ 
+   local q = get_indents(vim.api.nvim_get_current_buf(), root, lang_tree:lang())
+   local is_empty_line = string.match(getline(lnum), "^%s*$") ~= nil
+-  local node ---@type TSNode
++  local node = nil ---@type TSNode
+   if is_empty_line then
+     local prevlnum = vim.fn.prevnonblank(lnum)
+     local indent = vim.fn.indent(prevlnum)
+@@ -169,7 +169,7 @@ function M.get_indent(lnum)
+         node = get_last_node_at_line(root, prevlnum, col)
+       end
+     end
+-    if q["indent.end"][node:id()] then
++    if node and q["indent.end"][node:id()] then
+       node = get_first_node_at_line(root, lnum)
+     end
+   else
+@@ -187,7 +187,7 @@ function M.get_indent(lnum)
+   -- tracks to ensure multiple indent levels are not applied for same line
+   local is_processed_by_row = {}
+ 
+-  if q["indent.zero"][node:id()] then
++  if node and q["indent.zero"][node:id()] then
+     return 0
+   end
+ 
+diff --git a/lua/nvim-treesitter/query_predicates.lua b/lua/nvim-treesitter/query_predicates.lua
+index d4726107..52865e92 100644
+--- a/lua/nvim-treesitter/query_predicates.lua
++++ b/lua/nvim-treesitter/query_predicates.lua
+@@ -77,7 +77,12 @@ local function has_ancestor(match, _pattern, _bufnr, pred)
+ 
+   local just_direct_parent = pred[1]:find("has-parent", 1, true)
+ 
+-  node = node:parent()
++  local success, parent = pcall(function() return node:parent() end)
++  if success then
++    node = parent
++  else
++    node = nil  -- safely stop if node:parent() fails
++  end
+   while node do
+     if vim.tbl_contains(ancestor_types, node:type()) then
+       return true
+@@ -136,7 +141,12 @@ query.add_predicate("has-type?", function(match, _pattern, _bufnr, pred)
+     return true
+   end
+ 
+-  return vim.tbl_contains(types, node:type())
++  local success, type = pcall(function() return node:type() end)
++  if success then
++    return vim.tbl_contains(types, type)
++  else
++    return true
++  end
+ end, true)
+ 
+ ---@param match (TSNode|nil)[]

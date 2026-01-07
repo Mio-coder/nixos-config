@@ -13,14 +13,16 @@ in {
     keyMode = "vi";
     mouse = true;
     clock24 = true;
-    plugins = with pkgs; [
-      tmuxPlugins.tokyo-night-tmux
+    plugins = with pkgs.tmuxPlugins; [
+      tokyo-night-tmux
+      sensible
     ];
     terminal = "tmux-256color";
     shell = "${shell}";
     extraConfig = ''
       set -s copy-command 'wl-copy'
       set -as terminal-features '*:256'
+      set -sg escape-time 10
     '';
   };
   xdg.configFile."tmux/tmux.conf".text = lib.mkOrder 400 ''

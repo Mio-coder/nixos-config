@@ -6,4 +6,5 @@
     nixd
   ];
   xdg.configFile."lvim/config.lua".source = ./lvim_config.lua;
+  xdg.configFile."lvim/patches/nvim-treesitter-patches.patch".source = ./nvim-treesitter-patches.patch;
 }

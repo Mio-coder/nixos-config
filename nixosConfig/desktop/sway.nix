@@ -14,6 +14,14 @@
     };
     security.polkit.enable = true;
     security.pam.services.hyprlock = {};
+    security.pam.loginLimits = [
+      {
+        domain = "@users";
+        item = "rtprio";
+        type = "-";
+        value = 1;
+      }
+    ];
     programs.xwayland.enable = true;
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 

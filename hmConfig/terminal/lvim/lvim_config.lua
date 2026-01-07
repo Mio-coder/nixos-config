@@ -89,6 +89,11 @@ vim.api.nvim_create_autocmd("CursorHold", {
 })
 --
 
+-- lvim.lsp.null_ls.setup =
+-- lvim.builtin.dap.on_config_done = function()
+--   require("nluarepl")
+-- end
+
 lvim.plugins = {
   { -- autosave
     "Pocco81/auto-save.nvim",
@@ -128,7 +133,7 @@ lvim.plugins = {
       picker = "telescope",
     },
     keys = {
-      { "<leader>sm", function() require('cppman').search() end, desc = "Open cpp manual" }
+      { "<leader>lm", function() require('cppman').search() end, desc = "Open cpp manual" }
     },
   },
   {
@@ -193,8 +198,27 @@ lvim.plugins = {
   },
   {
     "folke/zen-mode.nvim",
-    keys = { -- load the plugin only when using it's keybinding:
+    keys = {
       { "<leader>z", "<cmd>ZenMode<cr>" },
     },
   },
+  -- {
+  --   "vhyrro/luarocks.nvim",
+  --   priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
+  --   opts = {
+  --     rocks = {
+  --       "inspect",
+  --     },
+  --     -- luarocks_build_args = { "--with-lua=/my/path" }, -- extra options to pass to luarocks's configuration script
+  --   },
+  -- },
+  -- {
+  --   "mfussenegger/nluarepl",
+  --   lazy = false,
+  --   dependencies = { "mfussenegger/nvim-dap" },
+  -- },
+  -- {
+  --   "polirritmico/lazy-local-patcher.nvim",
+  --   config = true,
+  -- },
 }
