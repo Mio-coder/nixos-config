@@ -42,32 +42,32 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
+    overlays = [
+      inputs.nur.overlays.default
+      (final: prev:
+        with inputs.nixpkgs-master.legacyPackages.${system}; {
+          # always updated
+          inherit yt-dlp spotdl;
+        })
+      (final: prev:
+        with inputs.nixpkgs-stable.legacyPackages.${system}; {
+          # rearly updated
+          inherit firefox elinks;
+        })
+      (final: prev: {
+        # patches
+        batsignal = prev.batsignal.overrideAttrs {
+          patches = [./pkgs/batsignal.patch];
+        };
+      })
+      (import ./pkgs)
+    ];
 
     pkgs = import nixpkgs {
-      inherit system;
+      inherit system overlays;
       config = {
         allowUnfree = true;
       };
-      overlays = [
-        inputs.nur.overlays.default
-        (final: prev:
-          with inputs.nixpkgs-master.legacyPackages.${system}; {
-            # always updated
-            inherit yt-dlp spotdl;
-          })
-        (final: prev:
-          with inputs.nixpkgs-stable.legacyPackages.${system}; {
-            # rearly updated
-            inherit firefox elinks;
-          })
-        (final: prev: {
-          # patches
-          batsignal = prev.batsignal.overrideAttrs {
-            patches = [./pkgs/batsignal.patch];
-          };
-        })
-        (import ./pkgs)
-      ];
     };
 
     customArgs = {
@@ -88,6 +88,7 @@
           ./configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
+            nixpkgs = {inherit overlays;};
             home-manager = {
               extraSpecialArgs =
                 hostArgs

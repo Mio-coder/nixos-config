@@ -41,35 +41,19 @@
       wlsunset
       swaylock
       swayidle
-      (pkgs.catppuccin-sddm.override {
-        flavor = "mocha";
-        accent = "mauve";
-      })
+      void-sddm
     ];
 
     # Portals for Wayland apps (screenshare, file dialogs)
     xdg.portal = {
-      enable = true;
       wlr.enable = true;
+      xdgOpenUsePortal = true;
     };
 
-    # Provide a simple TTY greeter that starts Sway
-    # docs says that greetd does not work with services.xserver.displayManager.setupCommands
-    # https://nixos.wiki/wiki/Nvidia#Optimus_Option_C:_Reverse_Sync_Mode_.28Experimental.29
-    # services.greetd = {
-    #   enable = true;
-    #   settings = rec {
-    #     initial_session = {
-    #       command = "${sway-igpu}/bin/sway-igpu";
-    #       user = "mio";
-    #     };
-    #     default_session = initial_session;
-    #   };
-    # };
     services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;
-      theme = "catppuccin-mocha-mauve";
+      theme = "voidsddm";
     };
 
     # Services sway uses
