@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   services.clipcat = {
     enable = true;
     daemonSettings = {
@@ -61,6 +65,8 @@
         args = [
           "--prompt-text"
           "clipboard"
+          "--font"
+          "${config.my.font.propo}"
         ];
       };
     };

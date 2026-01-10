@@ -1,11 +1,12 @@
 {
-  inputs,
-  system,
+  lib,
+  config,
   ...
 }: {
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    # package = inputs.nixpkgs-stable.legacyPackages.${system}.mesa;
+  config = lib.mkIf (config.my.nvidia.enable == false) {
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
   };
 }

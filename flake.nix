@@ -13,7 +13,7 @@
   inputs = {
     nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-gcc.url = "github:nixos/nixpkgs/1634419f4f629111c7b66f370155a26d98c53505";
     home-manager.url = "github:nix-community/home-manager";
     nur = {

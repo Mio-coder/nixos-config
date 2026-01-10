@@ -15,7 +15,10 @@
       common-cpu-intel
       common-pc-laptop
       common-pc-ssd
-    ]);
+    ])
+    ++ [
+      (inputs.nixos-hardware.outPath + "/common/gpu/intel/comet-lake")
+    ];
 
   boot.loader.grub.useOSProber = true;
   boot.initrd.availableKernelModules = [

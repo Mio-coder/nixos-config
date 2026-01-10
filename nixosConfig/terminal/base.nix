@@ -5,7 +5,7 @@
     wget
     fd
     ripgrep
-    btop
+    btop-cuda
     jq
     file
   ];

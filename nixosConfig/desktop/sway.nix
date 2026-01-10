@@ -11,6 +11,13 @@
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true; # makes GTK apps pick up themes
+      extraSessionCommands = (
+        if config.my.nvidia.external == false
+        then "export WLR_DRM_DEVICES=\"$(realpath /dev/dri/by-path/pci-0000:00:02.0-card)\""
+        else ""
+      );
+      # https://github.com/swaywm/sway/wiki/Running-programs-natively-under-wayland
+      extraOptions = ["--unsupported-gpu"];
     };
     security.polkit.enable = true;
     security.pam.services.hyprlock = {};
@@ -34,6 +41,10 @@
       wlsunset
       swaylock
       swayidle
+      (pkgs.catppuccin-sddm.override {
+        flavor = "mocha";
+        accent = "mauve";
+      })
     ];
 
     # Portals for Wayland apps (screenshare, file dialogs)
@@ -43,15 +54,22 @@
     };
 
     # Provide a simple TTY greeter that starts Sway
-    services.greetd = {
+    # docs says that greetd does not work with services.xserver.displayManager.setupCommands
+    # https://nixos.wiki/wiki/Nvidia#Optimus_Option_C:_Reverse_Sync_Mode_.28Experimental.29
+    # services.greetd = {
+    #   enable = true;
+    #   settings = rec {
+    #     initial_session = {
+    #       command = "${sway-igpu}/bin/sway-igpu";
+    #       user = "mio";
+    #     };
+    #     default_session = initial_session;
+    #   };
+    # };
+    services.displayManager.sddm = {
       enable = true;
-      settings = rec {
-        initial_session = {
-          command = "${pkgs.sway}/bin/sway";
-          user = "mio";
-        };
-        default_session = initial_session;
-      };
+      wayland.enable = true;
+      theme = "catppuccin-mocha-mauve";
     };
 
     # Services sway uses
