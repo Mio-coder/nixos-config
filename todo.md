@@ -12,6 +12,7 @@ gru 16 21:03:42 omen-nixos chronyd[1904]: Selected source 109.206.205.233 (2.nix
 gru 16 21:03:42 omen-nixos chronyd[1904]: System clock wrong by 1.516003 seconds
  <!-- - vol up + down = pause -->
  - Firejail
+ - wl-find-cursor
 
 
 to see:

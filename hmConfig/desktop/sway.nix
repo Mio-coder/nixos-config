@@ -37,6 +37,7 @@ in {
         set $term alacritty
         # Your preferred application launcher
         set $menu "${luncher}"
+        set $lock hyprlock
 
         ### Output configuration
         #
@@ -48,18 +49,18 @@ in {
         #
         # You can get the names of your outputs by running: swaymsg -t get_outputs
         output LVDS-1 mode 1366x768@40.002Hz
+        output eDP-1 mode 1920x1080@60.010Hz
 
         ### Idle configuration
-        #
-        # exec swayidle -w \
-        #          timeout 300 'swaylock -f -c 000000' \
-        #          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-        #          before-sleep 'swaylock -f -c 000000'
+
+        exec swayidle -w \
+                 timeout 300 '$lock' \
+                 timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+                 before-sleep '$lock'
         #
         # This will lock your screen after 300 seconds of inactivity, then turn off
         # your displays after another 300 seconds, and turn your screens back on when
         # resumed. It will also lock your screen before your computer goes to sleep.
-        exec hyprlock --no-fade
 
         ### Input configuration
 

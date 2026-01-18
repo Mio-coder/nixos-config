@@ -1,16 +1,22 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  fhsArgs = {
+    name = "fhs";
+    profile = "export FHS=1";
+    targetPkgs = pkgs:
+      with pkgs;
+        (appimageTools.defaultFhsEnvArgs.targetPkgs pkgs)
+        ++ [
+          glibc.static
+          zlib.static
+          libffi
+          libtool
+          musl
+          gcc
+        ];
+  };
+in {
   home.packages = with pkgs; [
-    (buildFHSEnv (appimageTools.defaultFhsEnvArgs
-      // {
-        name = "fhs";
-        profile = ''export FHS=1'';
-        runScript = writeShellScript "fhs-exec.sh" ''
-          if [ $# -eq 0 ]; then
-              exec bash
-          else
-              exec "$@"
-          fi
-        '';
-      }))
+    appimage-run
+    (buildFHSEnv (appimageTools.defaultFhsEnvArgs // fhsArgs))
   ];
 }
