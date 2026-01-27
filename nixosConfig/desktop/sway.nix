@@ -32,19 +32,17 @@
     programs.xwayland.enable = true;
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-    # Useful Wayland tools
     environment.systemPackages = with pkgs; [
       wl-clipboard
       grim
       slurp
       swaybg
-      wlsunset
+      # wlsunset
       swaylock
       swayidle
       void-sddm
     ];
 
-    # Portals for Wayland apps (screenshare, file dialogs)
     xdg.portal = {
       wlr.enable = true;
       xdgOpenUsePortal = true;
@@ -56,7 +54,6 @@
       theme = "voidsddm";
     };
 
-    # Services sway uses
     users.users.mio.extraGroups = ["video"];
     programs.light.enable = true;
   };

@@ -1,0 +1,13 @@
+diff --git a/configs/nord.conf b/configs/nord.conf
+index f9b600c..4cbfcdf 100644
+--- a/configs/nord.conf
++++ b/configs/nord.conf
+@@ -10,7 +10,7 @@ textColor=#d8dee9
+ fontFamily=Cartograph CF
+ 
+ # Password field
+-passwordFieldWidth=220
++passwordFieldWidth=500
+ passwordFieldHeight=40
+ passwordFieldMargin=20
+ passwordFieldFontSize=16

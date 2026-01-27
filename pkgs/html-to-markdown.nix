@@ -22,7 +22,7 @@ buildGoModule rec {
     description = "Convert HTML to Markdown. Even works with entire websites and can be extended through rules";
     homepage = "https://github.com/JohannesKaufmann/html-to-markdown";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [meain];
+    maintainers = [];
     mainProgram = "html-to-markdown";
   };
 }

@@ -11,11 +11,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "talyamm";
     repo = "voidsddm";
-    # Prefer a fixed rev for reproducibility; replace with a real commit hash
-    # you want to pin to.
     rev = "d964069ccdbd7427b9c45e7d11af3c929f744843";
     hash = "sha256-JnIecRb8xgmEDNeg7Y0TAEjnCc/qFAHY0WhxQzr9tg4=";
   };
+  patches = [./void-sddm.patch];
 
   dontBuild = true;
 

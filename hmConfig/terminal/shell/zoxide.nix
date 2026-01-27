@@ -1,8 +1,3 @@
 {...}: {
-  programs.zoxide = {
-    enable = true;
-    # options = [
-    #   "--hook=none"
-    # ];
-  };
+  programs.zoxide.enable = true;
 }

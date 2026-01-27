@@ -233,19 +233,18 @@ in {
         # Utilities:
         #
             # Special keys to adjust volume via PulseAudio
-            bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
-            bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
-            bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
-            bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+            bindsym --locked XF86AudioMute exec swayosd-client --output-volume mute-toggle
+            bindsym --locked XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
 
-            # Special keys to adjust brightness via light
-            bindsym --locked XF86MonBrightnessDown exec light -U 10
-            bindsym --locked XF86MonBrightnessUp exec light -A 10
+            bindsym --locked XF86AudioLowerVolume exec swayosd-client --output-volume lower
+            bindsym --locked XF86AudioRaiseVolume exec swayosd-client --output-volume raise
 
-            # Special keys to pause/play music via playerctl
-            bindsym --locked XF86AudioPlay exec playerctl play-pause
-            bindsym --locked XF86AudioNext exec playerctl next
-            bindsym --locked XF86AudioPrev exec playerctl previous
+            bindsym --locked XF86MonBrightnessDown exec swayosd-client --brightness -10
+            bindsym --locked XF86MonBrightnessUp   exec swayosd-client --brightness +10
+
+            bindsym --locked XF86AudioPlay exec swayosd-client --playerctl play-pause
+            bindsym --locked XF86AudioNext exec swayosd-client --playerctl next
+            bindsym --locked XF86AudioPrev exec swayosd-client --playerctl previous
 
             # Special key to take a screenshot with grim
             bindsym Print exec grim -g "$(slurp)" - | wl-copy
@@ -280,6 +279,7 @@ in {
       slurp
       swaybg
       libnotify
+      swayosd
     ];
     services.mako = {
       enable = true;

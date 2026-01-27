@@ -46,7 +46,15 @@
     dash
   ];
   programs.nix-ld.enable = true;
-  environment.systemPackages = [
+  environment.systemPackages = with pkgs; [
     inputs.agenix.packages.${system}.default
+
+    libimobiledevice
+    ifuse
+    usbmuxd
+    firejail
   ];
+
+  services.usbmuxd.enable = true;
+  programs.fuse.userAllowOther = true;
 }

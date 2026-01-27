@@ -1,6 +1,11 @@
 options for tar:
 https://stackoverflow.com/a/27541309
 
+list of tools:
+https://lib.rs/compression
+https://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc/archivers/index.html
+https://lz4.org/#compati
+
 Used:
 | tool      | usage         |
 | --------- | ------------- |
@@ -29,22 +34,45 @@ All:
 | zstd      | .lz4          |
 | brotli    | brotli        |
 | pugz      | gzip decomp   |
-
-Gzip:
-| tool      | usage         |
-| --------- | ------------- |
 | igzip     | gzip          |
-| bgzip     | gzip          |
-| pugz      | gzip decomp   |
-| rapidgzip | gzip decomp   |
-| pigz      | gzip comp     |
-| zstd      | .gz (gzip)    |
-
+| miniz (l) | gzip          |
+| miniz (l) | zlib          |
+| miniz (l) | zip           |
+| lz4       | lz4           |
+| nvcomp    | lz4           |
+| nvcomp    | zstd           |
+l - lib
 
 Benchmarks:
-https://stackoverflow.com/a/76122225 
 https://github.com/facebook/zstd
 https://github.com/lz4/lz4
 https://quixdb.github.io/squash-benchmark/
 https://mattmahoney.net/dc/text.html
 https://sites.google.com/site/powturbo/home/benchmark
+https://github.com/powturbo/TurboBench
+
+# Gzip decomp
+
+| tool      |
+| --------- |
+| igzip     |
+| bgzip     |
+| pugz      |
+| rapidgzip |
+| zstd      |
+| miniz (l) |
+
+## Benchmarks
+
+https://stackoverflow.com/a/76122225 
+not included: miniz
+
+# Gzip comp
+| tool      |
+| --------- |
+| igzip     |
+| bgzip     |
+| zstd      |
+| pigz      |
+
+

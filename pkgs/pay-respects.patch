@@ -1,0 +1,13 @@
+diff --git a/core/src/system.rs b/core/src/system.rs
+index 39d5b3a..3da25e2 100644
+--- a/core/src/system.rs
++++ b/core/src/system.rs
+@@ -136,7 +136,7 @@ pub fn get_packages(
+ 			let packages: Vec<String>;
+ 			if data.executables.contains(&"nix-locate".to_string()) {
+ 				let result =
+-					command_output(shell, &format!("nix-locate --regex 'bin/{}$'", executable));
++					command_output(shell, &format!("nix-locate --minimal --at-root --whole-name '/bin/{}'", executable));
+ 				if result.is_empty() {
+ 					return None;
+ 				}
