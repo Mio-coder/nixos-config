@@ -56,7 +56,7 @@
         })
       (final: prev: {
         # patches
-        batsignal = prev.batsignal.overrideAttrs {
+        batsigal = prev.batsignal.overrideAttrs {
           patches = [./pkgs/batsignal.patch];
         };
       })

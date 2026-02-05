@@ -14,10 +14,6 @@
       my.nvidia.external = lib.mkDefault true;
 
       boot.kernelPackages = pkgs.linuxPackages_6_18;
-      # boot.kernelParams = [
-      #   # optional but recommended with PreserveVideoMemoryAllocations:
-      #   "nvidia.NVreg_TemporaryFilePath=/var/tmp"
-      # ];
 
       hardware.graphics = {
         enable = true;
@@ -62,6 +58,10 @@
         };
       };
       nixpkgs.config.cudaSupport = true;
+
+      environment.systemPackages = with pkgs; [
+        nvtopPackages.nvidia
+      ];
     })
     (
       lib.mkIf (config.my.nvidia.enable && config.my.nvidia.external) {

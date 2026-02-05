@@ -8,7 +8,14 @@
  - Firejail
  - wl-find-cursor
  - migrate to brave
+ - suspend cmd
+ - rewrite sway config to nix
+ - yazi
+ - ~/.clang-format via hm
 
+
+pay-respects:
+ - mdkir
 
 to see:
  - anki
@@ -19,3 +26,7 @@ to see from hm:
  - rmpc (remote mdp client)
  - inori (mdp client)
  - nh
+
+low prio:
+ - make nvidia indep
+ - rewrite in flake-utils (dendric)??

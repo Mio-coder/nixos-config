@@ -29,7 +29,6 @@
 
   services = {
     flatpak.enable = true;
-    tailscale.enable = true;
     logind.settings.Login.HandleLidSwitch = "ignore";
     nixseparatedebuginfod2.enable = true;
     upower = {

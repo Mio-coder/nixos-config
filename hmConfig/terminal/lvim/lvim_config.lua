@@ -27,6 +27,9 @@ lvim.keys.insert_mode["<Esc><Right>"] = false
 
 -- Set the backspace option
 vim.o.backspace = 'indent,eol,start'
+vim.opt.shiftwidth = 4
+vim.opt.smarttab = true
+vim.opt.expandtab = true
 
 lvim.keys.insert_mode["<C-BS>"] = "<C-W>"
 lvim.keys.normal_mode["<C-n>"] = "<cmd>noh<cr>"

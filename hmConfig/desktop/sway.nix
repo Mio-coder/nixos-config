@@ -5,11 +5,15 @@
   pkgs,
   ...
 }: let
-  luncher = pkgs.writeShellScript "custom-tofi-run" ''
-    cmd="$(tofi-run --require-match=false --font ${config.my.font.propo})"
-    [ -n "$cmd" ] || exit 0
-    swaymsg exec -- $cmd
-  '';
+  mkLuncher = cmd:
+    pkgs.writeShellScript "custom-${cmd}" ''
+      disp="$(swaymsg -t get_outputs | jq -r '.[] | select(.focused == true) | .name')"
+      cmd="$(${cmd} --require-match=false --font ${config.my.font.propo} --output $disp)"
+      [ -n "$cmd" ] || exit 0
+      swaymsg exec -- $cmd
+    '';
+  launcher = mkLuncher "tofi-run";
+  launcher_desktop = mkLuncher "tofi-drun";
 in {
   options.my.sway = lib.mkEnableOption "sway window manager (home)";
 
@@ -24,6 +28,7 @@ in {
         #
         # Read `man 5 sway` for a complete reference.
 
+
         ### Variables
         #
         # Logo key. Use Mod1 for Alt.
@@ -36,23 +41,16 @@ in {
         # Your preferred terminal emulator
         set $term alacritty
         # Your preferred application launcher
-        set $menu "${luncher}"
         set $lock hyprlock
 
         ### Output configuration
         #
         output * bg ${pkgs.sway}/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-        #
-        # Example configuration:
-        #
-        #   output HDMI-A-1 resolution 1920x1080 position 1920,0
-        #
-        # You can get the names of your outputs by running: swaymsg -t get_outputs
-        output LVDS-1 mode 1366x768@40.002Hz
-        output eDP-1 mode 1920x1080@60.010Hz
+
+        # Generated using nwg-displays
+        include ./outputs
 
         ### Idle configuration
-
         exec swayidle -w \
                  timeout 300 '$lock' \
                  timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
@@ -102,7 +100,8 @@ in {
             bindsym $mod+q kill
 
             # Start your launcher
-            bindsym $mod+d exec $menu
+            bindsym $mod+d exec "${launcher}"
+            bindsym $mod+Shift+d exec "${launcher_desktop}"
 
             # Drag floating windows by holding down $mod and left mouse button.
             # Resize them with right mouse button + $mod.
@@ -239,8 +238,8 @@ in {
             bindsym --locked XF86AudioLowerVolume exec swayosd-client --output-volume lower
             bindsym --locked XF86AudioRaiseVolume exec swayosd-client --output-volume raise
 
-            bindsym --locked XF86MonBrightnessDown exec swayosd-client --brightness -10
-            bindsym --locked XF86MonBrightnessUp   exec swayosd-client --brightness +10
+            bindsym --locked XF86MonBrightnessDown exec swayosd-client --brightness -2
+            bindsym --locked XF86MonBrightnessUp   exec swayosd-client --brightness +2
 
             bindsym --locked XF86AudioPlay exec swayosd-client --playerctl play-pause
             bindsym --locked XF86AudioNext exec swayosd-client --playerctl next
@@ -279,8 +278,8 @@ in {
       slurp
       swaybg
       libnotify
-      swayosd
     ];
+    services.swayosd.enable = true;
     services.mako = {
       enable = true;
       settings.default-timeout = 5000; # ms
