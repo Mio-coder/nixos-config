@@ -10,4 +10,5 @@ final: prev: {
         ./pay-respects.patch
       ];
   });
+  bitwarden-thunderbird = prev.callPackage ./bitwarden_thunderbird.nix {};
 }
