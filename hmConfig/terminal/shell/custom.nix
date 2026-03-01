@@ -1,13 +1,30 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     (writeShellScriptBin "ish" ''
+      # If no arguments → run interactive bash
       if [ $# -eq 0 ]; then
-          # No arguments provided, start an interactive bash shell
-          exec bash
-      else
-          # Arguments provided, run dash with those arguments
-          exec dash "$@"
+          exec bash -i
       fi
+
+      # If first argument is -F and a path is provided
+      if [ "$1" = "-F" ]; then
+          if [ -n "$2" ]; then
+              # Check if directory exists
+              if [ -d "./$2" ]; then
+                  cd "./$2" || exit 1
+                  exec bash -i
+              else
+                  echo "Error: Directory '$2' does not exist."
+                  exit 1
+              fi
+          else
+              echo "Error: -F requires a path argument."
+              exit 1
+          fi
+      fi
+
+      # Otherwise → run dash with all arguments
+      exec dash "$@"
     '')
     (writeShellScriptBin "g--" ''
       ${gcc}/bin/g++ -O0 -Wall -Wextra -Wpedantic -Weffc++ -Wshadow -std=c++23 -DDEBUG -ggdb3 -g $@

@@ -49,11 +49,15 @@
     inputs.agenix.packages.${system}.default
 
     libimobiledevice
+    glibc.static
     ifuse
     usbmuxd
     firejail
+    man-pages-posix
   ];
 
   services.usbmuxd.enable = true;
   programs.fuse.userAllowOther = true;
+
+  my.docker = true;
 }

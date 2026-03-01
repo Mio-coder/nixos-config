@@ -39,5 +39,4 @@ work in progres
 ```
 in some folders default.nix imports all nix files recursively
 
-
 orignaly inspired by https://github.com/Rishabh5321/dotfiles
