@@ -12,6 +12,7 @@
  - rewrite sway config to nix
  - yazi
  - ~/.clang-format via hm
+ - root cage emebed
 
 
 pay-respects:

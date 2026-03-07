@@ -42,18 +42,32 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    overlays = [
+    pkgs = import nixpkgs {
+      inherit system overlays;
+      config = {
+        allowUnfree = true;
+      };
+    };
+
+    overlays = let
+      getPkgs = ch: inputs.${ch}.legacyPackages.${system};
+    in [
       inputs.nur.overlays.default
+      (final: prev: {
+        # always updated
+        inherit (getPkgs "nixpkgs-master") yt-dlp spotdl;
+      })
       (final: prev:
-        with inputs.nixpkgs-master.legacyPackages.${system}; {
-          # always updated
-          inherit yt-dlp spotdl;
-        })
-      (final: prev:
-        with inputs.nixpkgs-stable.legacyPackages.${system}; {
-          # rearly updated
-          inherit firefox elinks;
-        })
+        if (inputs.nixpkgs.lastModified < 1772379848)
+        then {
+          # remove after https://github.com/NixOS/nixpkgs/commit/b097075bf24c9c9d3d2a0f6978effd7f150d2a89 hits
+          inherit (getPkgs "nixpkgs-master") libreoffice;
+        }
+        else pkgs.lib.warn "libreoffice should now work, remove overlay" {})
+      (final: prev: {
+        # rearly updated
+        inherit (getPkgs "nixpkgs-stable") firefox elinks;
+      })
       (final: prev: {
         # patches
         batsigal = prev.batsignal.overrideAttrs {
@@ -62,13 +76,6 @@
       })
       (import ./pkgs)
     ];
-
-    pkgs = import nixpkgs {
-      inherit system overlays;
-      config = {
-        allowUnfree = true;
-      };
-    };
 
     customArgs = {
       inherit inputs system;
