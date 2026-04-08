@@ -42,32 +42,35 @@ vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { no
 
 vim.o.shell = 'ish'
 
+lvim.lsp.automatic_servers_installation = false
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright", "ruff" })
+
 -- Custom function to open folder in oil.nvim, file normally
 local function open_in_oil_or_edit(node)
-  if node.type == "directory" then
-    vim.cmd("Oil " .. node.absolute_path)
-  else
-    require("nvim-tree.api").node.open.edit()
-  end
+    if node.type == "directory" then
+        vim.cmd("Oil " .. node.absolute_path)
+    else
+        require("nvim-tree.api").node.open.edit()
+    end
 end
 
 lvim.builtin.nvimtree.setup.on_attach = function(bufnr)
-  local api = require("nvim-tree.api")
+    local api = require("nvim-tree.api")
 
-  local function opts(desc)
-    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-  end
-
-  -- Default mappings (optional if you want to keep them)
-  api.config.mappings.default_on_attach(bufnr)
-
-  -- Override `o` key
-  vim.keymap.set("n", "o", function()
-    local node = api.tree.get_node_under_cursor()
-    if node then
-      open_in_oil_or_edit(node)
+    local function opts(desc)
+        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
     end
-  end, opts("Open in Oil"))
+
+    -- Default mappings (optional if you want to keep them)
+    api.config.mappings.default_on_attach(bufnr)
+
+    -- Override `o` key
+    vim.keymap.set("n", "o", function()
+        local node = api.tree.get_node_under_cursor()
+        if node then
+            open_in_oil_or_edit(node)
+        end
+    end, opts("Open in Oil"))
 end
 
 --
@@ -76,20 +79,20 @@ vim.o.updatetime = 500 -- or: vim.opt.updatetime = 500
 
 -- 2. Configure diagnostics: no automatic inline virtual text
 vim.diagnostic.config({
-  virtual_text = false, -- disable always-on inline diagnostics
-  signs = true,
-  underline = true,
-  update_in_insert = false,
+    virtual_text = false, -- disable always-on inline diagnostics
+    signs = true,
+    underline = true,
+    update_in_insert = false,
 })
 
 -- 3. Function to show inline diagnostics manually
 local function show_inline_diagnostics()
-  vim.diagnostic.show(nil, 0, nil, { virtual_text = true })
+    vim.diagnostic.show(nil, 0, nil, { virtual_text = true })
 end
 
 -- 4. Show them only after CursorHold (i.e. after updatetime delay)
 vim.api.nvim_create_autocmd("CursorHold", {
-  callback = show_inline_diagnostics,
+    callback = show_inline_diagnostics,
 })
 --
 
@@ -99,130 +102,131 @@ vim.api.nvim_create_autocmd("CursorHold", {
 -- end
 
 lvim.plugins = {
-  { -- autosave
-    "Pocco81/auto-save.nvim",
-    config = true,
-  },
-  {
-    "NeogitOrg/neogit",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
-      "nvim-telescope/telescope.nvim",
+    { -- autosave
+        "Pocco81/auto-save.nvim",
+        config = true,
     },
-    config = true,
-    keys = {
-      { "<leader>gn", "<cmd>Neogit<cr>", desc = "Open neogit" }
-    }
-  },
-  {
-    "rachartier/tiny-code-action.nvim",
-    dependencies = {
-      { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope.nvim" },
-    },
-    event = "LspAttach",
-    config = true,
-    keys = {
-      { "<leader>la", function() require("tiny-code-action").code_action() end, desc = "Code action" }
-    }
-  },
-  {
-    "v1nh1shungry/cppman.nvim",
-    cmd = "Cppman",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-    },
-    opts = {
-      picker = "telescope",
-    },
-    keys = {
-      { "<leader>lm", function() require('cppman').search() end, desc = "Open cpp manual" }
-    },
-  },
-  {
-    "rcarriga/nvim-notify",
-    opts = {
-      max_width = 40,
-      render = "wrapped-compact",
-      background_colour = "#000000",
-    },
-    lazy = false,
-    init = function()
-      vim.notify = require("notify");
-    end
-  },
-  {
-    "jiaoshijie/undotree",
-    dependencies = "nvim-lua/plenary.nvim",
-    config = true,
-    keys = { -- load the plugin only when using it's keybinding:
-      { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
-    },
-  },
-  {
-    "LintaoAmons/scratch.nvim",
-    event = "VeryLazy",
-    cmd = "Scratch",
-  },
-  {
-    "neovim/nvim-lspconfig",
-    name = "lspconfig.nixd",
-    ft = { "nix" },
-    opts = {},
-    config = function(_, opts)
-      require("lspconfig").nixd.setup(opts)
-    end,
-  },
-  {
-    "stevearc/conform.nvim",
-    optional = true,
-    opts = {
-      formatters_by_ft = {
-        nix = { "alejandra" },
-      },
-    },
-  },
-  {
-    "gennaro-tedesco/nvim-peekup",
-  },
-  {
-    "stevearc/oil.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("oil").setup({
-        default_file_explorer = true, -- replaces netrw
-        view_options = {
-          show_hidden = true,
+    {
+        "NeogitOrg/neogit",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "sindrets/diffview.nvim",
+            "nvim-telescope/telescope.nvim",
         },
-        keymaps = {
-        },
-      })
-    end,
-  },
-  {
-    "folke/zen-mode.nvim",
-    keys = {
-      { "<leader>z", "<cmd>ZenMode<cr>" },
+        config = true,
+        keys = {
+            { "<leader>gn", "<cmd>Neogit<cr>", desc = "Open neogit" }
+        }
     },
-  },
-  -- {
-  --   "vhyrro/luarocks.nvim",
-  --   priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
-  --   opts = {
-  --     rocks = {
-  --       "inspect",
-  --     },
-  --     -- luarocks_build_args = { "--with-lua=/my/path" }, -- extra options to pass to luarocks's configuration script
-  --   },
-  -- },
-  -- {
-  --   "mfussenegger/nluarepl",
-  --   lazy = false,
-  --   dependencies = { "mfussenegger/nvim-dap" },
-  -- },
-  -- {
-  --   "polirritmico/lazy-local-patcher.nvim",
-  --   config = true,
-  -- },
+    {
+        "rachartier/tiny-code-action.nvim",
+        dependencies = {
+            { "nvim-lua/plenary.nvim" },
+            { "nvim-telescope/telescope.nvim" },
+        },
+        lazy = false,
+        -- event = "LspAttach",
+        config = true,
+        keys = {
+            { "<leader>la", function() require("tiny-code-action").code_action() end, desc = "Code action" }
+        }
+    },
+    {
+        "v1nh1shungry/cppman.nvim",
+        cmd = "Cppman",
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+        },
+        opts = {
+            picker = "telescope",
+        },
+        keys = {
+            { "<leader>lm", function() require('cppman').search() end, desc = "Open cpp manual" }
+        },
+    },
+    {
+        "rcarriga/nvim-notify",
+        opts = {
+            max_width = 40,
+            render = "wrapped-compact",
+            background_colour = "#000000",
+        },
+        lazy = false,
+        init = function()
+            vim.notify = require("notify");
+        end
+    },
+    {
+        "jiaoshijie/undotree",
+        dependencies = "nvim-lua/plenary.nvim",
+        config = true,
+        keys = { -- load the plugin only when using it's keybinding:
+            { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
+        },
+    },
+    {
+        "LintaoAmons/scratch.nvim",
+        event = "VeryLazy",
+        cmd = "Scratch",
+    },
+    {
+        "neovim/nvim-lspconfig",
+        name = "lspconfig.nixd",
+        ft = { "nix" },
+        opts = {},
+        config = function(_, opts)
+            require("lspconfig").nixd.setup(opts)
+        end,
+    },
+    {
+        "stevearc/conform.nvim",
+        optional = true,
+        opts = {
+            formatters_by_ft = {
+                nix = { "alejandra" },
+            },
+        },
+    },
+    {
+        "gennaro-tedesco/nvim-peekup",
+    },
+    {
+        "stevearc/oil.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function()
+            require("oil").setup({
+                default_file_explorer = true, -- replaces netrw
+                view_options = {
+                    show_hidden = true,
+                },
+                keymaps = {
+                },
+            })
+        end,
+    },
+    {
+        "folke/zen-mode.nvim",
+        keys = {
+            { "<leader>z", "<cmd>ZenMode<cr>" },
+        },
+    },
+    -- {
+    --   "vhyrro/luarocks.nvim",
+    --   priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
+    --   opts = {
+    --     rocks = {
+    --       "inspect",
+    --     },
+    --     -- luarocks_build_args = { "--with-lua=/my/path" }, -- extra options to pass to luarocks's configuration script
+    --   },
+    -- },
+    -- {
+    --   "mfussenegger/nluarepl",
+    --   lazy = false,
+    --   dependencies = { "mfussenegger/nvim-dap" },
+    -- },
+    -- {
+    --   "polirritmico/lazy-local-patcher.nvim",
+    --   config = true,
+    -- },
 }

@@ -16,6 +16,11 @@
   launcher_desktop = mkLuncher "tofi-drun";
 in {
   options.my.sway = lib.mkEnableOption "sway window manager (home)";
+  options.my.autolock =
+    (lib.mkEnableOption "enable display locking")
+    // {
+      default = false;
+    };
 
   config = lib.mkIf config.my.sway {
     # Wayland/Sway session via Home Manager
@@ -51,10 +56,16 @@ in {
         include ./outputs
 
         ### Idle configuration
-        exec swayidle -w \
-                 timeout 300 '$lock' \
-                 timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-                 before-sleep '$lock'
+        ${
+          if config.my.autolock
+          then ''
+            exec swayidle -w \
+                     timeout 300 '$lock' \
+                     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+                     before-sleep '$lock'
+          ''
+          else ""
+        }
         #
         # This will lock your screen after 300 seconds of inactivity, then turn off
         # your displays after another 300 seconds, and turn your screens back on when
@@ -139,6 +150,10 @@ in {
             bindsym $mod+Shift+Down move down
             bindsym $mod+Shift+Up move up
             bindsym $mod+Shift+Right move right
+
+            # Move workspace
+            bindsym $mod+greater move workspace to output right
+            bindsym $mod+less move workspace to output left
         #
         # Workspaces:
         #
@@ -166,6 +181,7 @@ in {
             bindsym $mod+Shift+0 move container to workspace number 10; workspace number 10
             # Note: workspaces can have any name you want, not just numbers.
             # We just use 1-10 as the default.
+
         #
         # Layout stuff:
         #

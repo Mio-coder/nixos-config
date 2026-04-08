@@ -13,6 +13,7 @@
  - yazi
  - ~/.clang-format via hm
  - root cage emebed
+ - migrate from lvim
 
 
 pay-respects:

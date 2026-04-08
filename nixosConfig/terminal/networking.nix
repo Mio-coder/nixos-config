@@ -1,6 +1,7 @@
 {hostname, ...}: {
   networking = {
     hostName = hostname;
+    firewall.trustedInterfaces = ["eno1"];
     networkmanager = {
       enable = true;
       ensureProfiles.profiles = {

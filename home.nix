@@ -19,43 +19,50 @@
   ];
 
   home.packages = with pkgs; [
+    # Dev tools
     uv
     act
     alejandra
-    ungoogled-chromium
-    man-db
-    python312Packages.ipython
-    localsend
+    python313Packages.ipython
     valgrind
     gdb
     gcc
-    rsync
     gnumake
-    undollar
-    libqalculate
-    tldr
     cling
-    speedtest-rs
-    asciiquarium-transparent
-    llvmPackages_21.clang-tools
-    lldb_21
-    pv
-    just
-    htop
-    prismlauncher # takes long to download
     oiejq
+    lldb_21
+    llvmPackages_21.clang-tools
+    just
+
+    dbg-macro
+    progress-bar
+
+    # misc
+    tldr
+    undollar
+    man-db
+    pv
+    htop
+    speedtest-rs
+    rsync
     feh
-    tridactyl-native
-    clock-rs
-    miniserve
     cudatext
+    clock-rs
+    asciiquarium-transparent
     ncpamixer
+    localsend
+    libqalculate
+
+    prismlauncher # takes long to download
     libreoffice
+    miniserve
+    ungoogled-chromium
 
     devenv
     sd
     diskus
     ripgrep-all
+
     (pkgs.writeShellScriptBin "szkopul-g++" ''
       ${inputs.nixpkgs-gcc.legacyPackages.${system}.gcc}/bin/g++ $@
     '')
@@ -71,7 +78,11 @@
     unzip
   ];
   home.sessionVariables = {
-    CPLUS_INCLUDE_PATH = "${pkgs.dbg-macro}/usr/include";
+    CPLUS_INCLUDE_PATH = with pkgs;
+      lib.makeSearchPath "include" [
+        dbg-macro
+      ]
+      + ":$CPLUS_INCLUDE_PATH";
   };
 
   home.file = {

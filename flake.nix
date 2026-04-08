@@ -14,6 +14,7 @@
     nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-lunarvim.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-gcc.url = "github:nixos/nixpkgs/1634419f4f629111c7b66f370155a26d98c53505";
     home-manager.url = "github:nix-community/home-manager";
     nur = {
@@ -54,25 +55,9 @@
     in [
       inputs.nur.overlays.default
       (final: prev: {
-        # always updated
         inherit (getPkgs "nixpkgs-master") yt-dlp spotdl;
-      })
-      (final: prev:
-        if (inputs.nixpkgs.lastModified < 1772379848)
-        then {
-          # remove after https://github.com/NixOS/nixpkgs/commit/b097075bf24c9c9d3d2a0f6978effd7f150d2a89 hits
-          inherit (getPkgs "nixpkgs-master") libreoffice;
-        }
-        else pkgs.lib.warn "libreoffice should now work, remove overlay" {})
-      (final: prev: {
-        # rearly updated
         inherit (getPkgs "nixpkgs-stable") firefox elinks;
-      })
-      (final: prev: {
-        # patches
-        batsigal = prev.batsignal.overrideAttrs {
-          patches = [./pkgs/batsignal.patch];
-        };
+        inherit (getPkgs "nixpkgs-lunarvim") lunarvim;
       })
       (import ./pkgs)
     ];

@@ -62,6 +62,8 @@
       environment.systemPackages = with pkgs; [
         nvtopPackages.nvidia
       ];
+
+      hardware.nvidia-container-toolkit.enable = true;
     })
     (
       lib.mkIf (config.my.nvidia.enable && config.my.nvidia.external) {

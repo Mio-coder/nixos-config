@@ -123,4 +123,5 @@
     "x-scheme-handler/about" = "firefox.desktop";
     "x-scheme-handler/unknown" = "firefox.desktop";
   };
+  home.packages = [pkgs.tridactyl-native];
 }

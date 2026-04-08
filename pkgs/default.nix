@@ -11,4 +11,8 @@ final: prev: {
       ];
   });
   bitwarden-thunderbird = prev.callPackage ./bitwarden_thunderbird.nix {};
+  batsigal = prev.batsignal.overrideAttrs {
+    patches = [./batsignal.patch];
+  };
+  progress-bar = prev.callPackage ./progress-bar.nix {};
 }

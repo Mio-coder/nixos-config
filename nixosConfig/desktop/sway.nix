@@ -41,6 +41,7 @@
       swaylock
       swayidle
       void-sddm
+      brightnessctl
     ];
 
     xdg.portal = {
@@ -55,6 +56,5 @@
     };
 
     users.users.mio.extraGroups = ["video"];
-    programs.light.enable = true;
   };
 }

@@ -39,7 +39,7 @@
       elif [[ $dir_count -eq 1 ]]; then
         dir=$(echo "$dirs" | head -n 1)
       else
-        dir=$(echo "$dirs" | ${fzf}/bin/fzf --preview 'tree -C {} | head -200')
+        dir=$(echo "$dirs" | ${fzf}/bin/fzf --preview 'eza --tree | head -200')
       fi
 
       if [[ -n "$dir" ]]; then

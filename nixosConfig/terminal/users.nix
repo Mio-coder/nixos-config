@@ -5,7 +5,7 @@
     mio = {
       isNormalUser = true;
       description = "mio";
-      extraGroups = ["wheel"];
+      extraGroups = ["wheel" "firejail"];
       hashedPasswordFile = config.age.secrets.password.path;
     };
     root.hashedPasswordFile = config.age.secrets.password.path;
