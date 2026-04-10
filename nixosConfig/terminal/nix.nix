@@ -29,8 +29,8 @@
       min-free = ${toString (100 * 1024 * 1024)}
       max-free = ${toString (1024 * 1024 * 1024)}
     '';
-    # package = pkgs.nixVersions.git;
-    package = pkgs.lixPackageSets.stable.lix;
+    package = pkgs.nixVersions.git;
+    # package = pkgs.lixPackageSets.stable.lix;
   };
   nixpkgs.config.allowUnfree = lib.mkForce true;
   nix.sshServe.enable = true;

@@ -58,6 +58,4 @@
 
   services.usbmuxd.enable = true;
   programs.fuse.userAllowOther = true;
-
-  my.docker = true;
 }

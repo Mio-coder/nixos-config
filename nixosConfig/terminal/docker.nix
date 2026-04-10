@@ -11,14 +11,12 @@
       virtualisation.docker = {
         enable = true;
         enableOnBoot = true;
-        enableNvidia = config.my.nvidia.enable;
       };
       users.users.mio.extraGroups = ["docker"];
     })
     (lib.mkIf (!config.my.docker) {
       virtualisation.oci-containers.backend = "podman";
       virtualisation.containers.enable = true;
-      hardware.nvidia-container-toolkit.enable = config.my.nvidia;
       virtualisation.podman = {
         enable = true;
         dockerCompat = true;

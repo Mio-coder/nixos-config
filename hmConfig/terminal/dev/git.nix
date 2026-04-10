@@ -5,6 +5,7 @@
       name = "Mio-coder";
       email = "78543744+Mio-coder@users.noreply.github.com";
     };
+    signing.format = null;
   };
 
   programs.ssh = {
