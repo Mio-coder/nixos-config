@@ -6,6 +6,6 @@
     '';
   };
   environment.variables = {
-    APT_CONFIG = pkgs.lib.trace "/etc/apt.conf";
+    APT_CONFIG = "/etc/apt.conf";
   };
 }

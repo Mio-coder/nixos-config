@@ -1,7 +1,6 @@
  - nix-search-tv
- - remove core dumps
-
- - change lvim default register to something diffrent then system
+ - remove core dumps (vgcore.)
+ - install gh
  - wleave https://github.com/catppuccin/wlogout
  - xdg.terminal-exec
  - tridactyl dark theme
@@ -14,13 +13,14 @@
  - ~/.clang-format via hm
  - root cage emebed
  - migrate from lvim
-
+ - fix icons
+blueman-manager 18.34.16 ERROR    ManagerDeviceList:276 _load_surface: Failed to look up icon "audio-headset" likely due to broken icon theme.
+ - fix xdg-open from app
 
 pay-respects:
  - mdkir
 
 to see:
- - anki
  - meli
  - hm.log
 

@@ -1,42 +1,53 @@
 # My nixos configuration
-work in progres
-## important info:
 
-|                             | App                     |
+## Important info:
+
+|                             |                         |
 | --------------------------- | ----------------------- |
 | **Window Manager**          | Sway                    |
 | **Terminal Emulator**       | Alacritty               |
 | **Application Launcher**    | Tofi                    |
 | **Notification Daemon**     | Mako                    |
-| **network management tool** | NetworkManager          |
+| **Network management tool** | NetworkManager          |
 | **System resource monitor** | Btop                    |
 | **Shell**                   | Bash + Starship         |
 | **Text Editor**             | Neovim (Lunarvim)       |
 
 ## Structure
 ```
-├── configuration.nix
-├── flake.nix
+├── configuration.nix     # system configuration base
+├── docs
+├── flake.lock
+├── flake.nix             # main flake
 ├── hmConfig
-│   ├── desktop     # programs for desktop
-│   └── terminal    # prorgams for terminal / services
-├── home.nix
-├── hosts           # hosts
+│   ├── default.nix
+│   ├── desktop           # user desktop programs
+│   └── terminal          # everything else
+├── home.nix              # base home configuration
+├── hosts
+│   ├── omen-nixos
+│   │   ├── configuration.nix           # system conf
+│   │   ├── disk-config.nix             # disk conf
+│   │   ├── hardware-configuration.nix  # hardware conf
+│   │   ├── home.nix                    # home configuration
+│   │   └── wm.nix                      # shared config
 │   └── potato-nixos
-│       ├── disk-config.nix              # disko config
-│       ├── hardware-configuration.nix
-│       ├── home.nix                     # host-specific home-manager config
-│       └── wm.nix
+├── install.sh     # common instalation commands
+├── iso.nix        # half-baked live iso
 ├── nixosConfig
-│   ├── desktop     # programs for desktop
-│   └── terminal    # programs for terminal / services
-├── pkgs            # programs outside nix
+│   ├── desktop    # desktop configuration
+│   └── terminal   # not desktop configuration
+├── pkgs           # patches and custom packages
 ├── readme.md
-├── secrets
-├── shell.nix
-├── switch.sh
-└── todo.md
+├── secrets        # secrets
+├── switch.sh      # nixos-rebuild wrapper
+└── update.sh      # commands to run when updating
 ```
-in some folders default.nix imports all nix files recursively
+
+default.nix imports files in subdirectory
 
 orignaly inspired by https://github.com/Rishabh5321/dotfiles
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

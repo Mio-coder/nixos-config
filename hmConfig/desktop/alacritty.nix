@@ -6,8 +6,6 @@
       terminal.shell = "${pkgs.tmux}/bin/tmux";
       font.normal.family = "JetBrainsMono Nerd Font Mono";
 
-      # window.decorations = "None";
-
       colors = {
         primary = {
           background = "#171421";

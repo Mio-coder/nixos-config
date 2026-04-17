@@ -9,10 +9,9 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "sharkdp";
     repo = "dbg-macro";
-    rev = "c2ad2915d0029cf2f38f27ff05acfd6ea57ccdc5";
-    hash = "sha256-ZP3Qk3/hfzjO5csohs78PJfBqFY+pR4SiHe28XukEmY=";
+    rev = "a94fa67eca61e245cf33bdd340110329ea9f1b05";
+    hash = "sha256-q3Podk1QkGS2vA/Zo6amHUihDchlyNIjoQmvbL0MRog=";
   };
-  patches = [./dbg_no_type.diff];
   dontBuild = true;
 
   installPhase = ''

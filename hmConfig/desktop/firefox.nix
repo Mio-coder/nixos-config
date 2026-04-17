@@ -7,6 +7,9 @@
         DisableTelemetry = true;
         DisableFirefoxAccounts = true;
         DisablePocket = true;
+        DisableAccounts = true;
+        DisableAppUpdate = true;
+        DisableSetDesktopBackground = true;
         DNSOverHTTPS = {
           Enabled = true;
           Fallback = true;
@@ -16,6 +19,8 @@
           Cryptomining = true;
           Fingerprinting = true;
           EmailTracking = true;
+          SuspectedFingerprinting = true;
+          BaselineExceptions = true;
         };
         FirefoxHome = {
           Search = true;
@@ -32,8 +37,13 @@
           SponsoredSuggestion = false;
           ImproveSuggest = false;
         };
+        GenerativeAI = {
+          Chatbot = false;
+        };
         HardwareAcceleration = true;
         NoDefaultBookmarks = true;
+        OfferToSaveLogins = false;
+        PasswordManagerEnabled = false;
         Permissions = {
           Notifications = {
             Block = ["*"];
