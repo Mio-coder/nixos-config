@@ -123,7 +123,7 @@
         };
       in
         sys.config.system.build.isoImage;
-        dbg-macro = pkgs.dbg-macro;
+      dbg-macro = pkgs.dbg-macro;
     };
   };
 }
