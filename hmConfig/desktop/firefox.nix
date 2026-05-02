@@ -1,6 +1,11 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs = {
     firefox = {
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
       enable = true;
       languagePacks = ["pl" "en-US"];
       policies = {

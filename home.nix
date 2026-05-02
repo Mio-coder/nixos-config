@@ -19,32 +19,13 @@
   ];
 
   home.packages = with pkgs; [
-    # Dev tools
-    uv
-    act
-    alejandra
-    python313Packages.ipython
-    valgrind
-    gdb
-    gcc
-    gnumake
-    cling
-    oiejq
-    lldb_21
-    llvmPackages_21.clang-tools
-    just
-
-    dbg-macro
-    progress-bar
-
     # misc
     tldr
     undollar
     man-db
     pv
     htop
-    speedtest-rs
-    rsync
+    speedtest-go
     feh
     cudatext
     clock-rs
@@ -58,21 +39,15 @@
     miniserve
     ungoogled-chromium
 
-    devenv
+    # devenv
     sd
     diskus
+    dust
     ripgrep-all
 
     (pkgs.writeShellScriptBin "szkopul-g++" ''
       ${inputs.nixpkgs-gcc.legacyPackages.${system}.gcc}/bin/g++ $@
     '')
-    (pkgs.writeShellApplication {
-      name = "ns";
-      runtimeInputs = [fzf nix-search-tv];
-      text = ''
-        nix-search-tv print | fzf --preview 'nix-search-tv preview {}' --scheme history
-      '';
-    })
 
     # find a tool to unite them all, (tar, zstd, gzip, xz, 7z), preferibly parrarel
     unzip

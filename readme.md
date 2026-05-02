@@ -31,17 +31,18 @@
 │   │   ├── hardware-configuration.nix  # hardware conf
 │   │   ├── home.nix                    # home configuration
 │   │   └── wm.nix                      # shared config
+│   ├── iso.nix           # half-baked live iso
 │   └── potato-nixos
-├── install.sh     # common instalation commands
-├── iso.nix        # half-baked live iso
+├── scripts
+│   ├── install.sh        # common instalation commands
+│   ├── switch.sh         # nixos-rebuild wrapper
+│   └── update.sh         # commands to run when updating
 ├── nixosConfig
 │   ├── desktop    # desktop configuration
 │   └── terminal   # not desktop configuration
 ├── pkgs           # patches and custom packages
-├── readme.md
 ├── secrets        # secrets
-├── switch.sh      # nixos-rebuild wrapper
-└── update.sh      # commands to run when updating
+└── readme.md
 ```
 
 default.nix imports files in subdirectory

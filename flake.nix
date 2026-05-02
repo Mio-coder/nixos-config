@@ -37,13 +37,9 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
-  outputs = {
-    nixpkgs,
-    home-manager,
-    ...
-  } @ inputs: let
+  outputs = inputs: let
     system = "x86_64-linux";
-    pkgs = import nixpkgs {
+    pkgs = import inputs.nixpkgs {
       inherit system overlays;
       config = {
         allowUnfree = true;
@@ -72,7 +68,7 @@
           inherit hostname;
         };
     in
-      nixpkgs.lib.nixosSystem {
+      inputs.nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs =
           hostArgs;
@@ -101,24 +97,24 @@
       omen-nixos = mkHost "omen-nixos";
     };
     # for hm news
+    homeConfigurations."mio" = inputs.home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [
+        ./home.nix
+      ];
+      extraSpecialArgs =
+        customArgs
+        // {
+          inherit pkgs;
+          hostname = "omen-nixos";
+        };
+    };
     packages.${system} = {
-      homeConfigurations."mio" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./home.nix
-        ];
-        extraSpecialArgs =
-          customArgs
-          // {
-            inherit pkgs;
-            hostname = "omen-nixos";
-          };
-      };
       iso = let
-        sys = nixpkgs.lib.nixosSystem {
+        sys = inputs.nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
-            (import ./iso.nix)
+            (import ./hosts/iso.nix)
           ];
         };
       in

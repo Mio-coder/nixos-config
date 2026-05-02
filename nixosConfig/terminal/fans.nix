@@ -30,4 +30,9 @@ _: {
       MEM_SLEEP_ON_AC = "deep";
     };
   };
+  services.upower = {
+    enable = true;
+    criticalPowerAction = "Hibernate";
+  };
+  services.logind.settings.Login.HandleLidSwitch = "ignore";
 }
