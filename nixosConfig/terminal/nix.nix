@@ -38,5 +38,4 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMFe4qGpEm/tPdufXpSCPHYOU9mkGdLRBrBaZ3PR8c7s root@nixos"
   ];
   nix.settings.secret-key-files = ["/etc/nix/signing-key.sec"];
-  home-manager.users.mio.nixpkgs.config.allowUnfree = true;
 }

@@ -1,4 +1,6 @@
-pkgs: [
+pkgs: let
+  snowflake = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+in [
   {
     key = "nix-packages";
     name = "NixOS Packages";
@@ -13,7 +15,7 @@ pkgs: [
         value = "{searchTerms}";
       }
     ];
-    icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+    icon = snowflake;
     definedAliases = ["@np"];
   }
   {
@@ -26,7 +28,7 @@ pkgs: [
         value = "{searchTerms}";
       }
     ];
-    icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+    icon = snowflake;
     definedAliases = ["@no"];
   }
   {
@@ -39,7 +41,7 @@ pkgs: [
         value = "{searchTerms}";
       }
     ];
-    icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+    icon = snowflake;
     definedAliases = ["@nw"];
   }
   {
@@ -56,22 +58,17 @@ pkgs: [
     icon = "https://duckduckgo.com/assets/logo_social-media.png";
   }
   {
-    key = "pypi";
-    name = "PyPI";
-    template = "https://pypi.org/search";
-    icon = pkgs.fetchurl {
-      url = "https://pypi.org/static/images/logo-small.8998e9d1.svg";
-      hash = "sha256-nEdP3zE93Wbo7vuG/pnSYzaqCD2+4V7AcEfme2bQXwk=";
-    };
-  }
-  {
     key = "home-manager-options";
     name = "Home Manager Options";
-    template = "https://home-manager-options.extranix.com/";
+    template = "https://search.nixos.org/options";
     params = [
       {
         name = "query";
         value = "{searchTerms}";
+      }
+      {
+        name = "source";
+        value = "home_manager";
       }
     ];
     definedAliases = ["@hm"];

@@ -14,5 +14,6 @@
     just
     dbg-macro
     rsync
+    gh
   ];
 }

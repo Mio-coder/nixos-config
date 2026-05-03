@@ -41,9 +41,7 @@
     system = "x86_64-linux";
     pkgs = import inputs.nixpkgs {
       inherit system overlays;
-      config = {
-        allowUnfree = true;
-      };
+      config.allowUnfree = true;
     };
 
     overlays = let
@@ -74,18 +72,8 @@
           hostArgs;
         modules = [
           ./configuration.nix
-          inputs.home-manager.nixosModules.home-manager
           {
             nixpkgs = {inherit overlays;};
-            home-manager = {
-              extraSpecialArgs =
-                hostArgs
-                // {
-                  inherit pkgs;
-                };
-              useUserPackages = true;
-              users.mio = import ./home.nix;
-            };
           }
         ];
       };

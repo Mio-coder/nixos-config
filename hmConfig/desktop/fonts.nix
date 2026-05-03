@@ -8,6 +8,13 @@
     home.packages = [
       pkgs.nerd-fonts.jetbrains-mono
     ];
+    gtk = {
+      enable = true;
+      iconTheme = {
+        name = "Adwaita";
+        package = pkgs.adwaita-icon-theme;
+      };
+    };
   };
   options.my.font.propo = lib.mkOption {
     type = lib.types.str;

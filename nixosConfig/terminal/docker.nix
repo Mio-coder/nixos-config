@@ -11,6 +11,9 @@
       virtualisation.docker = {
         enable = true;
         enableOnBoot = true;
+
+        # i know it is decrepted but it keeps some legacy docker-compose files working
+        enableNvidia = true;
       };
       users.users.mio.extraGroups = ["docker"];
     })
@@ -20,7 +23,7 @@
       virtualisation.podman = {
         enable = true;
         dockerCompat = true;
-        enableNvidia = config.my.nvidia.enable;
+        enableNvidia = true;
         defaultNetwork.settings.dns_enabled = true;
       };
       environment.systemPackages = with pkgs; [

@@ -1,22 +1,21 @@
  - nix-search-tv
  - remove core dumps (vgcore.)
- - install gh
  - migrate to brave
- - suspend cmd
  - rewrite sway config to nix
  - yazi
  - ~/.clang-format via hm
  - migrate from lvim
+ - fix multiple grim stacking when spamming screenshot
+ - noogle firefox shortcut
 
 research requried:
  - root cage emebed
  - fix xdg-open from app
- - fix icons
-blueman-manager 18.34.16 ERROR    ManagerDeviceList:276 _load_surface: Failed to look up icon "audio-headset" likely due to broken icon theme.
  - wleave https://github.com/catppuccin/wlogout
  - tridactyl dark theme
  - Firejail
  - wl-find-cursor
+ - github trackert script that shows when issues are closed
 
 
 to see:

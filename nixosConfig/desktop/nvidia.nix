@@ -7,7 +7,7 @@
 }: {
   options.my.nvidia = {
     enable = lib.mkEnableOption "nvidia";
-    external = lib.mkEnableOption "external monitor support";
+    external = lib.mkEnableOption "external monitor support" // {default = true;};
   };
   config = lib.mkMerge [
     (lib.mkIf config.my.nvidia.enable {
