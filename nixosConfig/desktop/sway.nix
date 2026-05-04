@@ -44,11 +44,6 @@
       brightnessctl
     ];
 
-    xdg.portal = {
-      wlr.enable = true;
-      xdgOpenUsePortal = true;
-    };
-
     services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;

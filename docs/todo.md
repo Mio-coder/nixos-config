@@ -10,13 +10,10 @@
 
 research requried:
  - root cage emebed
- - fix xdg-open from app
  - wleave https://github.com/catppuccin/wlogout
  - tridactyl dark theme
  - Firejail
- - wl-find-cursor
  - github trackert script that shows when issues are closed
-
 
 to see:
  - meli

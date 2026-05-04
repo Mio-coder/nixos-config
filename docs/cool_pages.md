@@ -20,3 +20,6 @@ services:
       - nvidia.com/gpu=all
 
 ```
+
+## "No Apps available" when clicking a URL
+https://github.com/flatpak/xdg-desktop-portal-gtk/issues/440#issuecomment-1900520919
