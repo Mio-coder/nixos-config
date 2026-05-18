@@ -31,6 +31,10 @@ vim.opt.shiftwidth = 4
 vim.opt.smarttab = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
+-- shell_build_argv wrongly formats redirections https://github.com/neovim/neovim/blob/450ba41436b6f9a94c7519339a0bdff8dfbf66a9/src/nvim/os/shell.c#L576
+-- maybe some fix in make_filter_cmd? https://github.com/neovim/neovim/blob/47914449532f76aa50a7db61f50b7bb4ee391948/src/nvim/ex_cmds.c#L1547
+-- this works, i don know why
+vim.opt.shelltemp = false
 
 lvim.keys.insert_mode["<C-BS>"] = "<C-W>"
 lvim.keys.normal_mode["<C-n>"] = "<cmd>noh<cr>"
@@ -38,10 +42,6 @@ lvim.keys.normal_mode["<leader>f"] = "<cmd>Telescope find_files<cr>"
 lvim.builtin.which_key.mappings["f"] = {}
 lvim.lsp.buffer_mappings.normal_mode["<leader>la"] = nil;
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
-
-vim.o.shell = 'ish'
-
 lvim.lsp.automatic_servers_installation = false
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright", "ruff" })
 
