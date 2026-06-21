@@ -3,4 +3,4 @@
 sudo true || true
 alejandra . -q
 git add . || true
-nixos-rebuild switch --flake . -S $@
+sudo nixos-rebuild switch --flake . $@

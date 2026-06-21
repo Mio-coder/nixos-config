@@ -114,6 +114,8 @@ in {
             bindsym $mod+d exec "${launcher}"
             bindsym $mod+Shift+d exec "${launcher_desktop}"
 
+            bindsym $mod+s exec "${lib.getExe pkgs.wleave}"
+
             # Drag floating windows by holding down $mod and left mouse button.
             # Resize them with right mouse button + $mod.
             # Despite the name, also works for non-floating windows.
@@ -311,6 +313,55 @@ in {
         border-width = 0;
         padding-left = "2%";
         padding-top = "2%";
+      };
+    };
+    programs.wleave = {
+      enable = true;
+      settings = {
+        buttons = [
+          {
+            label = "lock";
+            action = "hyprlock";
+            text = "Lock";
+            keybind = "l";
+            icon = "${pkgs.wleave}/share/wleave/icons/lock.svg";
+          }
+          {
+            label = "hibernate";
+            action = "systemctl hibernate";
+            text = "Hibernate";
+            keybind = "h";
+            icon = "${pkgs.wleave}/share/wleave/icons/hibernate.svg";
+          }
+          {
+            label = "logout";
+            action = "swaymsg exit";
+            text = "Logout";
+            keybind = "e";
+            icon = "${pkgs.wleave}/share/wleave/icons/logout.svg";
+          }
+          {
+            label = "shutdown";
+            action = "systemctl poweroff";
+            text = "Shutdown";
+            keybind = "s";
+            icon = "${pkgs.wleave}/share/wleave/icons/shutdown.svg";
+          }
+          {
+            label = "suspend";
+            action = "systemctl suspend";
+            text = "Suspend";
+            keybind = "u";
+            icon = "${pkgs.wleave}/share/wleave/icons/suspend.svg";
+          }
+          {
+            label = "reboot";
+            action = "systemctl reboot";
+            text = "Reboot";
+            keybind = "r";
+            icon = "${pkgs.wleave}/share/wleave/icons/reboot.svg";
+          }
+        ];
       };
     };
   };

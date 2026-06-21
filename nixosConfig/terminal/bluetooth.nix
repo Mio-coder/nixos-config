@@ -26,10 +26,6 @@
         };
       };
     };
-    services.blueman = {
-      enable = true;
-      # https://github.com/NixOS/nixpkgs/issues/514705
-      withApplet = false;
-    };
+    services.blueman.enable = true;
   };
 }

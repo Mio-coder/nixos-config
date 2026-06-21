@@ -45,13 +45,6 @@ in [
     definedAliases = ["@nw"];
   }
   {
-    key = "hearch";
-    name = "hearch";
-    template = "https://hearch.co/search";
-    icon = "https://hearch.co/_app/immutable/assets/logo.DDnVPknL.svg";
-    definedAliases = ["@he"];
-  }
-  {
     key = "ddg";
     name = "DuckDuckGo";
     template = "https://duckduckgo.com/";

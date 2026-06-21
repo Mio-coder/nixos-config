@@ -12,7 +12,8 @@
           };
           ethernet = {};
           ipv4 = {
-            address1 = "10.0.0.1/8";
+            # address1 = "10.0.0.1/8";
+            address1 = "192.168.0.1/24";
             ignore-auto-dns = "true";
             ignore-auto-routes = "true";
             may-fail = "false";

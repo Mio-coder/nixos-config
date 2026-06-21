@@ -4,8 +4,7 @@
   ...
 }: let
   shell = pkgs.writeShellScript "tmux_deafult_shell" ''
-    #!/bin/bash
-    exec env -u __ETC_PROFILE_NIX_SOURCED bash -l
+    exec env -u __ETC_PROFILE_NIX_SOURCED bash -l $@
   '';
 in {
   programs.tmux = {

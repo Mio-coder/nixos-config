@@ -36,4 +36,7 @@ in {
     };
     Index.Background = "Skip";
   };
+  home.file.".clang-format".text = ''
+    IndentWidth: 4
+  '';
 }
