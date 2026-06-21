@@ -4,7 +4,6 @@
  - fix multiple grim stacking when spamming screenshot
  - noogle firefox shortcut
  - allow sl to ls in pay_respects
- - disable pay respects nix search
 
 research requried:
  - migrate from lvim

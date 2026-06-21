@@ -9,8 +9,12 @@
     enableFishIntegration = false;
   };
   programs.pay-respects.enable = true;
+  # xdg.configFile."pay-respects/config.toml".text = ''
+  #   install_method = "Shell"
+  # '';
   xdg.configFile."pay-respects/config.toml".text = ''
-    install_method = "Shell"
+    [package_manager]
+    package_manager = ""
   '';
   programs.command-not-found.enable = false;
 }
