@@ -9,4 +9,5 @@ let
   all = users ++ systems;
 in {
   "password.age".publicKeys = all;
+  "pass.age".publicKeys = all;
 }

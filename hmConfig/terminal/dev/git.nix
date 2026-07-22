@@ -10,11 +10,9 @@
 
   programs.ssh = {
     enable = lib.mkDefault true;
-    matchBlocks = {
-      "github.com" = {
-        identityFile = "~/.ssh/id_ed25519";
-        user = "git";
-      };
+    settings."github.com" = {
+      IdentityFile = "~/.ssh/id_ed25519";
+      User = "git";
     };
   };
 }

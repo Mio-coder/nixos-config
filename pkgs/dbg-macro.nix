@@ -12,6 +12,9 @@ stdenv.mkDerivation {
     rev = "a94fa67eca61e245cf33bdd340110329ea9f1b05";
     hash = "sha256-q3Podk1QkGS2vA/Zo6amHUihDchlyNIjoQmvbL0MRog=";
   };
+  patches = [
+    ./dbg-macro.patch
+  ];
   dontBuild = true;
 
   installPhase = ''

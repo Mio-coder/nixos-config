@@ -26,6 +26,7 @@
     pv
     htop
     speedtest-go
+    fast-cli-zig
     feh
     cudatext
     clock-rs
