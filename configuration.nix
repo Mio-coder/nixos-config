@@ -7,8 +7,7 @@
     ./hosts/${hostname}/wm.nix
     ./hosts/${hostname}/hardware-configuration.nix
     ./hosts/${hostname}/configuration.nix
-    ./nixosConfig/terminal
-    ./nixosConfig/desktop
+    ./nixosConfig
   ];
 
   # This value determines the NixOS release from which the default

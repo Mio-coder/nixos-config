@@ -3,4 +3,5 @@
 
   # https://github.com/NixOS/nixpkgs/issues/189851#issuecomment-1238907955
   home-manager.users.mio.systemd.user.settings.Manager.DefaultEnvironment.PATH = "/run/wrappers/bin:/etc/profiles/per-user/%u/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin";
+  # todo: still doesn't work
 }
