@@ -84,6 +84,13 @@
       RemainAfterExit = true;
     };
     script = ''
+      for attempt in $(seq 1 60); do
+        if docker inspect windows_vpn >/dev/null 2>&1; then
+          break
+        fi
+        sleep 1
+      done
+      docker inspect windows_vpn >/dev/null
       docker exec windows_vpn iptables -t nat -C PREROUTING \
         -d 172.30.0.2 -j DNAT --to-destination 172.31.0.2 \
         || docker exec windows_vpn iptables -t nat -A PREROUTING \
