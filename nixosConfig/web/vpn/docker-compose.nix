@@ -33,10 +33,10 @@
       "--device=/dev/net/tun:/dev/net/tun:rwm"
       "--ip=172.30.0.2"
       "--network-alias=container"
-      "--network=windows_vpn_windows_vpn_net"
+      "--network=windows_vpn_net"
     ];
   };
-  systemd.services."docker-windows" = {
+  systemd.services."docker-windows_vpn" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
       RestartMaxDelaySec = lib.mkOverride 90 "1m";
