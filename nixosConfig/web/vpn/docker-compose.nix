@@ -133,7 +133,7 @@
         test -n "$guest_iface"
         test -n "$wan_iface"
         ip addr replace 10.10.0.1/24 dev "$guest_iface"
-        sysctl -w net.ipv4.ip_forward=1
+        sysctl -w net.ipv4.ip_forward=1 || true
         iptables -t nat -C POSTROUTING -s 10.10.0.0/24 -o "$wan_iface" -j MASQUERADE \
           || iptables -t nat -A POSTROUTING -s 10.10.0.0/24 -o "$wan_iface" -j MASQUERADE
       '
