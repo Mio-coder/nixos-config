@@ -100,6 +100,48 @@
     wantedBy = ["docker-compose-windows_vpn-root.target"];
   };
 
+  systemd.services."windows-vpn-gateway" = {
+    description = "Configure the Dockurr guest gateway for Windows";
+    after = ["docker-windows_vpn.service"];
+    requires = ["docker-windows_vpn.service"];
+    before = ["windows-vpn-ready.service"];
+    path = [
+      pkgs.coreutils
+      pkgs.docker
+    ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      for attempt in $(seq 1 60); do
+        if docker inspect windows_vpn >/dev/null 2>&1; then
+          break
+        fi
+        sleep 1
+      done
+      docker inspect windows_vpn >/dev/null
+      docker exec windows_vpn sh -eu -c '
+        for attempt in $(seq 1 60); do
+          guest_iface="$(ip -o -4 addr show | awk '"'"'$4 == "172.31.0.1/24" {print $2; exit}'"'"')"
+          if [ -n "$guest_iface" ]; then
+            break
+          fi
+          sleep 1
+        done
+        wan_iface="$(ip route show default | awk '"'"'{print $5; exit}'"'"')"
+        test -n "$guest_iface"
+        test -n "$wan_iface"
+        ip addr replace 10.10.0.1/24 dev "$guest_iface"
+        sysctl -w net.ipv4.ip_forward=1
+        iptables -t nat -C POSTROUTING -s 10.10.0.0/24 -o "$wan_iface" -j MASQUERADE \
+          || iptables -t nat -A POSTROUTING -s 10.10.0.0/24 -o "$wan_iface" -j MASQUERADE
+      '
+    '';
+    partOf = ["docker-compose-windows_vpn-root.target"];
+    wantedBy = ["docker-compose-windows_vpn-root.target"];
+  };
+
   systemd.services."windows-vpn-route" = {
     description = "Route traffic to the nested Windows VM";
     after = ["docker-network-windows_vpn_net.service"];
@@ -109,9 +151,13 @@
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStop = "ip route del 172.31.0.0/24 via 172.30.0.2";
+      ExecStop = "${pkgs.writeShellScript "windows-vpn-route-down" ''
+        ip route del 10.10.0.0/24 via 172.30.0.2 || true
+        ip route del 172.31.0.0/24 via 172.30.0.2 || true
+      ''}";
     };
     script = ''
+      ip route replace 10.10.0.0/24 via 172.30.0.2
       ip route replace 172.31.0.0/24 via 172.30.0.2
     '';
     partOf = ["docker-compose-windows_vpn-root.target"];
@@ -134,15 +180,24 @@
   # Wait until Windows is actually reachable through both advertised services.
   systemd.services."windows-vpn-ready" = {
     description = "Wait for Windows VPN VM to become ready";
-    after = ["docker-windows_vpn.service"];
-    requires = ["docker-windows_vpn.service"];
+    after = [
+      "docker-windows_vpn.service"
+      "windows-vpn-gateway.service"
+      "windows-vpn-route.service"
+    ];
+    requires = [
+      "docker-windows_vpn.service"
+      "windows-vpn-gateway.service"
+      "windows-vpn-route.service"
+    ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
     };
     path = [pkgs.netcat];
     script = ''
-      until nc -z -w 2 172.30.0.2 22 && nc -z -w 2 172.30.0.2 3389; do
+      until { nc -z -w 2 10.10.0.2 22 && nc -z -w 2 10.10.0.2 3389; } \
+        || { nc -z -w 2 172.30.0.2 22 && nc -z -w 2 172.30.0.2 3389; }; do
         sleep 2
       done
     '';
