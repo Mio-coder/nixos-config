@@ -4,6 +4,7 @@
   boot.kernelModules = ["kvm-intel" "tun"];
   services.openssh = {
     enable = true;
+    openFirewall = true;
     settings = {
       PasswordAuthentication = true;
       KbdInteractiveAuthentication = false;
