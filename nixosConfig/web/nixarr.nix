@@ -38,6 +38,10 @@
     radarr.settings.auth.required = "DisabledForLocalAddresses";
     lidarr.settings.auth.required = "DisabledForLocalAddresses";
   };
+  systemd.services.wg = {
+    wants = ["docker-compose-windows_vpn-root.target"];
+    after = ["docker-compose-windows_vpn-root.target"];
+  };
   # # NOTE: All *arr services and jellyfin share the `media` group.
   # # UMask 0002 ensures created files are group-readable/writable,
   # # so e.g. bazarr can read/write subs in dirs owned by jellyfin,
