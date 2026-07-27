@@ -1,7 +1,7 @@
 {lib, ...}: {
   services.jellyfin = {
-    enable = true;
-    openFirewall = true;
+    # enable = true;
+    # openFirewall = true;
 
     # Make the NixOS settings overwrite Jellyfin's existing encoding.xml.
     # Changes made in Jellyfin's transcoding dashboard will be overwritten

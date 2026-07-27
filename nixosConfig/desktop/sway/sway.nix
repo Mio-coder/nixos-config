@@ -40,15 +40,8 @@
       # wlsunset
       swaylock
       swayidle
-      void-sddm
       brightnessctl
     ];
-
-    services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-      theme = "voidsddm";
-    };
 
     users.users.mio.extraGroups = ["video"];
   };

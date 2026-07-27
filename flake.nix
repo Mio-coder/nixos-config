@@ -36,6 +36,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixarr.url = "github:nix-media-server/nixarr";
   };
   outputs = inputs: let
     system = "x86_64-linux";
@@ -83,6 +84,7 @@
     nixosConfigurations = {
       potato-nixos = mkHost "potato-nixos";
       omen-nixos = mkHost "omen-nixos";
+      vm = mkHost "vm";
     };
     # for hm news
     homeConfigurations."mio" = inputs.home-manager.lib.homeManagerConfiguration {

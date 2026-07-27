@@ -16,6 +16,11 @@
   launcher_desktop = mkLuncher "tofi-drun";
 in {
   options.my.sway = lib.mkEnableOption "sway window manager (home)";
+  options.my.sway_mod = lib.mkOption {
+    type = lib.types.str;
+    default = "Mod4";
+    description = "Sway modifier key";
+  };
   options.my.autolock =
     (lib.mkEnableOption "enable display locking")
     // {
@@ -37,7 +42,7 @@ in {
         ### Variables
         #
         # Logo key. Use Mod1 for Alt.
-        set $mod Mod4
+        set $mod ${config.my.sway_mod}
         # Home row direction keys, like vim
         set $left h
         set $down j

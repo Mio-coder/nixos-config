@@ -11,24 +11,12 @@
       virtualisation.docker = {
         enable = true;
         enableOnBoot = true;
-
-        # i know it is decrepted but it keeps some legacy docker-compose files working
-        enableNvidia = true;
       };
       users.users.mio.extraGroups = ["docker"];
     })
-    (lib.mkIf (!config.my.docker) {
-      virtualisation.oci-containers.backend = "podman";
-      virtualisation.containers.enable = true;
-      virtualisation.podman = {
-        enable = true;
-        dockerCompat = true;
-        enableNvidia = true;
-        defaultNetwork.settings.dns_enabled = true;
-      };
-      environment.systemPackages = with pkgs; [
-        docker-compose
-      ];
+    (lib.mkIf (config.my.docker && config.my.nvidia.enable) {
+      # i know it is decrepted but it keeps some legacy docker-compose files working
+      virtualisation.docker.enableNvidia = true;
     })
   ];
 }
