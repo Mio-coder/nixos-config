@@ -40,7 +40,7 @@ if [[ ! -S $socket ]]; then
   exit 1
 fi
 
-setsid , socat - "UNIX-CONNECT:$socket" <"$input" >"$state_dir/serial.log" 2>"$state_dir/socat.log" &
+setsid nix shell nixpkgs#socat --command socat - "UNIX-CONNECT:$socket" 0<>"$input" >"$state_dir/serial.log" 2>"$state_dir/socat.log" &
 socat_pid=$!
 printf '%s\n' "$socat_pid" >"$state_dir/socat.pid"
 

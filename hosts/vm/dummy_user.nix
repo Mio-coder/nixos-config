@@ -1,10 +1,8 @@
 {pkgs, ...}: {
   users.users.dummy = {
     shell = pkgs.bash;
-    password = "123";
+    initialPassword = "123";
     extraGroups = [ "video" "wheel" ];
-    group = "dummy";
-    isSystemUser = true;
+    isNormalUser = true;
   };
-  users.groups.dummy = {};
 }
