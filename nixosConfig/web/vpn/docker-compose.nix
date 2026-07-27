@@ -20,6 +20,7 @@
   # Containers
   virtualisation.oci-containers.containers."windows_vpn" = {
     image = "dockurr/windows:latest";
+    autoStart = false;
     environment = {
       "VERSION" = "10";
     };
@@ -82,7 +83,8 @@
     # wantedBy = ["jellyfin-root.target"];
     # partOf = ["jellyfin-root.target"];
 
-    wantedBy = ["multi-user.target"];
+    # Start this explicitly after the Windows image and VPN configuration are ready.
+    wantedBy = [];
   };
 
   # Wait until Windows is actually reachable.

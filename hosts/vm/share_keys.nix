@@ -5,6 +5,11 @@
     target = "/run/keys";
     securityModel = "none";
   };
+  virtualisation.sharedDirectories.host-data = {
+    source = "/data";
+    target = "/data";
+    securityModel = "none";
+  };
   systemd.services.link-ssh-host-keys = {
     wantedBy = [ "multi-user.target" ];
     before = [ "sshd-keygen.service" "sshd.service" ];
