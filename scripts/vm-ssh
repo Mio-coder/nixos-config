@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ssh_port=${VM_SSH_PORT:-2222}
+ssh_user=${VM_SSH_USER:-dummy}
+ssh_password=${VM_SSH_PASSWORD:-123}
+known_hosts=${VM_SSH_KNOWN_HOSTS:-/tmp/nixos-vm-known-hosts}
+
+exec nix shell nixpkgs#sshpass nixpkgs#openssh --command \
+  sshpass -p "$ssh_password" ssh \
+  -o StrictHostKeyChecking=accept-new \
+  -o UserKnownHostsFile="$known_hosts" \
+  -o ConnectTimeout=20 \
+  -p "$ssh_port" "$ssh_user"@127.0.0.1 "$@"
