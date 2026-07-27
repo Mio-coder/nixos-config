@@ -100,6 +100,24 @@
     wantedBy = ["docker-compose-windows_vpn-root.target"];
   };
 
+  systemd.services."windows-vpn-route" = {
+    description = "Route traffic to the nested Windows VM";
+    after = ["docker-network-windows_vpn_net.service"];
+    requires = ["docker-network-windows_vpn_net.service"];
+    before = ["windows-vpn-ready.service"];
+    path = [pkgs.iproute2];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "ip route del 172.31.0.0/24 via 172.30.0.2";
+    };
+    script = ''
+      ip route replace 172.31.0.0/24 via 172.30.0.2
+    '';
+    partOf = ["docker-compose-windows_vpn-root.target"];
+    wantedBy = ["docker-compose-windows_vpn-root.target"];
+  };
+
   # Root service
   # When started, this will automatically create all resources and start
   # the containers. When stopped, this will teardown all resources.
