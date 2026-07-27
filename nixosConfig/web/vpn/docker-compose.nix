@@ -72,20 +72,22 @@
     wantedBy = ["docker-compose-windows_vpn-root.target"];
   };
 
-  # Route the nested Windows guest network through the Dockurr container.
-  systemd.services."windows-vpn-route" = {
-    description = "Route traffic to the nested Windows VM";
-    after = ["docker-network-windows_vpn_net.service"];
-    requires = ["docker-network-windows_vpn_net.service"];
+  # Send traffic addressed to the Dockurr container to its nested Windows guest.
+  systemd.services."windows-vpn-forward" = {
+    description = "Forward Dockurr traffic to the nested Windows VM";
+    after = ["docker-windows_vpn.service"];
+    requires = ["docker-windows_vpn.service"];
     before = ["windows-vpn-ready.service"];
-    path = [pkgs.iproute2];
+    path = [pkgs.docker];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStop = "ip route del 172.31.0.0/24 via 172.30.0.2";
     };
     script = ''
-      ip route replace 172.31.0.0/24 via 172.30.0.2
+      docker exec windows_vpn iptables -t nat -C PREROUTING \
+        -d 172.30.0.2 -j DNAT --to-destination 172.31.0.2 \
+        || docker exec windows_vpn iptables -t nat -A PREROUTING \
+          -d 172.30.0.2 -j DNAT --to-destination 172.31.0.2
     '';
     partOf = ["docker-compose-windows_vpn-root.target"];
     wantedBy = ["docker-compose-windows_vpn-root.target"];
