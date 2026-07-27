@@ -2,7 +2,7 @@
   imports = [./share_keys.nix ./dummy_user.nix];
   # The Windows container runs its own QEMU guest and WireGuard needs /dev/net/tun.
   boot.kernelModules = ["kvm-intel" "tun"];
-  virtualisation.memorySize = 4096;
+  virtualisation.memorySize = 16384;
   services.openssh = {
     enable = true;
     openFirewall = true;
