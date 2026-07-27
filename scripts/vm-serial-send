@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state_dir=${VM_SERIAL_STATE_DIR:-/tmp/nixos-vm-console}
+input=$state_dir/input
+
+if [[ $# -eq 0 ]]; then
+  echo "Usage: $0 TEXT" >&2
+  exit 2
+fi
+
+if [[ ! -p $input ]] || [[ ! -f $state_dir/socat.pid ]] || ! kill -0 "$(<"$state_dir/socat.pid")" 2>/dev/null; then
+  echo "No active serial console. Start it with scripts/vm-serial-start." >&2
+  exit 1
+fi
+
+printf '%s\r\n' "$*" >"$input"

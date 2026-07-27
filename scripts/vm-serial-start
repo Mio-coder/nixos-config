@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+state_dir=${VM_SERIAL_STATE_DIR:-/tmp/nixos-vm-console}
+socket=$state_dir/serial.sock
+input=$state_dir/input
+
+if [[ -f $state_dir/qemu.pid ]] && kill -0 "$(<"$state_dir/qemu.pid")" 2>/dev/null; then
+  echo "VM is already running (PID $(<"$state_dir/qemu.pid"))." >&2
+  exit 1
+fi
+
+rm -rf -- "$state_dir"
+mkdir -p -- "$state_dir"
+mkfifo "$input"
+
+cd "$repo_root"
+nixos-rebuild build-vm --flake .#vm
+
+setsid env QEMU_OPTS="${QEMU_OPTS:-} -display none -serial unix:$socket,server=on,wait=off" \
+  ./result/bin/run-vm-vm </dev/null >"$state_dir/qemu.log" 2>&1 &
+qemu_pid=$!
+printf '%s\n' "$qemu_pid" >"$state_dir/qemu.pid"
+
+for _ in $(seq 1 30); do
+  [[ -S $socket ]] && break
+  sleep 1
+done
+
+if [[ ! -S $socket ]]; then
+  echo "VM did not create its serial socket; see $state_dir/qemu.log" >&2
+  exit 1
+fi
+
+setsid , socat - "UNIX-CONNECT:$socket" <"$input" >"$state_dir/serial.log" 2>"$state_dir/socat.log" &
+socat_pid=$!
+printf '%s\n' "$socat_pid" >"$state_dir/socat.pid"
+
+echo "VM serial console is ready."
+echo "Send input: scripts/vm-serial-send 'dummy'"
+echo "Read output: scripts/vm-serial-log"
