@@ -39,8 +39,8 @@
     lidarr.settings.auth.required = "DisabledForLocalAddresses";
   };
   systemd.services.wg = {
-    wants = ["docker-compose-windows_vpn-root.target"];
-    after = ["docker-compose-windows_vpn-root.target"];
+    wants = ["windows-vpn-ready.service"];
+    after = ["windows-vpn-ready.service"];
   };
   # # NOTE: All *arr services and jellyfin share the `media` group.
   # # UMask 0002 ensures created files are group-readable/writable,
