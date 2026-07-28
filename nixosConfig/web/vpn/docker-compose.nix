@@ -20,8 +20,23 @@
   # Containers
   virtualisation.oci-containers.containers."windows_vpn" = {
     image = "dockurr/windows:latest";
+    entrypoint = "/usr/bin/tini";
+    cmd = [
+      "-s"
+      "--"
+      "/bin/bash"
+      "-c"
+      ''
+        set -euo pipefail
+        grep -F '( sleep 30; boot ) &' /run/entry.sh
+        sed -i 's/( sleep 30; boot ) \&/( sleep 180; boot ) \&/' /run/entry.sh
+        exec /run/entry.sh
+      ''
+    ];
     environment = {
       "VERSION" = "10";
+      "CPU_CORES" = "4";
+      "RAM_SIZE" = "8G";
     };
     volumes = [
       "/data/windows:/storage:rw"
@@ -34,6 +49,7 @@
       "--ip=172.30.0.2"
       "--network-alias=container"
       "--network=windows_vpn_net"
+      "--stop-timeout=120"
     ];
   };
   systemd.services."docker-windows_vpn" = {
