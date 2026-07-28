@@ -19,6 +19,7 @@
 - Always commit progress when doing multi-step repo work, but do not push.
 - Use Nix to run commands where practical.
 - Prefer the existing scripts and local module patterns over introducing new workflow machinery.
+- Start and stop the NixOS VM with the serial helpers, currently `./scripts/vm-serial-start` and `./scripts/vm-serial-stop`.
 - Do not record credentials, private keys, VPN secrets, or other sensitive values in repo notes.
 - Do not modify Windows VM data or configuration without approval. The user has approved configuring the nested Windows VM for the planned VPN network migration described below.
 
@@ -29,8 +30,8 @@
 - Build the VM with `nixos-rebuild build-vm --flake .#vm`.
 - Connect to the NixOS VM with `./scripts/vm-ssh`.
 - VM serial helpers:
-  - `./scripts/vm-serial-start`
-  - `./scripts/vm-serial-stop`
+  - start: `./scripts/vm-serial-start`
+  - stop: `./scripts/vm-serial-stop`
   - `./scripts/vm-serial-send`
   - `./scripts/vm-serial-log`
 
