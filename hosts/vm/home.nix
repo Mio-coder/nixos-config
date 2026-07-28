@@ -1,6 +1,6 @@
 {...}: {
   my = {
     # lofi.download = true;
-    sway_mod = "Mod1";  # alt
+    sway_mod = "Mod1"; # alt
   };
 }

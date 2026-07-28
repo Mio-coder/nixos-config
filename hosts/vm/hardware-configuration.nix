@@ -5,7 +5,7 @@
   modulesPath,
   ...
 }: {
-  imports = [ ];
+  imports = [];
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"
