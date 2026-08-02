@@ -18,5 +18,6 @@
     };
     configureRedis = true;
     package = pkgs.nextcloud34;
+    settings.trusted_domains = ["localhost" "omen-nixos.reindeer-kettle.ts.net"];
   };
 }
