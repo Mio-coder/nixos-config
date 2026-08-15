@@ -7,7 +7,6 @@
     valgrind
     gcc
     gnumake
-    cling
     oiejq
     lldb_21
     llvmPackages_21.clang-tools
