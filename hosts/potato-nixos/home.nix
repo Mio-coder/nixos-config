@@ -1,3 +1,3 @@
-{...}: {
-  my.lofi.download = true;
+_: {
+  my.lofi.download = false;
 }
