@@ -37,6 +37,7 @@
 
     prismlauncher # takes long to download
     libreoffice
+    copyparty
     miniserve
     ungoogled-chromium
 
