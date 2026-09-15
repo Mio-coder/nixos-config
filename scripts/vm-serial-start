@@ -6,6 +6,13 @@ state_dir=${VM_SERIAL_STATE_DIR:-/tmp/nixos-vm-console}
 socket=$state_dir/serial.sock
 input=$state_dir/input
 ssh_port=${VM_SSH_PORT:-2222}
+vm_host=${VM_HOST:-vm}
+vm_user=${VM_USER:-dummy}
+
+if [[ ! $vm_host =~ ^[A-Za-z0-9._-]+$ ]]; then
+  echo "Invalid VM_HOST: $vm_host" >&2
+  exit 1
+fi
 
 if [[ -f $state_dir/qemu.pid ]] && kill -0 "$(<"$state_dir/qemu.pid")" 2>/dev/null; then
   echo "VM is already running (PID $(<"$state_dir/qemu.pid"))." >&2
@@ -17,7 +24,13 @@ mkdir -p -- "$state_dir"
 mkfifo "$input"
 
 cd "$repo_root"
-nixos-rebuild build-vm --flake .#vm
+nixos-rebuild build-vm --flake ".#$vm_host"
+
+run_script="./result/bin/run-$vm_host-vm"
+if [[ ! -x $run_script ]]; then
+  echo "VM runner was not created: $run_script" >&2
+  exit 1
+fi
 
 qemu_net_opts=${QEMU_NET_OPTS:-}
 if [[ -n $qemu_net_opts ]]; then
@@ -26,7 +39,7 @@ fi
 qemu_net_opts+="hostfwd=tcp:127.0.0.1:$ssh_port-:22"
 
 setsid env QEMU_NET_OPTS="$qemu_net_opts" QEMU_OPTS="${QEMU_OPTS:-} -display none -serial unix:$socket,server=on,wait=off" \
-  ./result/bin/run-vm-vm </dev/null >"$state_dir/qemu.log" 2>&1 &
+  "$run_script" </dev/null >"$state_dir/qemu.log" 2>&1 &
 qemu_pid=$!
 printf '%s\n' "$qemu_pid" >"$state_dir/qemu.pid"
 
@@ -45,6 +58,6 @@ socat_pid=$!
 printf '%s\n' "$socat_pid" >"$state_dir/socat.pid"
 
 echo "VM serial console is ready."
-echo "SSH: ssh -p $ssh_port dummy@127.0.0.1"
-echo "Send input: scripts/vm-serial-send 'dummy'"
+echo "SSH (if enabled): ssh -p $ssh_port $vm_user@127.0.0.1"
+echo "Send input: VM_SERIAL_STATE_DIR=$state_dir scripts/vm-serial-send '$vm_user'"
 echo "Read output: scripts/vm-serial-log"

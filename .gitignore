@@ -5,6 +5,9 @@
 result
 result-*
 
+# Ignore persistent disks created by `nixos-rebuild build-vm`
+*.qcow2
+
 # Ignore automatically generated direnv output
 .direnv
 
