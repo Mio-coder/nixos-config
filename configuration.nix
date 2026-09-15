@@ -1,4 +1,6 @@
 {
+  config,
+  lib,
   pkgs,
   hostname,
   ...
@@ -20,15 +22,18 @@
 
   services.nixseparatedebuginfod2.enable = true;
   programs.nix-ld.enable = true;
-  environment.systemPackages = with pkgs; [
-    libimobiledevice
-    glibc.static
-    ifuse
-    usbmuxd
-    firejail
-    man-pages-posix
-  ];
+  environment.systemPackages = with pkgs;
+    lib.optionals config.my.iphoneSupport [libimobiledevice]
+    ++ [glibc.static]
+    ++ lib.optionals config.my.iphoneSupport [
+      ifuse
+      usbmuxd
+    ]
+    ++ [
+      firejail
+      man-pages-posix
+    ];
 
-  services.usbmuxd.enable = true;
-  programs.fuse.userAllowOther = true;
+  services.usbmuxd.enable = config.my.iphoneSupport;
+  programs.fuse.userAllowOther = config.my.iphoneSupport;
 }

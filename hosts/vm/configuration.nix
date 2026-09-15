@@ -17,7 +17,13 @@
     # bluetooth = true;
     # vbox = true;
     # nvidia.enable = true;
+    customDns = true;
     docker = true;
     dm = false;
+    flatpak = true;
+    iphoneSupport = true;
+    kdeconnect = true;
+    sshServer = true;
+    tailscale = true;
   };
 }

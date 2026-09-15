@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   ...
@@ -35,7 +36,7 @@
     '';
     package = pkgs.nixVersions.git;
     # package = pkgs.lixPackageSets.stable.lix;
-    sshServe = {
+    sshServe = lib.mkIf config.my.sshServer {
       enable = true;
       keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMFe4qGpEm/tPdufXpSCPHYOU9mkGdLRBrBaZ3PR8c7s root@nixos"

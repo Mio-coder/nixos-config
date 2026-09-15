@@ -1,1 +1,3 @@
-_: {}
+_: {
+  my.tailscale = true;
+}
