@@ -15,5 +15,6 @@
     useUserPackages = true;
     useGlobalPkgs = true;
     users.mio = import ../../home.nix;
+    backupFileExtension = "bak";
   };
 }
