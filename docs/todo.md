@@ -4,6 +4,7 @@
  - fix multiple grim stacking when spamming screenshot
  - noogle firefox shortcut
  - allow sl to ls in pay_respects
+ - add nixpkgs#man-pages for syscalls docs
 
 research requried:
  - migrate from lvim
