@@ -64,6 +64,10 @@
       ];
 
       hardware.nvidia-container-toolkit.enable = true;
+
+      # Generate the CDI file at boot, but do not block configuration switches
+      # when the NVIDIA driver is not currently available.
+      systemd.services.nvidia-container-toolkit-cdi-generator.restartIfChanged = false;
     })
     (
       lib.mkIf (config.my.nvidia.enable && config.my.nvidia.external) {
