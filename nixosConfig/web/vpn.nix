@@ -4,7 +4,7 @@
   lib,
   ...
 }: {
-  config = lib.mkIf config.my.media.enable {
+  config = lib.mkIf (config.my.media.enable && config.my.media.download.enable) {
     my.docker = true;
 
     # Wait until Windows is actually reachable through both advertised services.

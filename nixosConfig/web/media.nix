@@ -4,21 +4,27 @@
   inputs,
   ...
 }: let
-  stackServices = [
-    "bazarr"
-    "jellyfin"
-    "prowlarr"
-    "qbittorrent"
-    "radarr"
-    "sonarr"
-
-    "wg"
-  ];
+  downloadEnabled = config.my.media.download.enable;
+  stackServices =
+    [
+      "bazarr"
+      "jellyfin"
+      "prowlarr"
+      "radarr"
+      "sonarr"
+    ]
+    ++ lib.optionals downloadEnabled [
+      "qbittorrent"
+      "wg"
+    ];
 in {
   imports = [
     inputs.nixarr.nixosModules.default
   ];
-  options.my.media.enable = lib.mkEnableOption "Media stack";
+  options.my.media = {
+    enable = lib.mkEnableOption "media stack";
+    download.enable = lib.mkEnableOption "qBittorrent and its VPN";
+  };
   config = lib.mkIf config.my.media.enable {
     # Copied and adapted from
     # https://github.com/reo101/rix101/blob/35ba0d2fc7502d2db0eba975629c51d3bb5eff79/hosts/nixos/jeeves/modules/nixarr.nix
@@ -37,9 +43,9 @@ in {
       prowlarr.enable = true;
       bazarr.enable = true;
       qbittorrent = {
-        enable = true;
+        enable = downloadEnabled;
         qui.enable = false;
-        vpn.enable = true;
+        vpn.enable = downloadEnabled;
 
         privateTrackers.disableDhtPex = true;
         extraConfig = {
@@ -63,15 +69,19 @@ in {
         };
       };
 
-      vpn.enable = true;
-      vpn.wgConf = "/data/wg.conf";
+      vpn = lib.mkIf downloadEnabled {
+        enable = true;
+        wgConf = "/data/wg.conf";
+      };
     };
-    vpnNamespaces.wg.portMappings = [
-      {
-        from = 5252;
-        to = 5252;
-      }
-    ];
+    vpnNamespaces = lib.mkIf downloadEnabled {
+      wg.portMappings = [
+        {
+          from = 5252;
+          to = 5252;
+        }
+      ];
+    };
 
     services = {
       prowlarr.settings.auth.required = "DisabledForLocalAddresses";
@@ -90,7 +100,7 @@ in {
         wantedBy = lib.mkForce [];
         partOf = ["nixarr.target"];
       })
-      // {
+      // lib.optionalAttrs downloadEnabled {
         wg = {
           wants = ["windows-vpn-ready.service"];
           after = ["windows-vpn-ready.service"];
