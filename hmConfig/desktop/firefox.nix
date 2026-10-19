@@ -122,7 +122,6 @@
             sponsorblock
             to-google-translate
             ublock-origin
-            terms-of-service-didnt-read
             polish-dictionary
             copy-selection-as-markdown
             skip-redirect

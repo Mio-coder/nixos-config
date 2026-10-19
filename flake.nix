@@ -37,6 +37,14 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixarr.url = "github:nix-media-server/nixarr";
+    downloads-fuse = {
+      url = "github:Mio-coder/downloads-fuse";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    i-have-adhd = {
+      url = "github:ayghri/i-have-adhd";
+      flake = false;
+    };
   };
   outputs = inputs: let
     system = "x86_64-linux";
