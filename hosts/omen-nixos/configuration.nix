@@ -8,7 +8,8 @@
     flatpak = true;
     iphoneSupport = true;
     kdeconnect = true;
-    media.enable = false;
+    media.enable = true;
+    # media.download.enable = true;
     nextcloud.enable = false;
     sshServer = true;
     tailscale = true;
