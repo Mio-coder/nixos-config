@@ -118,6 +118,7 @@
       in
         sys.config.system.build.isoImage;
       dbg-macro = pkgs.dbg-macro;
+      am = pkgs.anki-mcp-server-addon;
     };
   };
 }

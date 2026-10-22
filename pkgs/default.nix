@@ -15,4 +15,5 @@ final: prev: {
     patches = [./batsignal.patch];
   };
   progress-bar = prev.callPackage ./progress-bar.nix {};
+  anki-mcp-server-addon = prev.callPackage ./anki-mcp-server-addon.nix {};
 }
