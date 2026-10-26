@@ -10,7 +10,10 @@
 
   config = lib.mkMerge [
     (lib.mkIf config.my.tailscale {
-      services.tailscale.enable = true;
+      services.tailscale = {
+        enable = true;
+        extraSetFlags = ["--operator=mio"];
+      };
     })
     (lib.mkIf config.my.customDns {
       services.resolved = {
