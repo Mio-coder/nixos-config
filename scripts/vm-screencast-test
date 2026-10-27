@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+desktop_user=${VM_DESKTOP_USER:-mio}
+
+case "${1:-}" in
+  --help|-h)
+    echo "Usage: scripts/vm-screencast-test [--manual-picker]"
+    echo "Test screen sharing in an already running Sway VM."
+    echo "See docs/vm-screencast-test.md for prerequisites and limitations."
+    exit 0
+    ;;
+  ""|--manual-picker) ;;
+  *) echo "Unknown option: $1" >&2; exit 2 ;;
+esac
+if [[ $# -gt 1 ]] || [[ ! $desktop_user =~ ^[a-z_][a-z0-9_-]*$ ]]; then
+  echo "Expected at most one option and a valid VM_DESKTOP_USER." >&2
+  exit 2
+fi
+
+cd "$repo_root"
+python_env=$(nix build --impure --no-link --print-out-paths --expr '
+  let
+    flake = builtins.getFlake (toString ./.);
+    pkgs = import flake.inputs.nixpkgs { system = builtins.currentSystem; };
+  in pkgs.python3.withPackages (ps: [ ps.websockets ])
+')
+
+# The NixOS VM shares the host Nix store, so no guest-side install is needed.
+remote_dir=$(./scripts/vm-ssh 'mktemp -d /tmp/vm-screencast-test.XXXXXX')
+if [[ ! $remote_dir =~ ^/tmp/vm-screencast-test\.[A-Za-z0-9]+$ ]]; then
+  echo "Unexpected VM temporary directory: $remote_dir" >&2
+  exit 1
+fi
+cleanup() {
+  ./scripts/vm-ssh "rm -f '$remote_dir/test.py'; rmdir '$remote_dir'" || true
+}
+trap cleanup EXIT
+./scripts/vm-ssh "chmod 755 '$remote_dir'; cat > '$remote_dir/test.py'" < scripts/vm-screencast-test.py
+
+# Reuse the test VM's SSH password unless sudo has a separate password.
+printf '%s\n' "${VM_SUDO_PASSWORD:-${VM_SSH_PASSWORD:-123}}" | ./scripts/vm-ssh "
+  uid=\$(id -u '$desktop_user')
+  sudo -S -u '$desktop_user' env \
+    XDG_RUNTIME_DIR=/run/user/\$uid \
+    DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/\$uid/bus \
+    systemd-run --user --wait --pipe --collect --service-type=exec \
+      --property=RuntimeMaxSec=180s \
+      --setenv=XDG_SESSION_TYPE=wayland \
+      --setenv=XDG_CURRENT_DESKTOP=sway \
+      --setenv=PATH=/etc/profiles/per-user/$desktop_user/bin:/run/current-system/sw/bin \
+      '$python_env/bin/python3' '$remote_dir/test.py' ${1:-}
+"

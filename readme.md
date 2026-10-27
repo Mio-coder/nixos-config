@@ -49,6 +49,13 @@ default.nix imports files in subdirectory
 
 orignaly inspired by https://github.com/Rishabh5321/dotfiles
 
+## VM screen-sharing test
+
+With the NixOS VM running in Sway, run `./scripts/vm-screencast-test` on the host
+to check actual monitor video capture through the portal in Chromium.
+See [VM screen-sharing test](docs/vm-screencast-test.md) for setup, limitations,
+manual source selection, and troubleshooting.
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
