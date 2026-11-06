@@ -2,11 +2,7 @@
   pkgs,
   lib,
   ...
-}: let
-  shell = pkgs.writeShellScript "tmux_deafult_shell" ''
-    exec env -u __ETC_PROFILE_NIX_SOURCED bash -l $@
-  '';
-in {
+}: {
   programs.tmux = {
     enable = true;
     keyMode = "vi";
@@ -17,11 +13,11 @@ in {
       sensible
     ];
     terminal = "tmux-256color";
-    shell = "${shell}";
     extraConfig = ''
       set -s copy-command 'wl-copy'
       set -as terminal-features '*:256'
       set -sg escape-time 10
+      set -g default-command "exec env -u __ETC_PROFILE_NIX_SOURCED ${pkgs.bashInteractive}/bin/bash -l"
     '';
   };
   xdg.configFile."tmux/tmux.conf".text = lib.mkOrder 400 ''
