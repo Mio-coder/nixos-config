@@ -45,6 +45,10 @@
       url = "github:ayghri/i-have-adhd";
       flake = false;
     };
+    nixpkgs-tracker = {
+      url = "github:Mio-coder/nixpkgs-tracker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = inputs: let
     system = "x86_64-linux";

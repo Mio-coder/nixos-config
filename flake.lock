@@ -314,6 +314,26 @@
         "type": "github"
       }
     },
+    "nixpkgs-tracker": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794507307,
+        "narHash": "sha256-7Dp3o31Hd01Y/ATiheodURPJ27XI3b+QC0L1bpiMVZE=",
+        "owner": "Mio-coder",
+        "repo": "nixpkgs-tracker",
+        "rev": "c28adf656b983f6a19f31b8be0ca75115b5da3d1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mio-coder",
+        "repo": "nixpkgs-tracker",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1790299684,
@@ -409,6 +429,7 @@
         "nixpkgs-lunarvim": "nixpkgs-lunarvim",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
+        "nixpkgs-tracker": "nixpkgs-tracker",
         "nur": "nur",
         "winapps": "winapps"
       }

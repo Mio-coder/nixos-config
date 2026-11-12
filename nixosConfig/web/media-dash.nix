@@ -140,6 +140,22 @@
               }
             ];
           }
+          {
+            name = "Misc";
+            icon = "fas fa-tools";
+            items = [
+              {
+                name = "nixpkgs-tracker";
+                subtitle = "Nixpkgs PR tracker";
+                icon = "fab fa-github";
+                tag = "nixpkgs";
+                tagstyle = "is-info";
+                url = "http://localhost:8732/";
+                target = "_blank";
+                keywords = "nixpkgs github pull requests tracker";
+              }
+            ];
+          }
         ];
       };
     };

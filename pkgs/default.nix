@@ -15,4 +15,5 @@ final: prev: {
     patches = [./batsignal.patch];
   };
   progress-bar = prev.callPackage ./progress-bar.nix {};
+  toster = prev.callPackage ./toster.nix {};
 }

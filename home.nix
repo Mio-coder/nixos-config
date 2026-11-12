@@ -33,6 +33,7 @@
     ncpamixer
     localsend
     libqalculate
+    toster
 
     prismlauncher # takes long to download
     libreoffice
