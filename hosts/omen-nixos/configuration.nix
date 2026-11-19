@@ -10,7 +10,7 @@
     kdeconnect = true;
     media.enable = true;
     # media.download.enable = true;
-    nextcloud.enable = false;
+    nextcloud.enable = true;
     sshServer = true;
     tailscale = true;
     winapps.enable = true;

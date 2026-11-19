@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  downloadsFuse = inputs.downloads-fuse.packages.${pkgs.system}.default;
+  downloadsFuse = inputs.downloads-fuse.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in {
   home.packages = [downloadsFuse];
 

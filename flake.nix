@@ -63,7 +63,7 @@
       inputs.nur.overlays.default
       (final: prev: {
         inherit (getPkgs "nixpkgs-master") yt-dlp spotdl;
-        inherit (getPkgs "nixpkgs-stable") firefox elinks;
+        inherit (getPkgs "nixpkgs-stable") elinks;
         inherit (getPkgs "nixpkgs-lunarvim") lunarvim;
       })
       (import ./pkgs)

@@ -65,6 +65,8 @@
           settings = {
             "browser.newtabpage.activity-stream.feeds.section.highlights" = false;
             "browser.startup.homepage" = "https://start.duckduckgo.com";
+            # disable firefox 157 redesign
+            "browser.nova.enabled" = false;
 
             # Fully disable Pocket. See
             # https://www.reddit.com/r/linux/comments/zabm2a.
@@ -137,5 +139,5 @@
     "x-scheme-handler/about" = "firefox.desktop";
     "x-scheme-handler/unknown" = "firefox.desktop";
   };
-  home.packages = [pkgs.tridactyl-native];
+  # home.packages = [pkgs.tridactyl-native];
 }
