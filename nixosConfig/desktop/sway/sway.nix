@@ -19,6 +19,13 @@
       # https://github.com/swaywm/sway/wiki/Running-programs-natively-under-wayland
       extraOptions = ["--unsupported-gpu"];
     };
+    xdg.portal = {
+      xdgOpenUsePortal = true;
+      wlr.settings.screencast = {
+        chooser_type = "simple";
+        chooser_cmd = "${pkgs.slurp}/bin/slurp -f 'Monitor: %o' -or";
+      };
+    };
     security.polkit.enable = true;
     security.pam.services.hyprlock = {};
     security.pam.loginLimits = [
