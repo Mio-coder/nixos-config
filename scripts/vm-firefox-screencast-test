@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+desktop_user=${VM_DESKTOP_USER:-mio}
+
+case "${1:-}" in
+  --help|-h)
+    echo "Usage: scripts/vm-firefox-screencast-test [--manual-picker]"
+    echo "Test Firefox screen sharing in an already running Sway VM."
+    echo "Does not start or stop the VM; see docs/vm-firefox-screencast-test.md."
+    exit 0
+    ;;
+  ""|--manual-picker) ;;
+  *) echo "Unknown option: $1" >&2; exit 2 ;;
+esac
+if [[ $# -gt 1 ]] || [[ ! $desktop_user =~ ^[a-z_][a-z0-9_-]*$ ]]; then
+  echo "Expected at most one option and a valid VM_DESKTOP_USER." >&2
+  exit 2
+fi
+
+cd "$repo_root"
+python_env=$(nix build --impure --no-link --print-out-paths --expr '
+  let
+    flake = builtins.getFlake (toString ./.);
+    pkgs = import flake.inputs.nixpkgs { system = builtins.currentSystem; };
+  in pkgs.python3
+')
+
+# The VM shares the host Nix store; the guest needs no package installation.
+remote_dir=$(./scripts/vm-ssh 'mktemp -d /tmp/vm-firefox-test.XXXXXX')
+if [[ ! $remote_dir =~ ^/tmp/vm-firefox-test\.[A-Za-z0-9]+$ ]]; then
+  echo "Unexpected VM temporary directory: $remote_dir" >&2
+  exit 1
+fi
+unit_name=vm-firefox-screencast-test-${remote_dir##*.}
+host_output=
+cleanup() {
+  # Also cancel the user-manager service if the SSH connection was interrupted.
+  printf '%s\n' "${VM_SUDO_PASSWORD:-${VM_SSH_PASSWORD:-123}}" | ./scripts/vm-ssh "
+    uid=\$(id -u '$desktop_user')
+    sudo -S -u '$desktop_user' env \
+      XDG_RUNTIME_DIR=/run/user/\$uid \
+      DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/\$uid/bus \
+      systemctl --user stop '$unit_name.service' >/dev/null 2>&1 || true
+    rm -f '$remote_dir/test.py'; rmdir '$remote_dir'
+  " || true
+  if [[ -n $host_output ]]; then
+    rm -f -- "$host_output"
+  fi
+}
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+host_output=$(mktemp /tmp/vm-firefox-output.XXXXXX)
+./scripts/vm-ssh "chmod 755 '$remote_dir'; cat > '$remote_dir/test.py'" < scripts/vm-firefox-screencast-test.py
+
+# Use the same test-VM credentials as vm-ssh, with an optional sudo override.
+printf '%s\n' "${VM_SUDO_PASSWORD:-${VM_SSH_PASSWORD:-123}}" | ./scripts/vm-ssh "
+  uid=\$(id -u '$desktop_user')
+  sudo -S -u '$desktop_user' env \
+    XDG_RUNTIME_DIR=/run/user/\$uid \
+    DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/\$uid/bus \
+    systemd-run --user --wait --pipe --collect --service-type=exec \
+      --unit='$unit_name' --property=RuntimeMaxSec=180s --property=TimeoutStopSec=30s \
+      --setenv=XDG_SESSION_TYPE=wayland \
+      --setenv=XDG_CURRENT_DESKTOP=sway \
+      --setenv=PATH=/etc/profiles/per-user/$desktop_user/bin:/run/current-system/sw/bin \
+      '$python_env/bin/python3' '$remote_dir/test.py' ${1:-}
+" | tee "$host_output"
+
+# systemd can classify some signal terminations as clean; require a completed test.
+if ! grep -Fxq 'RESULT PASS: Firefox receives changing, non-black monitor frames' "$host_output"; then
+  echo "RESULT FAIL: guest service exited without a completed Firefox capture test." >&2
+  exit 1
+fi

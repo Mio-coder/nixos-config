@@ -4,6 +4,9 @@
 `getDisplayMedia()` in the NixOS VM's Sway session. The guest-side implementation
 is `scripts/vm-screencast-test.py`.
 
+For Firefox, use the separate [Firefox screen-sharing test](vm-firefox-screencast-test.md):
+`./scripts/vm-firefox-screencast-test`.
+
 ## Run from the host
 
 ```sh

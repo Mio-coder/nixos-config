@@ -48,6 +48,15 @@
 default.nix imports files in subdirectory
 
 orignaly inspired by https://github.com/Rishabh5321/dotfiles
+## VM screen-sharing tests
+
+With the Sway VM running, use `./scripts/vm-firefox-screencast-test` for Firefox
+or `./scripts/vm-screencast-test` for Chromium. Both check actual received video
+frames and leave VM lifecycle management to the serial helpers.
+
+- [Firefox test: usage, requirements, diagnostics](docs/vm-firefox-screencast-test.md)
+- [Chromium test](docs/vm-screencast-test.md)
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
